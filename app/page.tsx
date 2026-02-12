@@ -7,7 +7,7 @@ import MyDesign from '@/components/MyDesign'
 import WebMobileDesign from '@/components/WebMobileDesign'
 import RecentProjects from '@/components/RecentProjects'
 import WorkExperience from '@/components/Work'
-import MyVideoEditing from '@/components/Video'
+// import MyVideoEditing from '@/components/Video'
 import Education from '@/components/Education'
 import SoftSkillsSection from '@/components/SoftSkillsSection';
 import ContactMe from '@/components/ContactMe'

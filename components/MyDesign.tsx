@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import WebMobileDesign from "./WebMobileDesign";
-import MyVideoEditing from "./Video";
+// import MyVideoEditing from "./Video";
 
 
 // ==================== DATA ==================== //
@@ -343,7 +343,7 @@ export default function MyDesign() {
                       <WebMobileDesign />
 
       <DesignCarousel title="Event Design" items={eventDesigns} onImageClick={handleImageClick} />
-              <MyVideoEditing />
+              {/* <MyVideoEditing /> */}
       
       <LogoSection onImageClick={handleImageClick} />
 
