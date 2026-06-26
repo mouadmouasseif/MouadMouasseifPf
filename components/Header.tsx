@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable @next/next/no-html-link-for-pages, @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import Image from 'next/image'

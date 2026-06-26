@@ -1,25 +1,21 @@
-
-import './globals.css'
-import React from 'react'
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
+import "./globals.css";
+import React from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: 'Mouasseif Mouad - Portfolio',
-  description: 'Développeur Full-Stack',
-}
+  title: "Mouad Mouasseif - Portfolio",
+  description: "Full-Stack Developer, AI Developer, cybersecurity student, teacher and coach.",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
-      <body className='bg-gradient-to-br from-[#0a0f14] via-[#1e415f] to-[#bba7a0]'>
-                <Header />
-        
+    <html lang="en" className="scroll-smooth">
+      <body className="min-h-screen bg-[#020617] text-white antialiased">
+        <Navbar />
         {children}
-                <Footer />
-
+        <Footer />
       </body>
     </html>
-  )
+  );
 }
-

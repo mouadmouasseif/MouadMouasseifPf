@@ -1,52 +1,19 @@
-// components/Footer.tsx
 import Image from "next/image";
+import { profile } from "@/src/data/profile";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-        {/* Logo et nom de la société */}
+    <footer className="border-t border-cyan-300/10 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
         <div className="flex items-center gap-3">
-          <Image
-            src="/logo_v1.png"
-            alt="Mouad Mouasseif"
-            width={100}
-            height={100}
-            className="rounded-md"
-          />
-          <h1 className="text-xl font-medium text-white">Mouad Mouasseif</h1>
+          <Image src={profile.logo} alt="Mouad Mouasseif logo" width={46} height={46} className="rounded-full object-contain" />
+          <div>
+            <p className="font-black text-white">Mouad Mouasseif</p>
+            <p className="text-sm text-cyan-200">{profile.signature}</p>
+          </div>
         </div>
-
-        {/* Liens légaux */}
-        <div className="flex flex-wrap gap-4 text-sm text-gray-400">
-          <a href="/privacy-policy" className="hover:text-white">Politique de confidentialité</a>
-          <a href="/terms-of-service" className="hover:text-white">Conditions d'utilisation</a>
-        </div>
-
-        {/* Développement */}
-        <div className="flex items-center gap-3 text-xs text-gray-500">
-          <span>Développé par</span>
-          <a
-            href="https://www.linkedin.com/company/mm-servicese/?viewAsMember=true"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 hover:text-blue-400"
-          >
-            <Image
-              src="/logo_v1.png" // à placer dans public/images/
-              alt="Made For Web"
-              width={24}
-              height={24}
-              className="rounded"
-            />
-            <span className="font-semibold">Made For Web</span>
-          </a>
-        </div>
+        <p className="text-sm text-slate-400">© 2026 Mouad Mouasseif. All rights reserved.</p>
       </div>
-
-      <p className="text-center text-xs text-gray-500 mt-6">
-        &copy;2025 Mouad Mouasseif & <a href="https://www.linkedin.com/company/made-forweb/?viewAsMember=true">Made for Web</a>. Tous droits réservés.
-      </p>
     </footer>
   );
 }

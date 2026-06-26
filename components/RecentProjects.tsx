@@ -21,6 +21,18 @@ const projects: Project[] = [
     url : "https://car-ngo.vercel.app/", // exemple de lien
   },
   {
+    title: "marNautique App",
+    subtitle: "App Design", 
+    image: "/projects/project14.png",
+    url : "https://marnautique.vercel.app/", // exemple de lien
+  },
+  {
+    title: "ENSPOC Website",
+    subtitle: "Website",
+    image: "/projects/project4.png",  
+  },
+
+  {
     title: "Club Nautique Plage de Rabat",
     subtitle: "Web Design, App Design",
     image: "/projects/project3.png",

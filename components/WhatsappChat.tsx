@@ -1,5 +1,6 @@
 // components/WhatsappChat.tsx
 "use client";
+/* eslint-disable react/no-unescaped-entities */
 
 import { useState } from "react";
 import { MessageCircle, X, ChevronRight } from "lucide-react";
