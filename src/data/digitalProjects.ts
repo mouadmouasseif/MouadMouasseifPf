@@ -52,7 +52,8 @@ export const digitalProjects: DigitalProject[] = [
     image: "/projects/project3.png",
     description: "Nautical club digital presence for activities, sport communication and community visibility.",
     tech: ["Website", "Nautical Club", "Sport"],
-    status: "Completed",
+    link: "https://cnpr-amber.vercel.app/",
+    status: "Live",
   },
   {
     title: "Marsailing Website",
