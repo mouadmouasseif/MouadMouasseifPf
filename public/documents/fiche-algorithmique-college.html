@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction à l’algorithmique et organigrammes | مدخل إلى الخوارزميات — Mouad Mouasseif</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono&display=swap">
+<style>
+:root{--ink:#17202A;--mute:#55606C;--paper:#F5F7FA;--surface:#fff;--line:#D5DBE3;--asphalt:#252B33;--green:#1F9D55;--amber:#E8A100;--red:#D64545;--blue:#2457C5;--accent:#0284c7;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+.fr,.ar{display:block}
+.ar{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;direction:rtl;text-align:right;color:var(--mute);line-height:1.8}
+body[data-lang=fr] .ar,body[data-lang=ar] .fr{display:none}
+body[data-lang=ar] .ar{color:var(--ink)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+header{background:var(--asphalt);color:#fff;padding:36px 20px 24px}
+.wrap{max-width:980px;margin:0 auto}
+.institution-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.85rem;color:#94a3b8;border-bottom:1px solid #3d4653;padding-bottom:14px;margin-bottom:18px}
+.institution-bar strong{color:#e2e8f0}
+header h1{margin:0;font-size:clamp(1.5rem,4vw,2.3rem);line-height:1.2;font-weight:600}
+header h1 .ar{color:#cfd6df;font-weight:700;margin-top:6px}
+header p{max-width:70ch;margin:12px 0 0;color:#d7dde5;font-size:.95rem}
+header p .ar{color:#aab4c0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{border:1px solid #4a5360;border-radius:6px;padding:6px 12px;font-size:.85rem;background:rgba(255,255,255,0.04)}
+.chip .ar{color:#aab4c0}
+.bar{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:10px 20px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:8px 16px;font:inherit;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--ink);transition:all .15s}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.actions-right{display:flex;gap:10px;align-items:center}
+.btn-print{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.btn-print:hover{background:#f1f5f9}
+main{padding:28px 20px 60px}
+.panel[hidden]{display:none}
+section{margin:0 0 36px}
+h2{font-size:1.3rem;margin:0 0 14px;line-height:1.3;color:#0f172a;border-inline-start:4px solid var(--blue);padding-inline-start:10px}
+h2 .ar{font-size:1.15rem;color:var(--mute);margin-top:2px}
+h3{font-size:1.05rem;margin:16px 0 8px;color:#1e293b}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:16px}
+ul.obj{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+ul.obj li{padding-inline-start:12px;border-inline-start:3px solid var(--blue);font-size:.95rem}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);margin:14px 0}
+th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top;font-size:.9rem}
+th{background:#EAEFF5;font-weight:600;color:#1e293b}
+td.t{white-space:nowrap;font-weight:600;color:var(--blue)}
+.sym{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.sym .card{display:flex;gap:14px;align-items:center;padding:14px;margin-bottom:0}
+.sym svg{flex:none}
+.sym .nm{font-weight:600}
+.sym svg *{fill:#fff;stroke:var(--ink);stroke-width:2}
+pre{margin:14px 0;background:var(--asphalt);color:#E9EEF4;padding:16px 18px;border-radius:8px;font:.95rem/1.7 "IBM Plex Mono",ui-monospace,monospace;overflow-x:auto;direction:ltr;text-align:left}
+.sim{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:start}
+@media(max-width:720px){.sim{grid-template-columns:1fr}}
+.sim svg{max-width:100%;height:auto}
+.node{fill:#fff;stroke:var(--line);stroke-width:2;transition:fill .2s,stroke .2s}
+.node.on{fill:#E4ECFB;stroke:var(--blue)}
+.edge{fill:none;stroke:var(--line);stroke-width:2.5}
+.edge.on{stroke:var(--blue)}
+svg text{font:600 13px "IBM Plex Sans",sans-serif;fill:var(--ink);text-anchor:middle}
+svg text.s{font:12px "Cairo",sans-serif;fill:var(--mute)}
+.light{background:var(--asphalt);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px;width:84px;margin:0 auto}
+.light i{display:block;width:56px;height:56px;border-radius:50%;opacity:.18;transition:opacity .25s,box-shadow .25s}
+.light i.lit{opacity:1;box-shadow:0 0 22px currentColor}
+#l-red{background:var(--red);color:var(--red)}#l-amber{background:var(--amber);color:var(--amber)}#l-green{background:var(--green);color:var(--green)}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+.controls label{display:flex;gap:8px;align-items:center;cursor:pointer;font-weight:500}
+.controls input{width:20px;height:20px}
+.btn{border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;background:var(--blue);color:#fff;transition:background .15s}
+.btn:hover{background:#1d46a6}
+.btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.alt:hover{background:#f1f5f9}
+#status{color:var(--mute);font-size:.9rem;min-height:1.4em;margin-top:8px}
+.q{margin-bottom:16px}
+.q h3{margin:0 0 12px;font-size:1.05rem}
+.opts{display:grid;gap:8px}
+.opts button{text-align:start;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 14px;font:inherit;cursor:pointer;transition:border-color .15s}
+.opts button:hover{border-color:var(--blue)}
+.opts button.good{background:#E3F4EA;border-color:var(--green)}
+.opts button.bad{background:#FBE7E7;border-color:var(--red)}
+.fb{margin-top:12px;padding:10px 14px;background:#EEF2F8;border-radius:8px;font-size:.9rem}
+.fb[hidden]{display:none}
+.q pre{margin:0 0 12px}
+.callout{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:14px;margin:12px 0;font-size:.9rem}
+.callout strong{color:var(--blue)}
+.tag-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.78rem;font-weight:700;background:#e0f2fe;color:#0369a1}
+@media print{.bar{display:none}.panel{display:block!important}header{background:none;color:#000;padding:0 0 20px}header *{color:#000!important}.institution-bar{border-color:#ccc}}
+</style>
+</head>
+<body data-lang="both">
+
+<header>
+<div class="wrap">
+  <div class="institution-bar">
+    <div>
+      <strong>Royaume du Maroc · Ministère de l'Éducation Nationale</strong><br>
+      Académie Régionale d'Éducation et de Formation Drâa-Tafilalet
+    </div>
+    <div style="text-align:right">
+      <strong>Collège Zawiyat Sidi Hamza</strong><br>
+      Enseignant : Mouad Mouasseif · Année 2026/2027
+    </div>
+  </div>
+
+  <h1>
+    <span class="fr">Introduction à l’algorithmique et aux organigrammes</span>
+    <span class="ar" lang="ar">مدخل إلى الخوارزميات والمنطق البرمجي</span>
+  </h1>
+  <p>
+    <span class="fr">Fiche didactique bilingue & laboratoire interactif pour le cycle collégial : de la situation-problème du quotidien au pseudo-code et à l’organigramme normalisé.</span>
+    <span class="ar" lang="ar">وثيقة ديدكتيكية ثنائية اللغة ومختبر تفاعلي للسلك الإعدادي: من وضعية انطلاق واقعية إلى الكود الافتراضي ثم إلى المخطط الانسيابي المعياري.</span>
+  </p>
+
+  <div class="chips">
+    <div class="chip"><span class="fr">Niveau : Collège (1ère / 2ème Année)</span><span class="ar" lang="ar">المستوى: السلك الإعدادي</span></div>
+    <div class="chip"><span class="fr">Durée : 1 séance de 60 min (+30 min prolongement)</span><span class="ar" lang="ar">المدة: حصة واحدة (60 دقيقة)</span></div>
+    <div class="chip"><span class="fr">Pédagogie active & situation-problème</span><span class="ar" lang="ar">البيداغوجيا النشطة والوضعية المشكلة</span></div>
+    <div class="chip"><span class="fr">Démarche débranchée puis manipulation</span><span class="ar" lang="ar">أنشطة غير متصلة تليها المعالجة بالحاسوب</span></div>
+  </div>
+</div>
+</header>
+
+<div class="bar">
+<div class="wrap">
+  <div class="seg" role="group" aria-label="Fiche">
+    <button data-tab="prof" aria-pressed="true">Fiche pédagogique / فيشة الأستاذ</button>
+    <button data-tab="eleve" aria-pressed="false">Fiche apprenant & Simulateur / فيشة المتعلم والتجريب</button>
+  </div>
+  <div class="actions-right">
+    <div class="seg" role="group" aria-label="Langue">
+      <button data-lang-btn="fr" aria-pressed="false">FR</button>
+      <button data-lang-btn="both" aria-pressed="true">FR + AR</button>
+      <button data-lang-btn="ar" aria-pressed="false">AR</button>
+    </div>
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+  </div>
+</div>
+</div>
+
+<main><div class="wrap">
+
+<!-- ========================================== -->
+<!-- ONGLET 1 : FICHE PÉDAGOGIQUE (PROFESSEUR)  -->
+<!-- ========================================== -->
+<div class="panel" id="prof">
+
+<section>
+  <h2><span class="fr">A. Identification de la séance</span><span class="ar" lang="ar">أ. بطاقة تعريف الحصة</span></h2>
+  <div style="overflow-x:auto">
+    <table>
+      <tbody>
+        <tr><td class="t">Matière / المادة</td><td>Informatique, cycle collégial / المعلوميات بالسلك الثانوي الإعدادي</td></tr>
+        <tr><td class="t">Niveau / المستوى</td><td>Collège (1ère / 2ème Année selon progression) / الثانوي الإعدادي</td></tr>
+        <tr><td class="t">Titre / العنوان</td><td>Introduction à l’algorithmique : du problème du quotidien à l’organigramme</td></tr>
+        <tr><td class="t">Durée / المدة</td><td>1 séance de 60 min, plus un prolongement de 30 min facultatif (Scratch)</td></tr>
+        <tr><td class="t">Situation déclenchante / الوضعية</td><td>Automatisation d’un feu de signalisation intelligent / إشارة مرور ذكية</td></tr>
+        <tr><td class="t">Approche / المقاربة</td><td>Pédagogie active, situation-problème, travail collaboratif en groupes de 4</td></tr>
+        <tr><td class="t">Organisation / التنظيم</td><td>Phase 1 collective, phases 2 à 4 en groupes de rôles, phase 5 individuelle</td></tr>
+        <tr><td class="t">Supports didactiques / العتاد</td><td>Tableau, cartes de rôles (capteur, feu, voiture), fiches de groupe, laboratoire interactif web</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">B. Objectifs d’apprentissage</span><span class="ar" lang="ar">ب. أهداف التعلم</span></h2>
+  <div class="card">
+    <h3><span class="fr">Savoirs (Connaissances théoriques)</span><span class="ar" lang="ar">المعارف النظرية</span></h3>
+    <ul class="obj">
+      <li><span class="fr">Définir les mots <strong>algorithme</strong>, <strong>pseudo-code</strong>, <strong>organigramme</strong>, <strong>condition</strong>.</span><span class="ar" lang="ar">تعريف مفاهيم الخوارزمية، الكود الافتراضي، المخطط الانسيابي والشرط.</span></li>
+      <li><span class="fr">Connaître les quatre symboles normalisés de l’organigramme (Ovale, Parallélogramme, Rectangle, Losange).</span><span class="ar" lang="ar">معرفة الرموز الأربعة المعيارية للمخطط الانسيابي (بيضوي، متوازي أضلاع، مستطيل، معين).</span></li>
+    </ul>
+
+    <h3><span class="fr">Savoir-faire (Capacités opérationnelles)</span><span class="ar" lang="ar">المهارات التطبيقية</span></h3>
+    <ul class="obj">
+      <li><span class="fr">Décomposer un problème concret en étapes ordonnées sans ambiguïté.</span><span class="ar" lang="ar">تفكيك مشكلة واقعية إلى خطوات مرتبة ودقيقة بدون لبس.</span></li>
+      <li><span class="fr">Écrire une condition logique simple avec la structure <code>SI … ALORS … SINON</code>.</span><span class="ar" lang="ar">ترجمة شرط منطقي بصيغة إذا … فإن … وإلا.</span></li>
+      <li><span class="fr">Lire un organigramme et prévoir avec exactitude sa sortie selon les données d'entrée.</span><span class="ar" lang="ar">قراءة مخطط انسيابي وتوقع نتيجته بدقة بحسب معطيات الدخل.</span></li>
+      <li><span class="fr">Repérer et corriger une erreur de logique (débogage).</span><span class="ar" lang="ar">رصد وتصحيح خطأ منطقي في خوارزمية.</span></li>
+    </ul>
+
+    <h3><span class="fr">Savoir-être (Attitudes et valeurs)</span><span class="ar" lang="ar">المواقف والسلوكيات</span></h3>
+    <ul class="obj">
+      <li><span class="fr">Argumenter son raisonnement logique devant ses pairs et coopérer activement au sein du groupe.</span><span class="ar" lang="ar">تعليل الاختيار المنطقي والتعاون البناء داخل الفريق.</span></li>
+      <li><span class="fr">Accepter l'erreur comme étape formatrice indispensable de l'apprentissage informatique.</span><span class="ar" lang="ar">تقبل الخطأ كخطوة ضرورية للتعلم والتحسين البرمجي.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">C. Prérequis, matériel et difficultés attendues</span><span class="ar" lang="ar">ج. المكتسبات القبلية، العتاد ومعالجة الصعوبات</span></h2>
+  <div class="card">
+    <p><strong><span class="fr">Prérequis :</span><span class="ar" lang="ar">المكتسبات القبلية:</span></strong> <span class="fr">Aucun prérequis technique. Les élèves s'appuient sur l'observation des feux tricolores et la logique du « si ... alors » du quotidien.</span><span class="ar" lang="ar">لا يشترط أي مكتسب مسبق. يعتمد التلميذ على ملاحظة إشارات المرور وتفكير السبب والنتيجة اليومي.</span></p>
+    <p><strong><span class="fr">Matériel :</span><span class="ar" lang="ar">العتاد الديدكتيكي:</span></strong> <span class="fr">Tableau, marqueurs de couleurs, 3 cartes de rôles par groupe (capteur, feu, secrétaire/rapporteur), vidéoprojecteur, salle multimédia ou tablettes.</span><span class="ar" lang="ar">سبورة، بطاقات أدوار ملونة، أوراق عمل للمجموعات، جهاز عرض، حواسيب أو هواتف ذكية.</span></p>
+
+    <h3><span class="fr">Tableau de traitement des difficultés didactiques :</span><span class="ar" lang="ar">جدول معالجة الصعوبات الديدكتيكية:</span></h3>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr><th><span class="fr">Difficulté attendue</span><span class="ar" lang="ar">الصعوبة المتوقعة</span></th><th><span class="fr">Traitement pédagogique proposé</span><span class="ar" lang="ar">المعالجة البيداغوجية المقترحة</span></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><span class="fr">Confondre « == » (comparer) et « = » (affecter)</span><span class="ar" lang="ar">الخلط بين المقارنة والإسناد</span></strong></td>
+            <td><span class="fr">Faire lire <code>==</code> à voix haute comme « est égal à ? » (question) et <code>=</code> comme « devient » (action d'affectation).</span><span class="ar" lang="ar">قراءة == شفهيا بمعنى «هل يساوي؟» و = بمعنى «يصبح» أو إسناد قيمة.</span></td>
+          </tr>
+          <tr>
+            <td><strong><span class="fr">Oublier la branche SINON</span><span class="ar" lang="ar">نسيان فرع «وإلا» (SINON)</span></strong></td>
+            <td><span class="fr">Poser la question-clé : « Que fait le feu lorsqu'il n'y a absolument aucune voiture ? » Si rien n'est écrit, l'ordinateur s'arrête en erreur.</span><span class="ar" lang="ar">طرح السؤال: ماذا تفعل الإشارة عند غياب أي سيارة؟ غياب الجواب يسبب خطأ برمجيا.</span></td>
+          </tr>
+          <tr>
+            <td><strong><span class="fr">Inverser la condition logique</span><span class="ar" lang="ar">عكس الشرط المنطقي</span></strong></td>
+            <td><span class="fr">Faire jouer physiquement la scène par deux élèves (l'un capteur, l'autre feu) avant d'écrire la moindre ligne.</span><span class="ar" lang="ar">تشخيص الحالة بلعب الأدوار في القسم قبل كتابة أي سطر.</span></td>
+          </tr>
+          <tr>
+            <td><strong><span class="fr">Oubli des flèches directionnelles</span><span class="ar" lang="ar">نسيان الأسهم في المخطط</span></strong></td>
+            <td><span class="fr">Règle du doigt : partir obligatoirement de DÉBUT et glisser jusqu'à FIN sans jamais lever le doigt.</span><span class="ar" lang="ar">قاعدة التتبع بالإصبع من البداية إلى النهاية لضمان استمرارية المسار.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">D. Déroulement détaillé de la séance (Scénario didactique)</span><span class="ar" lang="ar">د. سير الحصة وسيناريو التدبير الديدكتيكي</span></h2>
+  <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr><th><span class="fr">Phase & Durée</span><span class="ar" lang="ar">المرحلة والمدة</span></th><th><span class="fr">Activités de l'Enseignant</span><span class="ar" lang="ar">أنشطة الأستاذ</span></th><th><span class="fr">Activités de l'Apprenant</span><span class="ar" lang="ar">أنشطة المتعلم</span></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="t"><span class="fr">1. Situation déclenchante</span><span class="ar" lang="ar">1. الوضعية الانطلاقية</span><br><span class="tag-badge">10 min · Collectif</span></td>
+          <td><span class="fr">Raconte la scène : minuit au carrefour désert, feu rouge fixe pendant 60 secondes. Pose les questions : « Comment le feu peut-il savoir qu'une voiture arrive ? Que doit-il faire ? » Note les mots-clés.</span><span class="ar" lang="ar">سرد قصة مفترق الطرق ليلا، طرح الأسئلة التحفيزية وتدوين الكلمات المفتاحية على السبورة.</span></td>
+          <td><span class="fr">Écoute, analyse le dysfonctionnement, formule des hypothèses orales (capteur, détection, prise de décision automatique).</span><span class="ar" lang="ar">التفاعل، التعبير عن الفرضيات واقتراح حلول ذكية بالاستشعار.</span></td>
+        </tr>
+        <tr>
+          <td class="t"><span class="fr">2. Recherche sans écran</span><span class="ar" lang="ar">2. البحث بدون شاشة</span><br><span class="tag-badge">15 min · Groupes de 4</span></td>
+          <td><span class="fr">Attribue les cartes de rôle (Capteur, Feu, Secrétaire, Rapporteur). Circule entre les îlots, questionne sans donner la réponse directe.</span><span class="ar" lang="ar">توزيع الأدوار داخل المجموعات ومواكبة النقاش دون تقديم حل جاهز.</span></td>
+          <td><span class="fr">Joue la scène avec les cartes de rôles. Le secrétaire rédige en phrases ordonnées le comportement attendu du feu.</span><span class="ar" lang="ar">تقمص الأدوار، التفكير التفاعلي وصياغة جمل مرتبة تصف الخوارزمية.</span></td>
+        </tr>
+        <tr>
+          <td class="t"><span class="fr">3. Institutionnalisation</span><span class="ar" lang="ar">3. التقنين والمأسسة</span><br><span class="tag-badge">15 min · Collectif</span></td>
+          <td><span class="fr">Fait lire 2 rapporteurs, compare les formulations. Introduit les concepts formels : <em>Algorithme, Pseudo-code, Organigramme, 4 Symboles</em>. Trace au tableau.</span><span class="ar" lang="ar">مقارنة النتائج، تقديم المصطلحات العلمية والرموز الأربعة وصياغة الخلاصة.</span></td>
+          <td><span class="fr">Participe à la comparaison, identifie l'ordre rigoureux et recopie la trace écrite dans le cahier.</span><span class="ar" lang="ar">المقارنة، استنتاج القواعد المنطقية وتدوين الخلاصة في الدفتر.</span></td>
+        </tr>
+        <tr>
+          <td class="t"><span class="fr">4. Manipulation interactive</span><span class="ar" lang="ar">4. التجريب التفاعلي</span><br><span class="tag-badge">10 min · Postes / Tablettes</span></td>
+          <td><span class="fr">Invite les élèves à ouvrir la page interactive (onglet Fiche apprenant). Guide l'observation du cheminement lumineux.</span><span class="ar" lang="ar">توجيه المتعلمين لفتح المحاكي واختبار مسارات المخطط الانسيابي.</span></td>
+          <td><span class="fr">Coche/décoche la présence de voiture, clique sur « Exécuter », observe les nœuds s'allumer et la lampe correspondante s'éclairer.</span><span class="ar" lang="ar">تجريب الحالات، تتبع النور على المخطط وملاحظة إضاءة الإشارة الفعلية.</span></td>
+        </tr>
+        <tr>
+          <td class="t"><span class="fr">5. Évaluation formative</span><span class="ar" lang="ar">5. التقويم التكويني</span><br><span class="tag-badge">10 min · Individuel</span></td>
+          <td><span class="fr">Supervise le quiz interactif de 3 questions et anime la correction immédiate de la condition inversée.</span><span class="ar" lang="ar">إشراف على الاختبار الفردي وتصحيح الخطأ النموذجي جماعيا.</span></td>
+          <td><span class="fr">Répond individuellement, visualise le feedback instantané et auto-évalue son niveau de maîtrise.</span><span class="ar" lang="ar">الإجابة الفردية، قراءة التغذية الراجعة والتقييم الذاتي.</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">E. Trace écrite & Symboles normalisés</span><span class="ar" lang="ar">هـ. الخلاصة والرموز المعيارية</span></h2>
+  <div class="sym">
+    <div class="card"><svg width="64" height="40" viewBox="0 0 64 40" aria-hidden="true"><ellipse cx="32" cy="20" rx="29" ry="16"/></svg><div><span class="nm fr">Ovale</span><span class="nm ar" lang="ar">بيضوي</span><span class="fr">Début / Fin</span><span class="ar" lang="ar">بداية / نهاية</span></div></div>
+    <div class="card"><svg width="64" height="40" viewBox="0 0 64 40" aria-hidden="true"><polygon points="12,3 62,3 52,37 2,37"/></svg><div><span class="nm fr">Parallélogramme</span><span class="nm ar" lang="ar">متوازي الأضلاع</span><span class="fr">Entrée / Sortie (LIRE / ÉCRIRE)</span><span class="ar" lang="ar">إدخال / إخراج</span></div></div>
+    <div class="card"><svg width="64" height="40" viewBox="0 0 64 40" aria-hidden="true"><rect x="3" y="4" width="58" height="32"/></svg><div><span class="nm fr">Rectangle</span><span class="nm ar" lang="ar">مستطيل</span><span class="fr">Traitement (action / affectation)</span><span class="ar" lang="ar">معالجة (إجراء / إسناد)</span></div></div>
+    <div class="card"><svg width="64" height="40" viewBox="0 0 64 40" aria-hidden="true"><polygon points="32,2 62,20 32,38 2,20"/></svg><div><span class="nm fr">Losange</span><span class="nm ar" lang="ar">معين</span><span class="fr">Condition (OUI / NON)</span><span class="ar" lang="ar">شرط (نعم / لا)</span></div></div>
+  </div>
+
+  <div class="callout" style="margin-top:16px">
+    <strong>À retenir :</strong> <code>==</code> compare deux valeurs (« est égal à ? »), alors que <code>=</code> affecte une valeur (« devient »). Un algorithme se lit toujours strictement de <code>DÉBUT</code> vers <code>FIN</code> dans le sens des flèches.
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">F. Exercices progressifs avec corrigés</span><span class="ar" lang="ar">و. تمارين متدرجة مع عناصر الإجابة</span></h2>
+  <div class="card">
+    <p><strong>Exercice 1 – Remettre dans l'ordre (Algorithme du quotidien) :</strong> Traverser la rue : a) Marcher jusqu’au trottoir d’en face. b) Regarder à gauche puis à droite. c) S’arrêter au bord du trottoir. d) Attendre que la route soit libre.<br>
+    <span style="color:var(--green);font-weight:600">Corrigé : c, b, d, a.</span></p>
+    <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+    <p><strong>Exercice 2 – Compléter le pseudo-code (Feu piéton) :</strong><br>
+    <code>SI (bouton_pieton == VRAI) ALORS feu_pieton = ...... SINON feu_pieton = ...... FIN SI</code><br>
+    <span style="color:var(--green);font-weight:600">Corrigé : VERT, puis ROUGE.</span></p>
+    <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+    <p><strong>Exercice 3 – Lecture d'organigramme :</strong> Quelle valeur prend <code>feu</code> quand <code>capteur_voiture</code> vaut FAUX ?<br>
+    <span style="color:var(--green);font-weight:600">Corrigé : feu = ROUGE. Chemin : Ovale DÉBUT → Parallélogramme LIRE → Losange (NON) → Rectangle feu = ROUGE → Ovale FIN.</span></p>
+    <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+    <p><strong>Exercice 4 – Débogage :</strong> Corriger l'erreur : <code>SI (capteur_voiture == FAUX) ALORS feu = VERT SINON feu = ROUGE</code><br>
+    <span style="color:var(--green);font-weight:600">Corrigé : La condition est inversée. Le feu passerait au vert sans voiture. Correction : tester <code>== VRAI</code>.</span></p>
+    <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+    <p><strong>Exercice 5 – Défi de création :</strong> Porte automatique de supermarché (s'ouvre si présence détectée, sinon reste fermée).<br>
+    <span style="color:var(--green);font-weight:600">Corrigé type : LIRE capteur_personne ; SI (capteur_personne == VRAI) ALORS porte = OUVERTE SINON porte = FERMÉE ; organigramme avec 1 losange et 2 rectangles.</span></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">G. Grille d'évaluation formative & Barème</span><span class="ar" lang="ar">ز. شبكة التقويم التكويني وسلم التنقيط</span></h2>
+  <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr><th><span class="fr">Critère d'évaluation</span><span class="ar" lang="ar">معيار التقويم</span></th><th><span class="fr">Indicateur observable</span><span class="ar" lang="ar">المؤشر الملاحظ</span></th><th><span class="fr">Points</span><span class="ar" lang="ar">النقطة</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ordre des étapes</td><td>Les instructions se suivent dans un ordre logique rigoureux</td><td>2 pts</td></tr>
+        <tr><td>Condition correcte</td><td>La condition teste la bonne valeur booléenne (== VRAI)</td><td>3 pts</td></tr>
+        <tr><td>Complétude des branches</td><td>Les deux branches ALORS et SINON sont traitées sans oubli</td><td>2 pts</td></tr>
+        <tr><td>Symboles normalisés</td><td>Chaque forme géométrique correspond exactement à sa fonction</td><td>2 pts</td></tr>
+        <tr><td>Soin et lisibilité</td><td>Présence des flèches orientées, de DÉBUT et FIN</td><td>1 pt</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>Seuil de maîtrise : 7 / 10</strong> (En dessous : remédiation)</td><td><strong>10 / 10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">H. Différenciation et remédiation</span><span class="ar" lang="ar">ح. الدعم البيداغوجي والتمايز</span></h2>
+  <div class="card">
+    <p><strong>Élèves en difficulté :</strong> Fournir l’organigramme sous forme de schéma à trous (cases vides), manipuler à nouveau les cartes physiques en jeu de rôle avant tout passage à l’écrit.</p>
+    <p><strong>Élèves avancés (Défi) :</strong> Introduire une double condition : <code>SI (voiture == VRAI ET pieton == FAUX) ALORS feu = VERT</code>, ou modéliser un distributeur automatique de boissons.</p>
+    <p><strong>Élèves à l'aise à l'oral :</strong> Autoriser la dictée de l'algorithme à un camarade avant la recopie dans le cahier.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- ========================================== -->
+<!-- ONGLET 2 : FICHE APPRENANT & SIMULATEUR    -->
+<!-- ========================================== -->
+<div class="panel" id="eleve" hidden>
+
+<section>
+<h2><span class="fr">1. Situation déclenchante : un feu de signalisation intelligent</span><span class="ar" lang="ar">1. الوضعية الانطلاقية: إشارة مرور ذكية</span></h2>
+<div class="card">
+<p><span class="fr">Un carrefour est désert la nuit, mais le feu reste rouge pendant 60 secondes. Un capteur sous la route peut détecter une voiture. Comment le feu doit-il réagir ?</span><span class="ar" lang="ar">مفترق طرق خال ليلا، لكن الضوء يبقى أحمر لمدة 60 ثانية. يمكن لمستشعر تحت الطريق أن يكشف وجود سيارة. كيف يجب أن تتصرف الإشارة؟</span></p>
+<p><strong><span class="fr">Sans écran, écris en phrases ce que fait le feu dans l'ordre.</span><span class="ar" lang="ar">بدون شاشة، اكتب في جمل ما تفعله الإشارة بالترتيب.</span></strong></p>
+</div>
+</section>
+
+<section>
+<h2><span class="fr">2. Pseudo-code et organigramme interactif</span><span class="ar" lang="ar">2. الكود الافتراضي والمخطط الانسيابي التفاعلي</span></h2>
+<p><span class="fr">Le pseudo-code décrit l’algorithme avec des mots proches du langage courant :</span><span class="ar" lang="ar">الكود الافتراضي يصف الخوارزمية بكلمات قريبة من اللغة اليومية:</span></p>
+<pre>DÉBUT
+  LIRE capteur_voiture
+  SI (capteur_voiture == VRAI) ALORS
+      feu = VERT
+  SINON
+      feu = ROUGE
+  FIN SI
+FIN</pre>
+
+<div class="card">
+<div class="sim">
+<svg viewBox="0 0 360 400" role="img" aria-label="Organigramme du feu intelligent">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8A95A3"/></marker></defs>
+<path class="edge" id="e-start-read" d="M180 48V66" marker-end="url(#ar)"/>
+<path class="edge" id="e-read-cond" d="M180 106V126" marker-end="url(#ar)"/>
+<path class="edge" id="e-cond-yes" d="M80 176H90V250" marker-end="url(#ar)"/>
+<path class="edge" id="e-cond-no" d="M280 176H270V250" marker-end="url(#ar)"/>
+<path class="edge" id="e-yes-end" d="M90 290V330H180V342" marker-end="url(#ar)"/>
+<path class="edge" id="e-no-end" d="M270 290V330H180" marker-end="url(#ar)"/>
+<ellipse class="node" id="n-start" cx="180" cy="28" rx="52" ry="20"/><text x="180" y="33">DÉBUT</text>
+<polygon class="node" id="n-read" points="110,66 290,66 270,106 90,106"/><text x="180" y="91">LIRE capteur_voiture</text>
+<polygon class="node" id="n-cond" points="180,126 280,176 180,226 80,176"/><text x="180" y="174">capteur_voiture</text><text x="180" y="191">== VRAI ?</text>
+<rect class="node" id="n-yes" x="20" y="250" width="140" height="40" rx="2"/><text x="90" y="275">feu = VERT</text>
+<rect class="node" id="n-no" x="200" y="250" width="140" height="40" rx="2"/><text x="270" y="275">feu = ROUGE</text>
+<text x="62" y="168">OUI</text><text class="s" x="62" y="214">نعم</text>
+<text x="298" y="168">NON</text><text class="s" x="298" y="214">لا</text>
+<ellipse class="node" id="n-end" cx="180" cy="362" rx="52" ry="20"/><text x="180" y="367">FIN</text>
+</svg>
+<div class="light" aria-hidden="true"><i id="l-red"></i><i id="l-amber"></i><i id="l-green"></i></div>
+</div>
+<div class="controls">
+<label><input type="checkbox" id="car"><span><span class="fr">Une voiture est détectée (capteur == VRAI)</span><span class="ar" lang="ar">تم كشف سيارة (المستشعر == صحيح)</span></span></label>
+<button class="btn" id="run"><span class="fr">Exécuter l'Algorithme</span><span class="ar" lang="ar">تشغيل الخوارزمية</span></button>
+<button class="btn alt" id="reset"><span class="fr">Réinitialiser</span><span class="ar" lang="ar">إعادة الضبط</span></button>
+</div>
+<div id="status" aria-live="polite"></div>
+</div>
+</section>
+
+<section>
+<h2><span class="fr">3. Évaluation formative : teste et corrige</span><span class="ar" lang="ar">3. التقويم التكويني: اختبر وصحح</span></h2>
+
+<div class="card q"><h3><span class="fr">Q1. Quel symbole normalisé sert à représenter une condition ?</span><span class="ar" lang="ar">س1. أي رمز معياري يمثل الشرط؟</span></h3>
+<div class="opts"><button><span class="fr">Rectangle (مستطيل)</span><span class="ar" lang="ar">مستطيل</span></button><button data-ok="1"><span class="fr">Losange (معين)</span><span class="ar" lang="ar">معين</span></button><button><span class="fr">Ovale (بيضوي)</span><span class="ar" lang="ar">بيضوي</span></button></div>
+<div class="fb" hidden><span class="fr">Bravo ! Le losange pose une question logique à deux sorties exclusives : OUI ou NON.</span><span class="ar" lang="ar">أحسنت! المعين يطرح سؤالا منطقيا بمخرجين: نعم أو لا.</span></div></div>
+
+<div class="card q"><h3><span class="fr">Q2. Cet algorithme contient une erreur logique. Laquelle ?</span><span class="ar" lang="ar">س2. تحتوي هذه الخوارزمية على خطأ منطقي. ما هو؟</span></h3>
+<pre>SI (capteur_voiture == FAUX) ALORS feu = VERT
+SINON feu = ROUGE</pre>
+<div class="opts"><button data-ok="1"><span class="fr">La condition est inversée (le feu passe au vert sans voiture)</span><span class="ar" lang="ar">الشرط معكوس (تصبح الإشارة خضراء عند غياب السيارة)</span></button><button><span class="fr">Il manque le mot FIN</span><span class="ar" lang="ar">تنقص كلمة FIN</span></button><button><span class="fr">Il faut obligatoirement deux conditions</span><span class="ar" lang="ar">نحتاج إلى شرطين</span></button></div>
+<div class="fb" hidden><span class="fr">Exactement ! Tester <code>== FAUX</code> allume le vert quand la route est déserte. Il faut tester <code>== VRAI</code>.</span><span class="ar" lang="ar">صحيح! اختبار == FAUX يجعل الإشارة خضراء عند خلو الطريق. يجب اختبار == VRAI.</span></div></div>
+
+<div class="card q"><h3><span class="fr">Q3. Complète : SI (bouton_pieton == VRAI) ALORS feu_pieton = …</span><span class="ar" lang="ar">س3. أكمل: SI (bouton_pieton == VRAI) ALORS feu_pieton = …</span></h3>
+<div class="opts"><button data-ok="1"><span class="fr">VERT (أخضر)</span><span class="ar" lang="ar">أخضر</span></button><button><span class="fr">ROUGE (أحمر)</span><span class="ar" lang="ar">أحمر</span></button></div>
+<div class="fb" hidden><span class="fr">Correct ! Quand le piéton appuie sur le bouton pour traverser, son feu doit passer au VERT.</span><span class="ar" lang="ar">صحيح! عند ضغط الراجل على زر العبور، يجب أن تصبح إشارته خضراء.</span></div></div>
+</section>
+
+</div>
+
+</div></main>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+$$('[data-lang-btn]').forEach(b=>b.onclick=()=>{
+  document.body.dataset.lang=b.dataset.langBtn;
+  $$('[data-lang-btn]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+});
+$$('[data-tab]').forEach(b=>b.onclick=()=>{
+  $$('[data-tab]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  $$('.panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);
+});
+const lamps={red:$('#l-red'),amber:$('#l-amber'),green:$('#l-green')};
+const setLamp=c=>{for(const k in lamps)lamps[k].classList.toggle('lit',k===c)};
+let timer;
+function reset(){
+  clearTimeout(timer);
+  $$('.node,.edge').forEach(e=>e.classList.remove('on'));
+  setLamp('');
+  $('#status').textContent='';
+}
+function run(){
+  reset();
+  const p=['start','read','cond',$('#car').checked?'yes':'no','end'];
+  let i=0;
+  (function next(){
+    const id=p[i];
+    $('#n-'+id).classList.add('on');
+    if(i>0)$('#e-'+p[i-1]+'-'+id).classList.add('on');
+    if(id==='yes')setLamp('green');
+    if(id==='no')setLamp('red');
+    $('#status').textContent='Étape '+(i+1)+' / '+p.length+' — الخطوة '+(i+1);
+    if(++i<p.length)timer=setTimeout(next,750);
+  })();
+}
+$('#run').onclick=run;
+$('#reset').onclick=reset;
+$('#car').onchange=reset;
+$$('.q').forEach(q=>q.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  if(q.dataset.done)return;
+  q.dataset.done=1;
+  b.classList.add(b.dataset.ok?'good':'bad');
+  q.querySelector('[data-ok]').classList.add('good');
+  q.querySelector('.fb').hidden=false;
+}));
+</script>
+</body>
+</html>

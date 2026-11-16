@@ -3,50 +3,385 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mouad Mouasseif - CV</title>
+    <title>Mouad Mouasseif - Professional Curriculum Vitae</title>
     <style>
-      body { font-family: Arial, sans-serif; margin: 40px; color: #0f172a; line-height: 1.6; }
-      h1 { margin-bottom: 0; color: #0369a1; }
-      h2 { margin-top: 28px; color: #111827; border-bottom: 2px solid #06b6d4; padding-bottom: 6px; }
-      .meta { color: #475569; margin-top: 6px; }
-      ul { padding-left: 20px; }
-      .tag { display: inline-block; margin: 4px; padding: 4px 8px; border-radius: 999px; background: #e0f2fe; color: #075985; font-size: 12px; font-weight: 700; }
+      :root {
+        --primary: #0369a1;
+        --primary-dark: #075985;
+        --accent: #d97706;
+        --text: #0f172a;
+        --muted: #475569;
+        --border: #e2e8f0;
+        --bg-subtle: #f8fafc;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--text);
+        background: #f1f5f9;
+        line-height: 1.5;
+        padding: 32px 16px;
+      }
+      .cv-container {
+        max-width: 860px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 48px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        border: 1px solid var(--border);
+      }
+      .header {
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .name-title h1 {
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        color: #0f172a;
+      }
+      .name-title h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-top: 4px;
+      }
+      .contact-meta {
+        font-size: 13px;
+        color: var(--muted);
+        text-align: right;
+        line-height: 1.6;
+      }
+      .contact-meta a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .contact-meta a:hover {
+        text-decoration: underline;
+      }
+      .print-actions {
+        display: flex;
+        justify-content: flex-end;
+        max-width: 860px;
+        margin: 0 auto 16px auto;
+        gap: 12px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .btn:hover { background: var(--primary-dark); }
+      .section-title {
+        font-size: 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--primary-dark);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 4px;
+        margin: 22px 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .summary-text {
+        font-size: 13.5px;
+        color: #334155;
+        line-height: 1.6;
+      }
+      .timeline-item {
+        margin-bottom: 14px;
+      }
+      .timeline-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .timeline-role {
+        font-size: 14px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .timeline-company {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+      .timeline-date {
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+      }
+      .timeline-desc {
+        font-size: 13px;
+        color: #334155;
+        margin-top: 3px;
+      }
+      .timeline-bullets {
+        padding-left: 18px;
+        margin-top: 4px;
+        font-size: 12.5px;
+        color: #475569;
+      }
+      .timeline-bullets li {
+        margin-bottom: 2px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .skill-group {
+        background: var(--bg-subtle);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px;
+      }
+      .skill-group h4 {
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+      .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .tag {
+        font-size: 11.5px;
+        font-weight: 600;
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 2px 7px;
+        border-radius: 4px;
+      }
+      .footer-note {
+        margin-top: 24px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+        font-size: 11px;
+        color: #94a3b8;
+        text-align: center;
+      }
+      @media print {
+        body { background: white; padding: 0; }
+        .cv-container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
+        .print-actions { display: none; }
+      }
+      @media (max-width: 640px) {
+        .cv-container { padding: 24px 16px; }
+        .contact-meta { text-align: left; }
+        .grid-2 { grid-template-columns: 1fr; }
+      }
     </style>
   </head>
   <body>
-    <h1>Mouad Mouasseif</h1>
-    <p class="meta">Full-Stack Developer | AI Developer | Cybersecurity Student | Teacher Trainee | Coach | Designer</p>
-    <p class="meta">Phone: 0689642894 / 0664860246 | Email: mouadmouassief@gmail.com</p>
-    <p class="meta">Address: N 21 Blad Bensaid Tabriquet, Salé, Rabat-Salé, Maroc</p>
-    <p class="meta">Website: mouadmouasseif.vercel.app</p>
+    <div class="print-actions">
+      <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+      <a class="btn" href="https://mouadmouasseif.vercel.app" target="_blank">🌐 Live Portfolio</a>
+    </div>
 
-    <h2>Profile</h2>
-    <p>I build smart applications, train athletes, teach students and create digital solutions that make an impact.</p>
+    <div class="cv-container">
+      <header class="header">
+        <div class="name-title">
+          <h1>MOUAD MOUASSEIF</h1>
+          <h2>Computer Science Educator · AI Developer · EdTech Innovator</h2>
+          <p style="font-size: 12.5px; color: #64748b; margin-top: 4px;">
+            Founder of BasketMotion AI, SailMotion AI & RowMotion-RACE
+          </p>
+        </div>
+        <div class="contact-meta">
+          <p><strong>Location:</strong> Morocco · Open to International Collaboration</p>
+          <p><strong>Email:</strong> <a href="mailto:mouadmouassief@gmail.com">mouadmouassief@gmail.com</a></p>
+          <p><strong>Portfolio:</strong> <a href="https://mouadmouasseif.vercel.app" target="_blank">mouadmouasseif.vercel.app</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mouad-mouasseif" target="_blank">linkedin.com/in/mouad-mouasseif</a></p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/mouadmouasseif" target="_blank">github.com/mouadmouasseif</a></p>
+        </div>
+      </header>
 
-    <h2>Core Skills</h2>
-    <p>
-      <span class="tag">Next.js</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span>
-      <span class="tag">Python</span><span class="tag">AI</span><span class="tag">Computer Vision</span><span class="tag">Cybersecurity</span>
-      <span class="tag">UI/UX</span><span class="tag">Basketball Coaching</span><span class="tag">Sailing Coaching</span>
-    </p>
+      <!-- Profile Summary -->
+      <section>
+        <h3 class="section-title">Executive Profile</h3>
+        <p class="summary-text">
+          Moroccan Computer Science Teacher and Technology Innovator with academic foundations from ENS Rabat and CRMEF Casablanca-Settat, specialized in digital pedagogy, software engineering, and computer vision. Combines secondary-school educational practice in Morocco with the development of edge AI systems and athletic performance technology (basketball, sailing, rowing). Dedicated to fostering computational thinking and advancing digital education worldwide.
+        </p>
+      </section>
 
-    <h2>Featured Project</h2>
-    <p><strong>Master Hoop AI:</strong> AI-powered basketball training platform using camera analysis, player tracking, shot counting, drills, training history and performance feedback.</p>
+      <!-- Current & Professional Experience -->
+      <section>
+        <h3 class="section-title">Professional Experience</h3>
 
-    <h2>Education</h2>
-    <ul>
-      <li>2025-2026 - CRMEF Casablanca-Settat, Teacher Training, Computer Science</li>
-      <li>2025-2026 - ENSAM Rabat / JobInTech, Cybersecurity</li>
-      <li>2021-2024 - ENS Rabat, Licence en Informatique</li>
-      <li>2024-2025 - Oxford Academic, Graphic Design</li>
-    </ul>
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Computer Science Teacher (Enseignant Titulaire)</span>
+            <span class="timeline-date">Sep 2026 – Present</span>
+          </div>
+          <div class="timeline-company">Collège Zawiyat Sidi Hamza · Académie Drâa-Tafilalet, Ministère de l'Éducation Nationale</div>
+          <p class="timeline-desc">
+            Teaching computer science in secondary education. Designing bilingual (French/Arabic) curricula and active didactic sequences.
+          </p>
+          <ul class="timeline-bullets">
+            <li>Structured algorithmic thinking and introductory Python/Scratch programming for middle-school students.</li>
+            <li>Conducted digital citizenship, password hygiene, and AI ethics classroom workshops.</li>
+            <li>Designed hands-on unplugged computing challenges adapted to varied learning styles.</li>
+          </ul>
+        </div>
 
-    <h2>Experience</h2>
-    <ul>
-      <li>IZIDOOR France - Front-End Developer</li>
-      <li>Sophatour Salé - Full-Stack Web Developer</li>
-      <li>Alphastra IPHA Project Rabat - Front-End & UX/UI Designer</li>
-      <li>Basketball and nautical sports coaching roles in Rabat and Salé</li>
-    </ul>
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Sports Technology Founder & Lead Architect</span>
+            <span class="timeline-date">2024 – Present</span>
+          </div>
+          <div class="timeline-company">BasketMotion AI · SailMotion AI · RowMotion-RACE</div>
+          <p class="timeline-desc">
+            Conceived and engineered a proprietary suite of browser-based sports analytics applications.
+          </p>
+          <ul class="timeline-bullets">
+            <li><strong>BasketMotion AI:</strong> Real-time shot tracking and joint angle estimation using MediaPipe & MoveNet at 30+ FPS.</li>
+            <li><strong>SailMotion AI:</strong> Mast heel angle extraction and tactical trajectory debriefs for ILCA & Optimist sailing.</li>
+            <li><strong>RowMotion-RACE:</strong> Real-time stroke rate (SPM) synchronization and cloud race management for rowing regattas.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Computer Science Teacher Trainee & Educational Researcher</span>
+            <span class="timeline-date">2025 – 2026</span>
+          </div>
+          <div class="timeline-company">CRMEF Casablanca-Settat</div>
+          <ul class="timeline-bullets">
+            <li>Authored empirical study: <em>"The Impact of Social Media on Students' Attention and Academic Performance"</em> (surveyed 50 teachers).</li>
+            <li>Practical teaching internships in middle and secondary schools across Casablanca.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Full-Stack & Front-End Developer</span>
+            <span class="timeline-date">2024 – 2025</span>
+          </div>
+          <div class="timeline-company">IZIDOOR France (Remote) · Sophatour Salé · TRANSIDF Rabat</div>
+          <ul class="timeline-bullets">
+            <li>Developed responsive React/Next.js interfaces, enterprise booking systems, and administrative web portals.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section>
+        <h3 class="section-title">Education & Qualifications</h3>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Teacher Qualification in Computer Science (CQPE)</span>
+            <span class="timeline-date">2025 – 2026</span>
+          </div>
+          <div class="timeline-company">CRMEF Casablanca-Settat · Ministère de l'Éducation Nationale</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Cybersecurity Specialization (JobInTech / CCEP)</span>
+            <span class="timeline-date">2025 – 2026</span>
+          </div>
+          <div class="timeline-company">ENSAM Rabat · Certified Cybersecurity Educator Professional</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Licence d'Éducation en Informatique (LE Informatique)</span>
+            <span class="timeline-date">2021 – 2024</span>
+          </div>
+          <div class="timeline-company">École Normale Supérieure (ENS) de Rabat</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Baccalauréat en Sciences Physiques</span>
+            <span class="timeline-date">2018 – 2019</span>
+          </div>
+          <div class="timeline-company">Académie Régionale de Rabat-Salé-Kénitra</div>
+        </div>
+      </section>
+
+      <!-- Verified Certifications -->
+      <section>
+        <h3 class="section-title">Verified Certifications</h3>
+        <div class="grid-2">
+          <div class="skill-group">
+            <h4>International & Education</h4>
+            <ul class="timeline-bullets">
+              <li>UNESCO ICT Competency Framework for Teachers</li>
+              <li>Microsoft Certified Educator (MCE) - 21st Century Learning</li>
+              <li>IBM Applied AI & Data Science Badges</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4>Tech, Cyber & Sports</h4>
+            <ul class="timeline-bullets">
+              <li>Certified Cybersecurity Educator Professional (CCEP ENSAM)</li>
+              <li>Cisco CCNA Networking Academy Modules</li>
+              <li>Basketball Coach (Nahda / ENS) & Sailing Instructor (CNPR)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Matrix -->
+      <section>
+        <h3 class="section-title">Skills & Methodologies</h3>
+        <div class="grid-2">
+          <div class="skill-group">
+            <h4>Education & Pedagogy</h4>
+            <div class="tag-cloud">
+              <span class="tag">Active Learning</span>
+              <span class="tag">Bilingual Curricula (FR/AR)</span>
+              <span class="tag">Computational Thinking</span>
+              <span class="tag">Formative Evaluation</span>
+              <span class="tag">AI Literacy</span>
+              <span class="tag">Classroom Management</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>Technology & Engineering</h4>
+            <div class="tag-cloud">
+              <span class="tag">React 19</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Python</span>
+              <span class="tag">MediaPipe</span>
+              <span class="tag">MoveNet</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Cybersecurity Hygiene</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer-note">
+        Curriculum Vitae of Mouad Mouasseif · Verified version · Accessible online at mouadmouasseif.vercel.app
+      </footer>
+    </div>
   </body>
 </html>

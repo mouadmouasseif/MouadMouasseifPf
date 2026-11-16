@@ -5,9 +5,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const siteUrl = "https://mouadmouasseif.vercel.app";
-const siteTitle = "Mouad Mouasseif | Full-Stack Developer, Teacher & Freelance Services";
+const siteTitle = "Mouad Mouasseif | Computer Science Educator · AI Developer · EdTech Innovator";
 const siteDescription =
-  "Mouad Mouasseif is a Moroccan full-stack web developer, AI developer, computer science teacher trainee, cybersecurity student, UX/UI designer and freelance digital services provider in Sale and Rabat.";
+  "Official portfolio of Mouad Mouasseif. Moroccan Computer Science Educator at Collège Zawiyat Sidi Hamza (Drâa-Tafilalet), AI & Full-Stack Developer, and Sports Technology Creator (BasketMotion AI, SailMotion, RowMotion).";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -20,49 +20,46 @@ export const metadata: Metadata = {
   authors: [{ name: "Mouad Mouasseif", url: siteUrl }],
   creator: "Mouad Mouasseif",
   publisher: "Mouad Mouasseif",
-  category: "Portfolio",
+  category: "Education & Technology Portfolio",
   keywords: [
     "Mouad Mouasseif",
-    "Mouasseif Mouad",
-    "Mouad Mouassief",
-    "Full-Stack Developer Morocco",
-    "Developpeur web Maroc",
-    "Developpeur web Rabat",
-    "Developpeur web Sale",
-    "Freelance web developer",
-    "Freelance services Morocco",
-    "Prof informatique",
-    "Teacher trainee computer science",
-    "AI developer",
-    "Cybersecurity student",
-    "UX UI designer",
-    "Next.js developer",
-    "React developer",
-    "Master Hoop AI",
-    "Graphic designer Morocco",
+    "Computer Science Educator",
+    "Enseignant Informatique Maroc",
+    "Collège Zawiyat Sidi Hamza",
+    "CRMEF Casablanca-Settat",
+    "ENS Rabat",
+    "AI Developer Morocco",
+    "EdTech Innovator",
+    "BasketMotion AI",
+    "SailMotion AI",
+    "RowMotion AI",
+    "Computer Vision in Sports",
+    "MediaPipe MoveNet",
+    "Digital Pedagogy",
+    "Cybersecurity Educator ENSAM",
+    "Next.js Developer Morocco",
   ],
   alternates: {
     canonical: "/",
   },
   icons: {
-    icon: [
-      { url: "/logo_v1.png", type: "image/png" },
-    ],
+    icon: [{ url: "/logo_v1.png", type: "image/png" }],
     apple: "/apple-icon.png",
   },
   openGraph: {
-    type: "website",
+    type: "profile",
     url: siteUrl,
     title: siteTitle,
     description: siteDescription,
     siteName: "Mouad Mouasseif",
-    locale: "fr_MA",
+    locale: "en_US",
+    alternateLocale: ["fr_MA"],
     images: [
       {
         url: "/logo_v1.png",
         width: 512,
         height: 512,
-        alt: "Mouad Mouasseif logo",
+        alt: "Mouad Mouasseif - Education meets Technology & Innovation",
       },
       {
         url: "/avatar.jpg",
@@ -103,69 +100,55 @@ const structuredData = {
       image: `${siteUrl}/avatar.jpg`,
       logo: `${siteUrl}/logo_v1.png`,
       email: "mailto:mouadmouassief@gmail.com",
-      telephone: ["+212689642894", "+212664860246"],
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "N 21 Blad Bensaid Tabriquet",
-        addressLocality: "Sale",
-        addressRegion: "Rabat-Sale",
-        addressCountry: "MA",
-      },
       jobTitle: [
-        "Full-Stack Developer",
+        "Computer Science Educator",
         "AI Developer",
-        "Computer Science Teacher Trainee",
-        "Cybersecurity Student",
-        "UX/UI Designer",
-        "Basketball Coach",
+        "EdTech Innovator",
+        "Sports Technology Creator",
+      ],
+      worksFor: {
+        "@type": "EducationalOrganization",
+        name: "Ministère de l'Éducation Nationale / Collège Zawiyat Sidi Hamza",
+        address: {
+          "@type": "PostalAddress",
+          addressRegion: "Drâa-Tafilalet",
+          addressCountry: "MA",
+        },
+      },
+      alumniOf: [
+        {
+          "@type": "EducationalOrganization",
+          name: "École Normale Supérieure (ENS) de Rabat",
+        },
+        {
+          "@type": "EducationalOrganization",
+          name: "CRMEF Casablanca-Settat",
+        },
+        {
+          "@type": "EducationalOrganization",
+          name: "ENSAM Rabat",
+        },
       ],
       knowsAbout: [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "Tailwind CSS",
+        "Computer Science Education",
+        "Digital Pedagogy",
         "Artificial Intelligence",
+        "Computer Vision",
+        "MediaPipe & MoveNet",
+        "Full-Stack Web Engineering",
+        "React & Next.js",
         "Cybersecurity",
-        "Computer Science Teaching",
-        "UX/UI Design",
-        "Graphic Design",
-        "Basketball Coaching",
+        "Sports Performance Analytics (Basketball, Sailing, Rowing)",
       ],
       sameAs: [
         "https://github.com/mouadmouasseif",
         "https://www.linkedin.com/in/mouad-mouasseif",
-        "https://www.instagram.com/mouadmouasseif",
-      ],
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": `${siteUrl}/#services`,
-      name: "Mouad Mouasseif Freelance Services",
-      url: siteUrl,
-      logo: `${siteUrl}/logo_v1.png`,
-      image: `${siteUrl}/logo_v1.png`,
-      description:
-        "Freelance web development, mobile app design, AI applications, cybersecurity awareness, educational content, UX/UI design and graphic design services.",
-      provider: {
-        "@id": `${siteUrl}/#person`,
-      },
-      areaServed: ["Morocco", "Rabat", "Sale", "Casablanca", "Remote"],
-      serviceType: [
-        "Web Development",
-        "Full-Stack Development",
-        "React Development",
-        "Next.js Development",
-        "UX/UI Design",
-        "Graphic Design",
-        "AI Applications",
-        "Educational Resources",
-        "Cybersecurity Awareness",
       ],
     },
     {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
-      name: "Mouad Mouasseif Portfolio",
+      name: "Mouad Mouasseif | Personal Brand & International Portfolio",
       url: siteUrl,
       publisher: {
         "@id": `${siteUrl}/#person`,

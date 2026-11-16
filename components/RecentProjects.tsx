@@ -39,6 +39,12 @@ const projects: Project[] = [
     url : "https://cnpr-amber.vercel.app/", // exemple de lien
   },
    {
+    title: "Yacht Club de Rabat",
+    subtitle: "Web Design, App Design",
+    image: "/projects/project16.png",
+    url : "https://yachtclubrabat.vercel.app/", // exemple de lien
+  },
+   {
     title: "Morrocain Sailing Website",
     subtitle: "Web Design",
     image: "/projects/project5.png",

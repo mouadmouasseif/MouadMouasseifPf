@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mouad Mouasseif - Curriculum Vitae Professionnel</title>
+    <style>
+      :root {
+        --primary: #0369a1;
+        --primary-dark: #075985;
+        --accent: #d97706;
+        --text: #0f172a;
+        --muted: #475569;
+        --border: #e2e8f0;
+        --bg-subtle: #f8fafc;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--text);
+        background: #f1f5f9;
+        line-height: 1.5;
+        padding: 32px 16px;
+      }
+      .cv-container {
+        max-width: 860px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 48px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        border: 1px solid var(--border);
+      }
+      .header {
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .name-title h1 {
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        color: #0f172a;
+      }
+      .name-title h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-top: 4px;
+      }
+      .contact-meta {
+        font-size: 13px;
+        color: var(--muted);
+        text-align: right;
+        line-height: 1.6;
+      }
+      .contact-meta a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .contact-meta a:hover {
+        text-decoration: underline;
+      }
+      .print-actions {
+        display: flex;
+        justify-content: flex-end;
+        max-width: 860px;
+        margin: 0 auto 16px auto;
+        gap: 12px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .btn:hover { background: var(--primary-dark); }
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+      .btn-outline:hover {
+        background: var(--bg-subtle);
+      }
+      .section-title {
+        font-size: 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--primary-dark);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 4px;
+        margin: 22px 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .summary-text {
+        font-size: 13.5px;
+        color: #334155;
+        line-height: 1.6;
+      }
+      .timeline-item {
+        margin-bottom: 14px;
+      }
+      .timeline-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .timeline-role {
+        font-size: 14px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .timeline-company {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+      .timeline-date {
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+      }
+      .timeline-desc {
+        font-size: 13px;
+        color: #334155;
+        margin-top: 3px;
+      }
+      .timeline-bullets {
+        padding-left: 18px;
+        margin-top: 4px;
+        font-size: 12.5px;
+        color: #475569;
+      }
+      .timeline-bullets li {
+        margin-bottom: 2px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .skill-group {
+        background: var(--bg-subtle);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px;
+      }
+      .skill-group h4 {
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+      .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .tag {
+        font-size: 11.5px;
+        font-weight: 600;
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 2px 7px;
+        border-radius: 4px;
+      }
+      .footer-note {
+        margin-top: 24px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+        font-size: 11px;
+        color: #94a3b8;
+        text-align: center;
+      }
+      @media print {
+        body { background: white; padding: 0; }
+        .cv-container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
+        .print-actions { display: none; }
+      }
+      @media (max-width: 640px) {
+        .cv-container { padding: 24px 16px; }
+        .contact-meta { text-align: left; }
+        .grid-2 { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-actions">
+      <button class="btn" onclick="window.print()">🖨️ Imprimer / Sauvegarder en PDF</button>
+      <a class="btn btn-outline" href="/Mouad-Mouasseif-CV.html">🇬🇧 English Version</a>
+      <a class="btn" href="https://mouadmouasseif.vercel.app" target="_blank">🌐 Portfolio en Ligne</a>
+    </div>
+
+    <div class="cv-container">
+      <header class="header">
+        <div class="name-title">
+          <h1>MOUAD MOUASSEIF</h1>
+          <h2>Enseignant d'Informatique · Développeur IA · Innovateur EdTech</h2>
+          <p style="font-size: 12.5px; color: #64748b; margin-top: 4px;">
+            Créateur de BasketMotion AI, SailMotion AI & RowMotion-RACE
+          </p>
+        </div>
+        <div class="contact-meta">
+          <p><strong>Localisation :</strong> Maroc · Ouvert aux collaborations internationales</p>
+          <p><strong>Email :</strong> <a href="mailto:mouadmouassief@gmail.com">mouadmouassief@gmail.com</a></p>
+          <p><strong>Portfolio :</strong> <a href="https://mouadmouasseif.vercel.app" target="_blank">mouadmouasseif.vercel.app</a></p>
+          <p><strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/mouad-mouasseif" target="_blank">linkedin.com/in/mouad-mouasseif</a></p>
+          <p><strong>GitHub :</strong> <a href="https://github.com/mouadmouasseif" target="_blank">github.com/mouadmouasseif</a></p>
+        </div>
+      </header>
+
+      <!-- Profil Professionnel -->
+      <section>
+        <h3 class="section-title">Profil Professionnel</h3>
+        <p class="summary-text">
+          Enseignant d'informatique et développeur Full-Stack / IA diplômé de l'ENS Rabat et du CRMEF Casablanca-Settat, spécialisé en pédagogie numérique, didactique de la programmation et vision par ordinateur. Alliant pratique d'enseignement au secondaire collégial au Maroc, recherche empirique sur l'attention des élèves et conception de solutions technologiques pour l'analyse sportive (basketball, voile, aviron). Déterminé à développer la pensée computationnelle chez les jeunes et à contribuer aux initiatives éducatives mondiales.
+        </p>
+      </section>
+
+      <!-- Expérience Professionnelle -->
+      <section>
+        <h3 class="section-title">Expérience Professionnelle</h3>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Enseignant d'Informatique (Titulaire)</span>
+            <span class="timeline-date">Sep 2026 – Présent</span>
+          </div>
+          <div class="timeline-company">Collège Zawiyat Sidi Hamza · Académie Drâa-Tafilalet, Ministère de l'Éducation Nationale</div>
+          <p class="timeline-desc">
+            Enseignement des sciences informatiques au cycle secondaire collégial. Conception de cours et de situations-problèmes didactiques bilingues (Français / Arabe).
+          </p>
+          <ul class="timeline-bullets">
+            <li>Animation de séquences sur l'algorithmique, la programmation Scratch et les bases de Python.</li>
+            <li>Organisation d'ateliers interactifs sur la citoyenneté numérique, la cybersécurité scolaire et l'éthique de l'IA.</li>
+            <li>Déploiement d'activités débranchées favorisant la logique et la résolution collaborative de problèmes.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Créateur & Architecte Logiciel Sports Technology</span>
+            <span class="timeline-date">2024 – Présent</span>
+          </div>
+          <div class="timeline-company">BasketMotion AI · SailMotion AI · RowMotion-RACE</div>
+          <p class="timeline-desc">
+            Conception et développement d'une suite d'applications d'analyse de performance sportive basées sur la vision par ordinateur dans le navigateur web.
+          </p>
+          <ul class="timeline-bullets">
+            <li><strong>BasketMotion AI :</strong> Détection de tirs et calcul des angles articulaires en temps réel à 30+ FPS avec MediaPipe et MoveNet.</li>
+            <li><strong>SailMotion AI :</strong> Analyse de l'angle de gîte du mât et retours tactiques pour dériveurs ILCA et Optimist.</li>
+            <li><strong>RowMotion-RACE :</strong> Synchronisation de la cadence des rameurs (SPM) et gestion en direct des régates d'aviron.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Professeur Stagiaire en Informatique & Chercheur en Éducation</span>
+            <span class="timeline-date">2025 – 2026</span>
+          </div>
+          <div class="timeline-company">CRMEF Casablanca-Settat</div>
+          <ul class="timeline-bullets">
+            <li>Auteur de l'étude empirique : <em>« L'impact des réseaux sociaux sur l'attention et le rendement scolaire des élèves »</em> (enquête menée auprès de 50 enseignants).</li>
+            <li>Stages pratiques en collèges et lycées et soutenance académique qualifiante.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Développeur Web Full-Stack & Front-End</span>
+            <span class="timeline-date">2024 – 2025</span>
+          </div>
+          <div class="timeline-company">IZIDOOR France (Télétravail) · Sophatour Salé · TRANSIDF Rabat</div>
+          <ul class="timeline-bullets">
+            <li>Développement d'interfaces réactives avec React/Next.js, plateformes de réservation et portails administratifs.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Formation & Diplômes -->
+      <section>
+        <h3 class="section-title">Formation & Diplômes</h3>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Certificat de Qualification Professionnelle de l'Enseignement (CQPE)</span>
+            <span class="timeline-date">2025 – 2026</span>
+          </div>
+          <div class="timeline-company">CRMEF Casablanca-Settat · Ministère de l'Éducation Nationale</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Spécialisation Cybersécurité (JobInTech / CCEP)</span>
+            <span class="timeline-date">2025 – 2026</span>
+          </div>
+          <div class="timeline-company">ENSAM Rabat · Certified Cybersecurity Educator Professional</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Licence d'Éducation en Informatique (LE Informatique)</span>
+            <span class="timeline-date">2021 – 2024</span>
+          </div>
+          <div class="timeline-company">École Normale Supérieure (ENS) de Rabat</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-head">
+            <span class="timeline-role">Baccalauréat en Sciences Physiques</span>
+            <span class="timeline-date">2018 – 2019</span>
+          </div>
+          <div class="timeline-company">Académie Régionale de Rabat-Salé-Kénitra</div>
+        </div>
+      </section>
+
+      <!-- Certifications Vérifiées -->
+      <section>
+        <h3 class="section-title">Certifications Vérifiées</h3>
+        <div class="grid-2">
+          <div class="skill-group">
+            <h4>International & Éducation</h4>
+            <ul class="timeline-bullets">
+              <li>UNESCO ICT Competency Framework for Teachers</li>
+              <li>Microsoft Certified Educator (MCE) - 21st Century Learning</li>
+              <li>IBM Applied AI & Data Science Badges</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h4>Technologie, Cyber & Sport</h4>
+            <ul class="timeline-bullets">
+              <li>Certified Cybersecurity Educator Professional (CCEP ENSAM)</li>
+              <li>Cisco CCNA Networking Academy Modules</li>
+              <li>Entraîneur Basketball (Nahda / ENS) & Moniteur Voile (CNPR)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Compétences & Méthodologies -->
+      <section>
+        <h3 class="section-title">Compétences & Didactique</h3>
+        <div class="grid-2">
+          <div class="skill-group">
+            <h4>Pédagogie & Didactique</h4>
+            <div class="tag-cloud">
+              <span class="tag">Pédagogie Active</span>
+              <span class="tag">Ressources Bilingues (FR/AR)</span>
+              <span class="tag">Pensée Computationnelle</span>
+              <span class="tag">Évaluation Formative</span>
+              <span class="tag">Culture Numérique & IA</span>
+              <span class="tag">Gestion de Classe</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>Technologies & Ingénierie</h4>
+            <div class="tag-cloud">
+              <span class="tag">React 19</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Python</span>
+              <span class="tag">MediaPipe</span>
+              <span class="tag">MoveNet</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Hygiène Cybersécurité</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer-note">
+        Curriculum Vitae de Mouad Mouasseif · Version certifiée · Accessible en ligne sur mouadmouasseif.vercel.app
+      </footer>
+    </div>
+  </body>
+</html>

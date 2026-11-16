@@ -2,15 +2,15 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Mouad Mouasseif Portfolio",
+    name: "Mouad Mouasseif | Educator · AI Developer · Innovator",
     short_name: "Mouad Mouasseif",
     description:
-      "Portfolio of Mouad Mouasseif, full-stack developer, teacher trainee, AI developer, cybersecurity student and freelance digital services provider.",
+      "Official portfolio of Mouad Mouasseif. Moroccan Computer Science Educator at Collège Zawiyat Sidi Hamza, AI developer, and Sports Technology Creator (BasketMotion AI, SailMotion, RowMotion).",
     start_url: "/",
     scope: "/",
     display: "standalone",
     background_color: "#020617",
-    theme_color: "#06b6d4",
+    theme_color: "#22d3ee",
     icons: [
       {
         src: "/logo_v1.png",
