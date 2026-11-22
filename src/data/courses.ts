@@ -144,6 +144,17 @@ export const courses: Course[] = [
     description: "Intégration des technologies dans l’enseignement.",
     tags: ["TICE", "Pédagogie", "CRMEF"],
   },
+  {
+    title: "Programmation Créative avec Scratch",
+    category: "Education",
+    level: "Beginner",
+    language: "Français",
+    price: "Free",
+    image: "/logos/canva.png",
+    description: "Création d'un jeu vidéo 'Attrape les étoiles' : événements, boucles, conditions et simulateur en direct.",
+    tags: ["Scratch", "Jeux Vidéo", "Créativité", "Collège"],
+    link: "/documents/projet-scratch-college.html",
+  },
 ];
 
 export const courseCategories = [

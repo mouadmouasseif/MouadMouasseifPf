@@ -135,12 +135,12 @@ export const teachingResources: TeachingResource[] = [
     category: "Programming",
     grade: "1ère Année Collège",
     description:
-      "Mini-projet de création d'un jeu vidéo interactif. Utilisation des blocs conditionnels, des boucles 'Répéter' et des capteurs de collision.",
+      "Mini-projet didactique complet 'Attrape les étoiles' (4 séances) : blocs d'événements, boucles 'Répéter', conditions 'Si... Alors', capteurs de collision et simulateur jouable en direct trilingue (FR/AR/EN).",
     language: "Français & Arabe (Bilingue)",
     format: "Activité Interactive",
-    tags: ["Scratch", "Jeux Vidéo", "Créativité", "Blocs"],
-    downloadUrl: "/documents/projet-scratch-college.pdf",
-    previewUrl: "/logos/java.png",
+    tags: ["Scratch", "Jeux Vidéo", "Créativité", "Blocs", "Simulateur"],
+    downloadUrl: "/documents/projet-scratch-college.html",
+    previewUrl: "/logos/canva.png",
   },
   {
     id: "networks-architecture",

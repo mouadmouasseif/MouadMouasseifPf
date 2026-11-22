@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" id="html-root">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="page-title">Programmation Créative avec Scratch : Boucles & Événements | Mouad Mouasseif</title>
+  <meta name="description" content="Mini-projet Scratch pour collège par Mouad Mouasseif : Créer un jeu vidéo interactif 'Attrape les étoiles'. Support pédagogique trilingue FR/AR/EN avec simulateur de jeu jouable.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700;900&family=Noto+Kufi+Arabic:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'Fira Code', monospace; }
+    .font-arabic { font-family: 'Noto Kufi Arabic', sans-serif; }
+    .scratch-event { background: #FFBF00; color: #573B00; }
+    .scratch-control { background: #FFAB19; color: #573B00; }
+    .scratch-motion { background: #4C97FF; color: #fff; }
+    .scratch-sensing { background: #5CB1D6; color: #fff; }
+    .scratch-variables { background: #FF8C1A; color: #fff; }
+    .scratch-block { border-radius: 8px; padding: 4px 10px; font-weight: 700; display: inline-block; font-size: 13px; margin: 2px 0; box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Header & Language Switcher -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center font-black text-slate-950 text-base shadow group-hover:scale-105 transition">S</div>
+          <div>
+            <div class="font-bold text-white text-xs sm:text-sm">Mouad Mouasseif</div>
+            <div class="text-[11px] text-amber-300">Collège Zawiyat Sidi Hamza · 2026–2027</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Language selector pills -->
+      <div class="flex items-center gap-1.5 bg-slate-950 p-1 rounded-full border border-slate-800 text-xs">
+        <button id="lang-btn-fr" onclick="setLanguage('fr')" class="px-3 py-1 rounded-full font-bold transition bg-amber-400 text-slate-950">Français</button>
+        <button id="lang-btn-ar" onclick="setLanguage('ar')" class="px-3 py-1 rounded-full font-bold transition text-slate-300 hover:text-white">العربية</button>
+        <button id="lang-btn-en" onclick="setLanguage('en')" class="px-3 py-1 rounded-full font-bold transition text-slate-300 hover:text-white">English</button>
+      </div>
+
+      <div class="flex items-center gap-2 no-print">
+        <a href="/#teaching" class="px-3 py-1.5 rounded-lg border border-slate-800 hover:border-amber-400 text-slate-300 hover:text-white text-xs transition">← Retour</a>
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition shadow-md flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          <span id="txt-print">Imprimer / PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 space-y-10">
+
+    <!-- Hero Title Block -->
+    <div class="space-y-4">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-3 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase">#Scratch</span>
+        <span class="px-3 py-0.5 rounded-full bg-blue-400/10 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase" id="tag-games">#Jeux_Vidéo</span>
+        <span class="px-3 py-0.5 rounded-full bg-purple-400/10 border border-purple-400/30 text-purple-300 text-xs font-bold uppercase" id="tag-creativity">#Créativité</span>
+        <span class="px-3 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase" id="tag-blocks">#Blocs</span>
+      </div>
+
+      <h1 id="hero-title" class="text-2xl sm:text-4xl font-black text-white leading-tight">
+        Programmation Créative avec Scratch : Boucles & Événements
+      </h1>
+      <p id="hero-subtitle" class="text-base sm:text-lg text-amber-300 font-semibold">
+        Mini-projet : créer un jeu vidéo interactif « Attrape les étoiles »
+      </p>
+      <p id="hero-desc" class="text-sm text-slate-400 max-w-2xl leading-relaxed">
+        Utilisation des blocs conditionnels, des boucles « Répéter » et des capteurs de collision.
+      </p>
+
+      <!-- Pedagogical Meta Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold" id="meta-lbl-teacher">Enseignant</div>
+          <div class="text-xs font-bold text-white mt-1">Mouad Mouasseif</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold" id="meta-lbl-school">Établissement</div>
+          <div class="text-xs font-bold text-white mt-1">Zawiyat Sidi Hamza</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold" id="meta-lbl-year">Année Scolaire</div>
+          <div class="text-xs font-bold text-white mt-1">2026–2027</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold" id="meta-lbl-duration">Durée</div>
+          <div class="text-xs font-bold text-white mt-1" id="meta-val-duration">4 séances de 1 h</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold" id="meta-lbl-level">Niveau</div>
+          <div class="text-xs font-bold text-white mt-1" id="meta-val-level">Cycle collégial</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Game Canvas Simulator -->
+    <section class="p-6 rounded-3xl bg-slate-900/80 border border-amber-400/20 shadow-2xl space-y-4 no-print">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-3 w-3 rounded-full bg-emerald-400 animate-pulse"></span>
+          <h2 class="text-lg font-black text-white" id="sim-title">🎮 Simulateur Jouable en Direct (« Attrape les étoiles »)</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="px-3 py-1 rounded-lg bg-amber-400/20 border border-amber-400/30 text-amber-300 text-xs font-black">
+            <span id="sim-score-lbl">Score :</span> <span id="game-score" class="text-base text-white">0</span>
+          </div>
+          <button onclick="resetGame()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            🔄 <span id="sim-reset-lbl">Réinitialiser</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas container -->
+      <div class="relative w-full aspect-[16/9] max-h-80 bg-gradient-to-b from-indigo-950 via-slate-950 to-slate-950 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center">
+        <canvas id="scratch-canvas" width="640" height="360" class="w-full h-full object-contain"></canvas>
+      </div>
+
+      <!-- Touch Controls for Mobile -->
+      <div class="flex items-center justify-center gap-4 pt-1 sm:hidden">
+        <button onclick="moveCat(-30)" class="px-6 py-2.5 rounded-xl bg-blue-600 active:bg-blue-500 text-white font-bold text-sm shadow">⬅️ Gauche</button>
+        <button onclick="moveCat(30)" class="px-6 py-2.5 rounded-xl bg-blue-600 active:bg-blue-500 text-white font-bold text-sm shadow">Droite ➡️</button>
+      </div>
+      <p class="text-center text-xs text-slate-400" id="sim-hint">
+        💡 Déplacez le chat avec les <strong>touches fléchées ← et →</strong> de votre clavier (ou boutons ci-dessus sur mobile).
+      </p>
+    </section>
+
+    <!-- Section: Objectifs & Prérequis -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <section class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+        <h2 class="text-base font-bold text-amber-300 flex items-center gap-2" id="sec-objectives-title">
+          <span>🎯</span> Objectifs d'Apprentissage
+        </h2>
+        <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside" id="sec-objectives-list">
+          <li>Déclencher des actions avec des blocs d'événements (drapeau vert, touches du clavier).</li>
+          <li>Répéter des actions avec les boucles « Répéter » et « Répéter indéfiniment ».</li>
+          <li>Prendre des décisions avec le bloc conditionnel « si … alors ».</li>
+          <li>Détecter une collision avec les capteurs « touche … ? » et compter un score.</li>
+        </ul>
+      </section>
+
+      <section class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+        <h2 class="text-base font-bold text-cyan-300 flex items-center gap-2" id="sec-prereq-title">
+          <span>📋</span> Prérequis
+        </h2>
+        <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside" id="sec-prereq-list">
+          <li>Connaître l'interface de Scratch (scène, lutins, zone de scripts).</li>
+          <li>Savoir déplacer un lutin avec les blocs de mouvement.</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- Section: Situation Déclenchante -->
+    <section class="p-5 rounded-2xl bg-amber-950/20 border-l-4 border-amber-400 space-y-2">
+      <h2 class="text-sm font-bold text-amber-300" id="sec-situation-title">🌟 Situation Déclenchante</h2>
+      <p class="text-xs sm:text-sm text-slate-200 leading-relaxed" id="sec-situation-text">
+        Un chat doit rattraper des étoiles qui tombent du ciel. Comment l'ordinateur sait-il que le chat a touché une étoile ? Comment faire tomber les étoiles sans cesse ? Aujourd'hui, vous allez le découvrir en créant votre propre jeu.
+      </p>
+    </section>
+
+    <!-- Section: Notions Clés -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2" id="sec-concepts-title">
+        <span>💡</span> Notions Clés de la Séquence
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="p-4 rounded-xl bg-slate-900 border-t-4 border-t-amber-400 border border-slate-800">
+          <div class="text-xs font-bold text-amber-300" id="card-event-title">Événement</div>
+          <p class="text-xs text-slate-400 mt-2" id="card-event-desc">Un signal qui démarre un script : clic sur le drapeau vert, touche pressée.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border-t-4 border-t-orange-400 border border-slate-800">
+          <div class="text-xs font-bold text-orange-300" id="card-loop-title">Boucle</div>
+          <p class="text-xs text-slate-400 mt-2" id="card-loop-desc">Un bloc qui répète des instructions : « répéter 10 fois » ou « répéter indéfiniment ».</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border-t-4 border-t-purple-400 border border-slate-800">
+          <div class="text-xs font-bold text-purple-300" id="card-cond-title">Condition</div>
+          <p class="text-xs text-slate-400 mt-2" id="card-cond-desc">Un test « si … alors » : l'action s'exécute seulement si la condition est vraie.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border-t-4 border-t-sky-400 border border-slate-800">
+          <div class="text-xs font-bold text-sky-300" id="card-sensor-title">Capteur</div>
+          <p class="text-xs text-slate-400 mt-2" id="card-sensor-desc">Un bloc qui observe la scène : « touche le lutin … ? », « touche la couleur … ? ».</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Mini-Projet Pas à Pas -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2" id="sec-steps-title">
+        <span>🚀</span> Le Mini-Projet Pas à Pas
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="steps-container">
+        <!-- Rendered by JS based on language -->
+      </div>
+    </section>
+
+    <!-- Section: Les Scripts du Jeu -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2" id="sec-scripts-title">
+        <span>🧩</span> Les Scripts du Jeu (Lutins Scratch)
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Chat -->
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-amber-300" id="script-cat-title">🐱 Lutin « Chat »</h3>
+            <span class="text-[10px] text-slate-500 uppercase font-mono">Sprite Cat</span>
+          </div>
+          <div class="p-4 rounded-xl bg-black/60 font-mono text-xs text-slate-300 space-y-2 border border-slate-800" id="script-cat-code">
+            <!-- Dynamic Code -->
+          </div>
+        </div>
+
+        <!-- Etoile -->
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-amber-300" id="script-star-title">⭐ Lutin « Étoile »</h3>
+            <span class="text-[10px] text-slate-500 uppercase font-mono">Sprite Star</span>
+          </div>
+          <div class="p-4 rounded-xl bg-black/60 font-mono text-xs text-slate-300 space-y-2 border border-slate-800" id="script-star-code">
+            <!-- Dynamic Code -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Exercices Progressifs -->
+    <section class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+      <h2 class="text-base font-bold text-white flex items-center gap-2" id="sec-exercises-title">
+        <span>✏️</span> Exercices Progressifs
+      </h2>
+      <div class="space-y-2 text-xs text-slate-300" id="exercises-list">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Section: Évaluation Grille 20 -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2" id="sec-eval-title">
+        <span>📊</span> Grille d'Évaluation (sur 20 points)
+      </h2>
+      <div class="overflow-x-auto rounded-2xl border border-slate-800">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-slate-900 text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="py-3 px-4 font-bold" id="th-criterion">Critère d'Évaluation</th>
+              <th class="py-3 px-4 font-bold text-right" id="th-points">Points</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/80 text-slate-300 bg-slate-950/60" id="eval-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section: Pour Aller Plus Loin -->
+    <section class="p-5 rounded-2xl bg-indigo-950/20 border border-indigo-500/20 space-y-2">
+      <h2 class="text-sm font-bold text-indigo-300 flex items-center gap-2" id="sec-extra-title">
+        <span>🚀</span> Pour Aller Plus Loin
+      </h2>
+      <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside" id="sec-extra-list">
+        <li>Ajouter un chronomètre de 30 secondes.</li>
+        <li>Ajouter des sons et un message « Game Over ».</li>
+        <li>Créer un mode deux joueurs.</li>
+      </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>
+        <p class="font-bold text-slate-300">Mouad Mouasseif · Collège Zawiyat Sidi Hamza · 2026–2027</p>
+        <p>Support didactique pour le cycle secondaire collégial</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="mailto:mouadmouassief@gmail.com" class="text-amber-400 hover:underline">mouadmouassief@gmail.com</a>
+        <span>•</span>
+        <a href="/" class="text-slate-400 hover:text-white">Portfolio</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Multilingual Translations Dictionary
+    const content = {
+      fr: {
+        dir: "ltr",
+        title: "Programmation Créative avec Scratch : Boucles & Événements",
+        subtitle: "Mini-projet : créer un jeu vidéo interactif « Attrape les étoiles »",
+        desc: "Utilisation des blocs conditionnels, des boucles « Répéter » et des capteurs de collision.",
+        tags: ["#Scratch", "#Jeux_Vidéo", "#Créativité", "#Blocs"],
+        meta: {
+          teacher: "Enseignant",
+          school: "Établissement",
+          year: "Année Scolaire",
+          durationLbl: "Durée",
+          durationVal: "4 séances de 1 h",
+          levelLbl: "Niveau",
+          levelVal: "Cycle collégial"
+        },
+        simTitle: "🎮 Simulateur Jouable en Direct (« Attrape les étoiles »)",
+        simScore: "Score :",
+        simReset: "Réinitialiser",
+        simHint: "💡 Déplacez le chat avec les touches fléchées ← et → de votre clavier.",
+        objectivesTitle: "🎯 Objectifs d'Apprentissage",
+        objectives: [
+          "Déclencher des actions avec des blocs d'événements (drapeau vert, touches du clavier).",
+          "Répéter des actions avec les boucles « Répéter » et « Répéter indéfiniment ».",
+          "Prendre des décisions avec le bloc conditionnel « si … alors ».",
+          "Détecter une collision avec les capteurs « touche … ? » et compter un score."
+        ],
+        prereqTitle: "📋 Prérequis",
+        prereqs: [
+          "Connaître l'interface de Scratch (scène, lutins, zone de scripts).",
+          "Savoir déplacer un lutin avec les blocs de mouvement."
+        ],
+        situationTitle: "🌟 Situation Déclenchante",
+        situationText: "Un chat doit rattraper des étoiles qui tombent du ciel. Comment l'ordinateur sait-il que le chat a touché une étoile ? Comment faire tomber les étoiles sans cesse ? Aujourd'hui, vous allez le découvrir en créant votre propre jeu.",
+        conceptsTitle: "💡 Notions Clés de la Séquence",
+        concepts: {
+          eventTitle: "Événement",
+          eventDesc: "Un signal qui démarre un script : clic sur le drapeau vert, touche pressée.",
+          loopTitle: "Boucle",
+          loopDesc: "Un bloc qui répète des instructions : « répéter 10 fois » ou « répéter indéfiniment ».",
+          condTitle: "Condition",
+          condDesc: "Un test « si … alors » : l'action s'exécute seulement si la condition est vraie.",
+          sensorTitle: "Capteur",
+          sensorDesc: "Un bloc qui observe la scène : « touche le lutin … ? », « touche la couleur … ? »."
+        },
+        stepsTitle: "🚀 Le Mini-Projet Pas à Pas",
+        steps: [
+          { n: "1", title: "Préparer", desc: "Choisir un décor et deux lutins : le Chat et l'Étoile." },
+          { n: "2", title: "Déplacer le chat", desc: "Avec « quand la touche flèche … est pressée », ajouter 10 ou −10 à x." },
+          { n: "3", title: "Faire tomber l'étoile", desc: "Dans « répéter indéfiniment », ajouter −5 à y." },
+          { n: "4", title: "Détecter la collision", desc: "Si l'étoile touche le chat, elle repart en haut." },
+          { n: "5", title: "Compter le score", desc: "Créer la variable « score » et ajouter 1 à chaque étoile attrapée." },
+          { n: "6", title: "Tester et améliorer", desc: "Jouer, corriger, puis ajouter sons et effets." }
+        ],
+        scriptsTitle: "🧩 Les Scripts du Jeu (Lutins Scratch)",
+        catScript: `<span class="scratch-block scratch-event">quand la touche flèche droite est pressée</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">ajouter 10 à x</span><br><br>
+<span class="scratch-block scratch-event">quand la touche flèche gauche est pressée</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">ajouter -10 à x</span>`,
+        starScript: `<span class="scratch-block scratch-event">quand le drapeau vert est cliqué</span><br>
+<span class="scratch-block scratch-variables">mettre score à 0</span><br>
+<span class="scratch-block scratch-motion">aller à x: (nombre aléatoire entre -200 et 200) y: 180</span><br>
+<span class="scratch-block scratch-control">répéter indéfiniment</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">ajouter -5 à y</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-control">si &lt;touche Chat ?&gt; alors</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="scratch-block scratch-variables">ajouter 1 à score</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="scratch-block scratch-motion">aller à x: (nombre aléatoire entre -200 et 200) y: 180</span>`,
+        exercisesTitle: "✏️ Exercices Progressifs",
+        exercises: [
+          "<strong>1. Boucle :</strong> Fais dessiner un carré au chat avec « répéter 4 fois » (avancer de 100, tourner de 90°).",
+          "<strong>2. Condition :</strong> Ajoute une bombe ; si elle touche le chat, le score diminue de 1.",
+          "<strong>3. Défi :</strong> Si le score dépasse 5, l'étoile tombe plus vite."
+        ],
+        evalTitle: "📊 Grille d'Évaluation (sur 20 points)",
+        evalCriterion: "Critère d'Évaluation",
+        evalPoints: "Points",
+        evalItems: [
+          ["Événements utilisés correctement", "4"],
+          ["Boucles « répéter »", "4"],
+          ["Conditions et collisions", "5"],
+          ["Variable score", "3"],
+          ["Créativité et présentation", "4"]
+        ],
+        extraTitle: "🚀 Pour Aller Plus Loin",
+        extraList: [
+          "Ajouter un chronomètre de 30 secondes.",
+          "Ajouter des sons et un message « Game Over ».",
+          "Créer un mode deux joueurs."
+        ]
+      },
+      ar: {
+        dir: "rtl",
+        title: "البرمجة الإبداعية بواسطة سكراتش: التكرار والأحداث",
+        subtitle: "مشروع مصغّر: إنشاء لعبة فيديو تفاعلية «اصطد النجوم»",
+        desc: "استعمال الكتل الشرطية وحلقات «كرّر» وحسّاسات التصادم.",
+        tags: ["#سكراتش", "#ألعاب_الفيديو", "#الإبداع", "#الكتل"],
+        meta: {
+          teacher: "الأستاذ",
+          school: "المؤسسة",
+          year: "الموسم الدراسي",
+          durationLbl: "المدة",
+          durationVal: "4 حصص من ساعة واحدة",
+          levelLbl: "المستوى",
+          levelVal: "السلك الإعدادي"
+        },
+        simTitle: "🎮 محاكاة مباشرة للعبة («اصطد النجوم»)",
+        simScore: "النتيجة:",
+        simReset: "إعادة البدء",
+        simHint: "💡 حرّك القط بواسطة مفاتيح الأسهم ← و → على لوحة المفاتيح.",
+        objectivesTitle: "🎯 الأهداف البيداغوجية",
+        objectives: [
+          "تشغيل الأفعال بواسطة كتل الأحداث (العلم الأخضر، مفاتيح لوحة المفاتيح).",
+          "تكرار الأفعال بواسطة حلقتي «كرّر» و«كرّر باستمرار».",
+          "اتخاذ القرار بواسطة الكتلة الشرطية «إذا … إذن».",
+          "اكتشاف التصادم بواسطة حسّاسات «ملامس لـ …؟» وحساب النتيجة."
+        ],
+        prereqTitle: "📋 المكتسبات القبلية",
+        prereqs: [
+          "معرفة واجهة سكراتش (المسرح، الكائنات، منطقة البرمجة).",
+          "معرفة تحريك كائن بواسطة كتل الحركة."
+        ],
+        situationTitle: "🌟 الوضعية الانطلاقية",
+        situationText: "على القط أن يلتقط نجوماً تتساقط من السماء. كيف يعرف الحاسوب أن القط لمس نجمة؟ وكيف نجعل النجوم تتساقط باستمرار؟ اليوم ستكتشف ذلك بإنشاء لعبتك الخاصة.",
+        conceptsTitle: "💡 المفاهيم الأساسية",
+        concepts: {
+          eventTitle: "الحدث",
+          eventDesc: "إشارة تبدأ البرنامج: النقر على العلم الأخضر أو الضغط على مفتاح.",
+          loopTitle: "الحلقة",
+          loopDesc: "كتلة تعيد تنفيذ التعليمات: «كرّر 10 مرات» أو «كرّر باستمرار».",
+          condTitle: "الشرط",
+          condDesc: "اختبار «إذا … إذن»: ينفَّذ الفعل فقط إذا تحقق الشرط.",
+          sensorTitle: "الحسّاس",
+          sensorDesc: "كتلة تراقب المسرح: «ملامس لـ …؟»، «ملامس للون …؟»."
+        },
+        stepsTitle: "🚀 المشروع المصغّر خطوة بخطوة",
+        steps: [
+          { n: "1", title: "التحضير", desc: "اختيار خلفية وكائنين: القط والنجمة." },
+          { n: "2", title: "تحريك القط", desc: "بواسطة «عند ضغط مفتاح السهم …» غيّر x بمقدار 10 أو -10." },
+          { n: "3", title: "إسقاط النجمة", desc: "داخل «كرّر باستمرار» غيّر y بمقدار -5." },
+          { n: "4", title: "اكتشاف التصادم", desc: "إذا لمست النجمة القط تعود إلى الأعلى." },
+          { n: "5", title: "حساب النتيجة", desc: "أنشئ المتغير «النتيجة» وأضف 1 عند كل نجمة." },
+          { n: "6", title: "التجربة والتحسين", desc: "العب وصحّح، ثم أضف أصواتاً ومؤثرات." }
+        ],
+        scriptsTitle: "🧩 برامج اللعبة (كائنات سكراتش)",
+        catScript: `<span class="scratch-block scratch-event">عند ضغط مفتاح السهم الأيمن</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">غيّر x بمقدار 10</span><br><br>
+<span class="scratch-block scratch-event">عند ضغط مفتاح السهم الأيسر</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">غيّر x بمقدار -10</span>`,
+        starScript: `<span class="scratch-block scratch-event">عند النقر على العلم الأخضر</span><br>
+<span class="scratch-block scratch-variables">اجعل النتيجة 0</span><br>
+<span class="scratch-block scratch-motion">اذهب إلى x: (عدد عشوائي من -200 إلى 200) y: 180</span><br>
+<span class="scratch-block scratch-control">كرّر باستمرار</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">غيّر y بمقدار -5</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-control">إذا &lt;ملامس لـ القط؟&gt; إذن</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="scratch-block scratch-variables">غيّر النتيجة بمقدار 1</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="scratch-block scratch-motion">اذهب إلى x: (عدد عشوائي من -200 إلى 200) y: 180</span>`,
+        exercisesTitle: "✏️ تمارين متدرجة",
+        exercises: [
+          "<strong>1. الحلقة :</strong> اجعل القط يرسم مربعاً بواسطة «كرّر 4 مرات» (تقدّم 100 خطوة، دوران 90°).",
+          "<strong>2. الشرط :</strong> أضف قنبلة؛ إذا لمست القط تنقص النتيجة بمقدار 1.",
+          "<strong>3. تحدٍّ :</strong> إذا تجاوزت النتيجة 5 فإن النجمة تسقط أسرع."
+        ],
+        evalTitle: "📊 التقويم (على 20)",
+        evalCriterion: "المعيار",
+        evalPoints: "النقط",
+        evalItems: [
+          ["استعمال الأحداث بشكل صحيح", "4"],
+          ["حلقات «كرّر»", "4"],
+          ["الشروط والتصادم", "5"],
+          ["متغير النتيجة", "3"],
+          ["الإبداع والعرض", "4"]
+        ],
+        extraTitle: "🚀 للتوسع أكثر",
+        extraList: [
+          "إضافة مؤقّت مدته 30 ثانية.",
+          "إضافة أصوات ورسالة «انتهت اللعبة».",
+          "إنشاء نمط للاعبَين."
+        ]
+      },
+      en: {
+        dir: "ltr",
+        title: "Creative Programming with Scratch: Loops & Events",
+        subtitle: "Mini-project: build an interactive video game, 'Catch the Stars'",
+        desc: "Using conditional blocks, 'repeat' loops and collision sensors.",
+        tags: ["#Scratch", "#Video_Games", "#Creativity", "#Blocks"],
+        meta: {
+          teacher: "Teacher",
+          school: "School",
+          year: "School Year",
+          durationLbl: "Duration",
+          durationVal: "4 sessions of 1 h",
+          levelLbl: "Level",
+          levelVal: "Middle school"
+        },
+        simTitle: "🎮 Playable Live Simulator ('Catch the Stars')",
+        simScore: "Score:",
+        simReset: "Reset",
+        simHint: "💡 Move the cat with the ← and → arrow keys on your keyboard.",
+        objectivesTitle: "🎯 Learning Objectives",
+        objectives: [
+          "Trigger actions with event blocks (green flag, keyboard keys).",
+          "Repeat actions with the 'repeat' and 'forever' loops.",
+          "Make decisions with the 'if … then' conditional block.",
+          "Detect a collision with 'touching …?' sensors and keep a score."
+        ],
+        prereqTitle: "📋 Prerequisites",
+        prereqs: [
+          "Know the Scratch interface (stage, sprites, scripts area).",
+          "Know how to move a sprite with motion blocks."
+        ],
+        situationTitle: "🌟 Opening Situation",
+        situationText: "A cat has to catch stars falling from the sky. How does the computer know the cat touched a star? How can the stars keep falling? Today you will find out by building your own game.",
+        conceptsTitle: "💡 Key Concepts",
+        concepts: {
+          eventTitle: "Event",
+          eventDesc: "A signal that starts a script: clicking the green flag, pressing a key.",
+          loopTitle: "Loop",
+          loopDesc: "A block that repeats instructions: 'repeat 10' or 'forever'.",
+          condTitle: "Condition",
+          condDesc: "An 'if … then' test: the action runs only if the condition is true.",
+          sensorTitle: "Sensor",
+          sensorDesc: "A block that watches the stage: 'touching sprite …?', 'touching color …?'."
+        },
+        stepsTitle: "🚀 Mini-Project Step by Step",
+        steps: [
+          { n: "1", title: "Set up", desc: "Pick a backdrop and two sprites: the Cat and the Star." },
+          { n: "2", title: "Move the cat", desc: "With 'when key arrow pressed', change x by 10 or −10." },
+          { n: "3", title: "Drop the star", desc: "Inside 'forever', change y by −5." },
+          { n: "4", title: "Detect the collision", desc: "If the star touches the cat, it goes back to the top." },
+          { n: "5", title: "Keep score", desc: "Create a 'score' variable and add 1 for each star caught." },
+          { n: "6", title: "Test and improve", desc: "Play, fix bugs, then add sounds and effects." }
+        ],
+        scriptsTitle: "🧩 The Game Scripts",
+        catScript: `<span class="scratch-block scratch-event">when right arrow key pressed</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">change x by 10</span><br><br>
+<span class="scratch-block scratch-event">when left arrow key pressed</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">change x by -10</span>`,
+        starScript: `<span class="scratch-block scratch-event">when green flag clicked</span><br>
+<span class="scratch-block scratch-variables">set score to 0</span><br>
+<span class="scratch-block scratch-motion">go to x: (pick random -200 to 200) y: 180</span><br>
+<span class="scratch-block scratch-control">forever</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-motion">change y by -5</span><br>
+&nbsp;&nbsp;<span class="scratch-block scratch-control">if &lt;touching Cat?&gt; then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="scratch-block scratch-variables">change score by 1</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="scratch-block scratch-motion">go to x: (pick random -200 to 200) y: 180</span>`,
+        exercisesTitle: "✏️ Progressive Exercises",
+        exercises: [
+          "<strong>1. Loop:</strong> Make the cat draw a square with 'repeat 4' (move 100 steps, turn 90°).",
+          "<strong>2. Condition:</strong> Add a bomb; if it touches the cat, the score drops by 1.",
+          "<strong>3. Challenge:</strong> When the score is above 5, the star falls faster."
+        ],
+        evalTitle: "📊 Assessment (/20)",
+        evalCriterion: "Criterion",
+        evalPoints: "Points",
+        evalItems: [
+          ["Events used correctly", "4"],
+          ["'Repeat' loops", "4"],
+          ["Conditions and collisions", "5"],
+          ["Score variable", "3"],
+          ["Creativity and presentation", "4"]
+        ],
+        extraTitle: "🚀 Going Further",
+        extraList: [
+          "Add a 30-second timer.",
+          "Add sounds and a 'Game Over' message.",
+          "Create a two-player mode."
+        ]
+      }
+    };
+
+    function setLanguage(lang) {
+      const data = content[lang];
+      if (!data) return;
+
+      const root = document.getElementById('html-root');
+      root.dir = data.dir;
+      root.lang = lang;
+      if (data.dir === 'rtl') {
+        root.classList.add('font-arabic');
+      } else {
+        root.classList.remove('font-arabic');
+      }
+
+      // Update Buttons State
+      ['fr', 'ar', 'en'].forEach(l => {
+        const btn = document.getElementById(`lang-btn-${l}`);
+        if (l === lang) {
+          btn.className = "px-3 py-1 rounded-full font-bold transition bg-amber-400 text-slate-950";
+        } else {
+          btn.className = "px-3 py-1 rounded-full font-bold transition text-slate-300 hover:text-white";
+        }
+      });
+
+      // Update Texts
+      document.getElementById('hero-title').innerText = data.title;
+      document.getElementById('hero-subtitle').innerText = data.subtitle;
+      document.getElementById('hero-desc').innerText = data.desc;
+
+      document.getElementById('tag-games').innerText = data.tags[1];
+      document.getElementById('tag-creativity').innerText = data.tags[2];
+      document.getElementById('tag-blocks').innerText = data.tags[3];
+
+      document.getElementById('meta-lbl-teacher').innerText = data.meta.teacher;
+      document.getElementById('meta-lbl-school').innerText = data.meta.school;
+      document.getElementById('meta-lbl-year').innerText = data.meta.year;
+      document.getElementById('meta-lbl-duration').innerText = data.meta.durationLbl;
+      document.getElementById('meta-val-duration').innerText = data.meta.durationVal;
+      document.getElementById('meta-lbl-level').innerText = data.meta.levelLbl;
+      document.getElementById('meta-val-level').innerText = data.meta.levelVal;
+
+      document.getElementById('sim-title').innerText = data.simTitle;
+      document.getElementById('sim-score-lbl').innerText = data.simScore;
+      document.getElementById('sim-reset-lbl').innerText = data.simReset;
+      document.getElementById('sim-hint').innerHTML = data.simHint;
+
+      document.getElementById('sec-objectives-title').innerHTML = `<span>🎯</span> ${data.objectivesTitle}`;
+      document.getElementById('sec-objectives-list').innerHTML = data.objectives.map(o => `<li>${o}</li>`).join('');
+
+      document.getElementById('sec-prereq-title').innerHTML = `<span>📋</span> ${data.prereqTitle}`;
+      document.getElementById('sec-prereq-list').innerHTML = data.prereqs.map(p => `<li>${p}</li>`).join('');
+
+      document.getElementById('sec-situation-title').innerText = data.situationTitle;
+      document.getElementById('sec-situation-text').innerText = data.situationText;
+
+      document.getElementById('sec-concepts-title').innerHTML = `<span>💡</span> ${data.conceptsTitle}`;
+      document.getElementById('card-event-title').innerText = data.concepts.eventTitle;
+      document.getElementById('card-event-desc').innerText = data.concepts.eventDesc;
+      document.getElementById('card-loop-title').innerText = data.concepts.loopTitle;
+      document.getElementById('card-loop-desc').innerText = data.concepts.loopDesc;
+      document.getElementById('card-cond-title').innerText = data.concepts.condTitle;
+      document.getElementById('card-cond-desc').innerText = data.concepts.condDesc;
+      document.getElementById('card-sensor-title').innerText = data.concepts.sensorTitle;
+      document.getElementById('card-sensor-desc').innerText = data.concepts.sensorDesc;
+
+      document.getElementById('sec-steps-title').innerHTML = `<span>🚀</span> ${data.stepsTitle}`;
+      document.getElementById('steps-container').innerHTML = data.steps.map(s => `
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-start gap-3">
+          <div class="w-7 h-7 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center text-xs shrink-0">${s.n}</div>
+          <div>
+            <div class="font-bold text-white text-xs">${s.title}</div>
+            <div class="text-[11px] text-slate-400 mt-1">${s.desc}</div>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('sec-scripts-title').innerHTML = `<span>🧩</span> ${data.scriptsTitle}`;
+      document.getElementById('script-cat-code').innerHTML = data.catScript;
+      document.getElementById('script-star-code').innerHTML = data.starScript;
+
+      document.getElementById('sec-exercises-title').innerHTML = `<span>✏️</span> ${data.exercisesTitle}`;
+      document.getElementById('exercises-list').innerHTML = data.exercises.map(e => `<p class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">${e}</p>`).join('');
+
+      document.getElementById('sec-eval-title').innerHTML = `<span>📊</span> ${data.evalTitle}`;
+      document.getElementById('th-criterion').innerText = data.evalCriterion;
+      document.getElementById('th-points').innerText = data.evalPoints;
+      
+      let totalPts = 0;
+      const rows = data.evalItems.map(item => {
+        totalPts += parseInt(item[1]);
+        return `
+          <tr>
+            <td class="py-2.5 px-4">${item[0]}</td>
+            <td class="py-2.5 px-4 text-right font-mono font-bold text-amber-300">${item[1]}</td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('eval-table-body').innerHTML = rows + `
+        <tr class="bg-slate-900 font-bold border-t border-slate-700 text-white">
+          <td class="py-2.5 px-4">Total / المجموع</td>
+          <td class="py-2.5 px-4 text-right font-mono text-amber-400 text-sm">${totalPts} / 20</td>
+        </tr>
+      `;
+
+      document.getElementById('sec-extra-title').innerHTML = `<span>🚀</span> ${data.extraTitle}`;
+      document.getElementById('sec-extra-list').innerHTML = data.extraList.map(item => `<li>${item}</li>`).join('');
+    }
+
+    // Interactive Scratch Mini-Game Implementation
+    const canvas = document.getElementById('scratch-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let score = 0;
+    let cat = { x: 320, y: 300, width: 44, height: 44, speed: 7 };
+    let star = { x: Math.random() * 560 + 40, y: 30, radius: 14, speed: 2.8 };
+    let starsEffect = [];
+
+    function drawCat(x, y) {
+      // Scratch-like Orange Cat
+      ctx.save();
+      ctx.translate(x, y);
+
+      // Body / Head
+      ctx.fillStyle = '#FFAB19';
+      ctx.beginPath();
+      ctx.arc(0, 0, 22, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ears
+      ctx.fillStyle = '#E08000';
+      ctx.beginPath();
+      ctx.moveTo(-18, -14);
+      ctx.lineTo(-10, -28);
+      ctx.lineTo(-4, -18);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(18, -14);
+      ctx.lineTo(10, -28);
+      ctx.lineTo(4, -18);
+      ctx.fill();
+
+      // Eyes
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.arc(-8, -4, 6, 0, Math.PI * 2);
+      ctx.arc(8, -4, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#1E2A4A';
+      ctx.beginPath();
+      ctx.arc(-7, -4, 3, 0, Math.PI * 2);
+      ctx.arc(7, -4, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Nose / Mouth
+      ctx.fillStyle = '#FF5555';
+      ctx.beginPath();
+      ctx.arc(0, 4, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Whiskers
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(-10, 4); ctx.lineTo(-24, 2);
+      ctx.moveTo(-10, 7); ctx.lineTo(-24, 9);
+      ctx.moveTo(10, 4);  ctx.lineTo(24, 2);
+      ctx.moveTo(10, 7);  ctx.lineTo(24, 9);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function drawStar(x, y, r) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.fillStyle = '#FFDF00';
+      ctx.shadowColor = '#FFDF00';
+      ctx.shadowBlur = 12;
+
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        ctx.lineTo(Math.cos((18 + i * 72) * Math.PI / 180) * r, -Math.sin((18 + i * 72) * Math.PI / 180) * r);
+        ctx.lineTo(Math.cos((54 + i * 72) * Math.PI / 180) * (r / 2), -Math.sin((54 + i * 72) * Math.PI / 180) * (r / 2));
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function gameLoop() {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Star movement (inside forever loop: change y by -5)
+      star.y += star.speed;
+
+      // Check collision between Star and Cat
+      const dx = star.x - cat.x;
+      const dy = star.y - cat.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 32) {
+        // Collision detected: touching Cat?
+        score += 1;
+        document.getElementById('game-score').innerText = score;
+
+        // Visual spark effect
+        for (let i = 0; i < 8; i++) {
+          starsEffect.push({
+            x: star.x,
+            y: star.y,
+            vx: (Math.random() - 0.5) * 6,
+            vy: (Math.random() - 0.5) * 6,
+            life: 20
+          });
+        }
+
+        // Reset star to top with random x
+        star.y = 20;
+        star.x = Math.random() * 560 + 40;
+        if (score > 5) star.speed = 3.8;
+      }
+
+      // If star falls past bottom
+      if (star.y > canvas.height + 20) {
+        star.y = 20;
+        star.x = Math.random() * 560 + 40;
+      }
+
+      // Update particle sparks
+      for (let i = starsEffect.length - 1; i >= 0; i--) {
+        const p = starsEffect[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life--;
+        ctx.fillStyle = `rgba(255, 223, 0, ${p.life / 20})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        if (p.life <= 0) starsEffect.splice(i, 1);
+      }
+
+      // Draw entities
+      drawStar(star.x, star.y, star.radius);
+      drawCat(cat.x, cat.y);
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function moveCat(dx) {
+      cat.x += dx;
+      if (cat.x < 30) cat.x = 30;
+      if (cat.x > canvas.width - 30) cat.x = canvas.width - 30;
+    }
+
+    function resetGame() {
+      score = 0;
+      document.getElementById('game-score').innerText = '0';
+      cat.x = 320;
+      star.y = 20;
+      star.x = Math.random() * 560 + 40;
+      star.speed = 2.8;
+    }
+
+    // Keyboard listener for arrows
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        moveCat(18);
+      } else if (e.key === 'ArrowLeft') {
+        moveCat(-18);
+      }
+    });
+
+    // Start in French by default
+    setLanguage('fr');
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+</html>
