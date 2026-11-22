@@ -101,7 +101,7 @@ export const categorizedCertificates: CertificateItem[] = [
     year: "2025 – 2026",
     category: "Technology & Cybersecurity",
     type: "Verified Certificate",
-    image: "/certificates/certif8.png",
+    image: "/certificates/ENSAMRabat.png",
     skills: ["Ethical Hacking", "Network Defense", "Penetration Testing", "Security Hygiene"],
   },
   {
