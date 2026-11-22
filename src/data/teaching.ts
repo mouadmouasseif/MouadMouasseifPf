@@ -163,11 +163,11 @@ export const teachingResources: TeachingResource[] = [
     category: "Digital Citizenship & AI",
     grade: "All Levels",
     description:
-      "Module de sensibilisation interactive sur la protection de la vie privée, les dangers des réseaux sociaux, l'identification des arnaques en ligne et l'éthique de l'IA.",
+      "Module didactique interactif trilingue (FR/EN/AR) : protection des données & loi 09-08 (CNDP), testeur de force de mot de passe, détecteur de pièges phishing, éthique de l'IA et 8 exercices corrigés.",
     language: "Français & Arabe (Bilingue)",
-    format: "Série d'Exercices",
-    tags: ["Cybersécurité", "Éthique IA", "Vie Privée", "Sensibilisation"],
-    downloadUrl: "/documents/guide-cybersecurite-eleves.pdf",
+    format: "Activité Interactive",
+    tags: ["Cybersécurité", "Éthique IA", "Vie Privée", "Loi 09-08", "Sensibilisation"],
+    downloadUrl: "/documents/citoyennete-numerique-cybersecurite.html",
     previewUrl: "/logos/nmap.png",
   },
 ];

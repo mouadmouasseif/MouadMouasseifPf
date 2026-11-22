@@ -73,6 +73,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${siteUrl}/documents/citoyennete-numerique-cybersecurite.html`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/Mouad-Mouasseif-CV.html`,
       lastModified: now,
       changeFrequency: "monthly",

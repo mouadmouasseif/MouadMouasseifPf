@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="fr" id="html-root">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Citoyenneté numérique, sécurité des mots de passe et phishing | Mouad Mouasseif</title>
+  <meta name="description" content="Module didactique et interactif de sensibilisation à la cybersécurité, vie privée, arnaques en ligne, loi 09-08 (CNDP) et éthique de l'IA par Mouad Mouasseif (Collège Zawiyat Sidi Hamza).">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'IBM Plex Sans', sans-serif; }
+    .font-mono { font-family: 'Fira Code', monospace; }
+    .ar { font-family: 'Cairo', sans-serif; direction: rtl; text-align: right; }
+    
+    /* Multilingual display control */
+    body[data-lang=fr] .ar, body[data-lang=fr] .en { display: none !important; }
+    body[data-lang=en] .fr, body[data-lang=en] .ar { display: none !important; }
+    body[data-lang=ar] .fr, body[data-lang=ar] .en { display: none !important; }
+    body[data-lang=both] .fr, body[data-lang=both] .en, body[data-lang=both] .ar { display: block; }
+    body[data-lang=both] .en { font-style: italic; opacity: 0.85; }
+    body[data-lang=both] .ar { margin-top: 4px; color: #38bdf8; }
+
+    .meter-bar { transition: width 0.3s ease, background-color 0.3s ease; }
+    .hot { cursor: pointer; border-radius: 4px; padding: 2px 6px; transition: all 0.2s; display: inline-block; }
+    .hot:hover { background: rgba(251, 191, 36, 0.2); }
+    .hot.found { background: rgba(239, 68, 68, 0.25); outline: 2px solid #ef4444; color: #fca5a5; }
+    .hot.miss { background: rgba(16, 185, 129, 0.2); }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+    }
+  </style>
+</head>
+<body data-lang="both" class="bg-slate-950 text-slate-100 min-h-screen selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- Header Navigation -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-black text-slate-950 text-base shadow group-hover:scale-105 transition">🛡️</div>
+          <div>
+            <div class="font-bold text-white text-xs sm:text-sm">Mouad Mouasseif</div>
+            <div class="text-[11px] text-cyan-300">Collège Zawiyat Sidi Hamza · 2026–2027</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Language selector segmented buttons -->
+      <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-full border border-slate-800 text-xs">
+        <button data-lang-btn="fr" class="px-2.5 py-1 rounded-full font-bold transition text-slate-300 hover:text-white">FR</button>
+        <button data-lang-btn="en" class="px-2.5 py-1 rounded-full font-bold transition text-slate-300 hover:text-white">EN</button>
+        <button data-lang-btn="ar" class="px-2.5 py-1 rounded-full font-bold transition text-slate-300 hover:text-white">AR</button>
+        <button data-lang-btn="both" class="px-3 py-1 rounded-full font-bold transition bg-cyan-400 text-slate-950 shadow-md">FR + EN + AR</button>
+      </div>
+
+      <div class="flex items-center gap-2 no-print">
+        <a href="/#teaching" class="px-3 py-1.5 rounded-lg border border-slate-800 hover:border-cyan-400 text-slate-300 hover:text-white text-xs transition">← Retour</a>
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-md flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          <span>Imprimer / PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 space-y-10">
+
+    <!-- Hero Title Block -->
+    <div class="space-y-4">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-3 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 text-xs font-bold uppercase">#Cybersécurité</span>
+        <span class="px-3 py-0.5 rounded-full bg-purple-400/10 border border-purple-400/30 text-purple-300 text-xs font-bold uppercase">#Éthique IA</span>
+        <span class="px-3 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase">#Vie privée</span>
+        <span class="px-3 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase">#Sensibilisation</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
+        <span class="fr">Citoyenneté numérique, sécurité des mots de passe et phishing</span>
+        <span class="en text-cyan-200">Digital citizenship, password security and phishing</span>
+        <span class="ar text-amber-300 font-bold">المواطنة الرقمية، أمان كلمات المرور والتصيد الاحتيالي</span>
+      </h1>
+
+      <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+        <span class="fr">Module de sensibilisation interactive : vie privée, dangers des réseaux sociaux, arnaques en ligne et éthique de l’IA.</span>
+        <span class="en">Interactive awareness module: privacy, social-network dangers, online scams and AI ethics.</span>
+        <span class="ar">وحدة تحسيسية تفاعلية: الحياة الخاصة ومخاطر الشبكات الاجتماعية والاحتيال عبر الإنترنت وأخلاقيات الذكاء الاصطناعي.</span>
+      </p>
+
+      <!-- Pedagogical Meta Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold">Enseignant / الأستاذ</div>
+          <div class="text-xs font-bold text-white mt-1">Mouad Mouasseif</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold">Établissement / المؤسسة</div>
+          <div class="text-xs font-bold text-white mt-1">Zawiyat Sidi Hamza</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold">Année Scolaire / الموسم</div>
+          <div class="text-xs font-bold text-white mt-1">2026–2027</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold">Durée / المدة</div>
+          <div class="text-xs font-bold text-white mt-1">2 séances de 55 min</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="text-[11px] text-slate-500 uppercase font-bold">Niveau / المستوى</div>
+          <div class="text-xs font-bold text-white mt-1">Cycle collégial (السلك الإعدادي)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Objectifs d'Apprentissage -->
+    <section class="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span>🎯</span>
+        <span class="fr">Objectifs d'Apprentissage</span>
+        <span class="en">Learning Objectives</span>
+        <span class="ar">أهداف التعلم</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="p-4 rounded-xl bg-slate-950 border-t-4 border-t-emerald-400 border border-slate-800">
+          <div class="text-xs font-bold text-emerald-300">
+            <span class="fr">Protéger</span><span class="en">Protect</span><span class="ar">حماية</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <span class="fr">Protéger sa vie privée et ses données personnelles.</span>
+            <span class="en">Protect your privacy and personal data.</span>
+            <span class="ar">حماية الحياة الخاصة والمعطيات الشخصية.</span>
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border-t-4 border-t-cyan-400 border border-slate-800">
+          <div class="text-xs font-bold text-cyan-300">
+            <span class="fr">Sécuriser</span><span class="en">Secure</span><span class="ar">تأمين</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <span class="fr">Créer et gérer des mots de passe forts.</span>
+            <span class="en">Create and manage strong passwords.</span>
+            <span class="ar">إنشاء كلمات مرور قوية وتدبيرها.</span>
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border-t-4 border-t-rose-400 border border-slate-800">
+          <div class="text-xs font-bold text-rose-300">
+            <span class="fr">Repérer</span><span class="en">Spot</span><span class="ar">اكتشاف</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <span class="fr">Reconnaître un message de phishing et réagir.</span>
+            <span class="en">Recognize a phishing message and react.</span>
+            <span class="ar">التعرف على رسالة تصيد والتصرف.</span>
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border-t-4 border-t-amber-400 border border-slate-800">
+          <div class="text-xs font-bold text-amber-300">
+            <span class="fr">Utiliser</span><span class="en">Use</span><span class="ar">استعمال مسؤول</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <span class="fr">Employer l’IA et les réseaux sociaux de façon responsable.</span>
+            <span class="en">Use AI and social networks responsibly.</span>
+            <span class="ar">استعمال الذكاء الاصطناعي والشبكات بمسؤولية.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Plan du Module -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span>⏱️</span>
+        <span class="fr">Plan du Module (2 séances de 55 min)</span>
+        <span class="en">Module Plan (2 sessions of 55 min)</span>
+        <span class="ar">خطة الدرس (حصتان من 55 دقيقة)</span>
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <span class="text-xs font-mono text-cyan-400 font-bold">15 min</span>
+          <div class="text-xs font-bold text-white mt-1">
+            <span class="fr">Vie privée</span><span class="en">Privacy</span><span class="ar">الحياة الخاصة</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Loi 09-08 & CNDP</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <span class="text-xs font-mono text-cyan-400 font-bold">20 min</span>
+          <div class="text-xs font-bold text-white mt-1">
+            <span class="fr">Mots de passe</span><span class="en">Passwords</span><span class="ar">كلمات المرور</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">2FA & Passphrase</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <span class="text-xs font-mono text-cyan-400 font-bold">20 min</span>
+          <div class="text-xs font-bold text-white mt-1">
+            <span class="fr">Phishing</span><span class="en">Phishing</span><span class="ar">التصيد الاحتيالي</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Anatomie & Réflexes</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <span class="text-xs font-mono text-cyan-400 font-bold">15 min</span>
+          <div class="text-xs font-bold text-white mt-1">
+            <span class="fr">Réseaux sociaux</span><span class="en">Social networks</span><span class="ar">الشبكات</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Harcèlement & Fake News</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+          <span class="text-xs font-mono text-cyan-400 font-bold">15 min</span>
+          <div class="text-xs font-bold text-white mt-1">
+            <span class="fr">IA éthique</span><span class="en">Ethical AI</span><span class="ar">الذكاء الاصطناعي</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Deepfakes & Citations</div>
+        </div>
+      </div>
+      <p class="text-xs text-slate-400 text-center">
+        <span class="fr">Puis : série d’exercices pratiques et corrigés (25 min).</span>
+        <span class="en">Then: practical exercise set and answer key (25 min).</span>
+        <span class="ar">ثم: سلسلة تمارين تطبيقية وتصحيحها (25 دقيقة).</span>
+      </p>
+    </section>
+
+    <!-- Section 1: Vie Privée & Données Personnelles (Loi 09-08 Maroc) -->
+    <section class="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-5">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span>🔒</span>
+        <span class="fr">1. Vie privée et données personnelles</span>
+        <span class="en">1. Privacy and personal data</span>
+        <span class="ar">1. الحياة الخاصة والمعطيات الشخصية</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-2">
+          <div class="text-xs font-bold text-emerald-300 uppercase tracking-wider">
+            <span class="fr">À partager avec prudence</span>
+            <span class="en">Share with care</span>
+            <span class="ar">يُشارك بحذر</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+            <li>Ton prénom ou un pseudo (Your first name or a nickname / الاسم الأول أو اسم مستعار)</li>
+            <li>Une photo de profil neutre (Neutral profile photo / صورة محايدة)</li>
+            <li>Tes centres d’intérêt et passions (Your interests / الهوايات)</li>
+          </ul>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2">
+          <div class="text-xs font-bold text-rose-400 uppercase tracking-wider">
+            <span class="fr">À ne JAMAIS publier</span>
+            <span class="en">NEVER post</span>
+            <span class="ar">لا تنشر أبدا</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+            <li>Adresse et numéro de téléphone (Address & phone / العنوان والهاتف)</li>
+            <li>Mot de passe, code de carte bancaire (Password & bank code / كلمة المرور والرمز البنكي)</li>
+            <li>Ta position géographique en direct (Live location / موقعك المباشر)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Morocco Law 09-08 & CNDP Mention -->
+      <div class="p-4 rounded-xl bg-blue-950/30 border border-blue-500/30 text-xs text-slate-300 flex items-center gap-3">
+        <div class="text-2xl">🇲🇦</div>
+        <div>
+          <span class="font-bold text-white fr">Cadre Légal Marocain :</span>
+          <span class="fr">Au Maroc, la <strong>loi 09-08</strong> protège les personnes physiques à l'égard du traitement des données à caractère personnel ; la <strong>CNDP</strong> veille à son respect.</span>
+          <span class="en">In Morocco, <strong>Law 09-08</strong> protects personal data and the <strong>CNDP</strong> enforces compliance.</span>
+          <span class="ar font-bold">في المغرب، يحمي القانون 09-08 المعطيات ذات الطابع الشخصي وتسهر اللجنة الوطنية لمراقبة حماية المعطيات ذات الطابع الشخصي (CNDP) على احترامه.</span>
+        </div>
+      </div>
+
+      <!-- 3 Questions avant de publier -->
+      <div class="pt-2">
+        <h3 class="text-sm font-bold text-amber-300 mb-3">
+          <span class="fr">Avant de publier : Les 3 questions réflexes</span>
+          <span class="en">Before posting: 3 vital questions</span>
+          <span class="ar">قبل النشر: 3 أسئلة ضرورية</span>
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-cyan-400 text-slate-950 font-black text-xs flex items-center justify-center mb-2">1</div>
+            <div class="font-bold text-white text-xs">Est-ce privé ? / Is it private?</div>
+            <p class="text-[11px] text-slate-400 mt-1">Si ça révèle ta vie privée ou celle d'un autre, ne publie pas. (إن كشف حياتك فلا تنشره).</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center mb-2">2</div>
+            <div class="font-bold text-white text-xs">Puis-je l'effacer ? / Can I delete it?</div>
+            <p class="text-[11px] text-slate-400 mt-1">Internet n'oublie pas : une capture d'écran suffit pour le conserver. (الإنترنت لا ينسى).</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-emerald-400 text-slate-950 font-black text-xs flex items-center justify-center mb-2">3</div>
+            <div class="font-bold text-white text-xs">Qui peut le voir ? / Who can see it?</div>
+            <p class="text-[11px] text-slate-400 mt-1">Vérifie tes paramètres : amis, public ou inconnus. (تحقق من إعدادات الخصوصية).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Mots de passe & Testeur Interactif de Force -->
+    <section class="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-6">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span>🔑</span>
+        <span class="fr">2. Sécurité des Mots de Passe & Passphrase</span>
+        <span class="en">2. Password Security & Passphrases</span>
+        <span class="ar">2. أمان كلمات المرور وعبارات السر</span>
+      </h2>
+
+      <!-- Password Strength Tester Widget -->
+      <div class="p-5 rounded-2xl bg-black/60 border border-cyan-500/30 space-y-3 no-print">
+        <label for="pw" class="block text-xs font-bold text-cyan-300">
+          <span class="fr">🧪 Testeur Interactif : Tape un mot de passe d’essai (n’utilise jamais ton vrai mot de passe).</span>
+          <span class="en">🧪 Interactive Tester: Type a test password (never use your real password).</span>
+          <span class="ar">🧪 مختبر تفاعلي: اكتب كلمة مرور تجريبية (لا تستعمل كلمة مرورك الحقيقية أبدا).</span>
+        </label>
+        <input id="pw" type="text" autocomplete="off" spellcheck="false" placeholder="Ex: Mon_chat_aime_3_poissons!" class="w-full max-w-lg p-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:border-cyan-400 focus:outline-none">
+        
+        <!-- Meter bar -->
+        <div class="w-full max-w-lg h-3 bg-slate-800 rounded-full overflow-hidden">
+          <div id="bar" class="meter-bar h-full w-0 bg-red-500"></div>
+        </div>
+
+        <div class="flex items-center justify-between max-w-lg">
+          <strong id="lv" class="text-xs font-bold"></strong>
+          <span class="text-[10px] text-slate-500">Test local dans le navigateur (zéro envoi).</span>
+        </div>
+
+        <ul id="tips" class="text-xs text-slate-400 space-y-1 list-disc list-inside"></ul>
+      </div>
+
+      <!-- 5 Règles d'Or -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-mono text-cyan-400 font-bold">Règle 1</span>
+          <p class="text-xs text-white font-bold mt-1">Au moins 12 caractères.</p>
+          <p class="text-[11px] text-slate-400">12 حرفا على الأقل.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-mono text-cyan-400 font-bold">Règle 2</span>
+          <p class="text-xs text-white font-bold mt-1">Une phrase de passe facile.</p>
+          <p class="text-[11px] text-slate-400">عبارة مرور سهلة الحفظ.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-mono text-cyan-400 font-bold">Règle 3</span>
+          <p class="text-xs text-white font-bold mt-1">Un mot de passe unique.</p>
+          <p class="text-[11px] text-slate-400">كلمة مختلفة لكل حساب.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-mono text-cyan-400 font-bold">Règle 4</span>
+          <p class="text-xs text-white font-bold mt-1">Active la double auth (2FA).</p>
+          <p class="text-[11px] text-slate-400">فعّل التحقق بخطوتين.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-mono text-cyan-400 font-bold">Règle 5</span>
+          <p class="text-xs text-white font-bold mt-1">Ne le partage jamais.</p>
+          <p class="text-[11px] text-slate-400">لا تشاركها حتى مع صديق.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Phishing & Détecteur Interactif -->
+    <section class="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-6">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>🎣</span>
+          <span class="fr">3. Détecteur Interactif de Phishing (Hameçonnage)</span>
+          <span class="en">3. Interactive Phishing Clues Spotter</span>
+          <span class="ar">3. كاشف مؤشرات التصيد الاحتيالي</span>
+        </h2>
+        <div class="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-black">
+          Indices trouvés : <span id="pcount" class="text-white">0 / 5</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        <span class="fr">Clique sur les passages suspects de ce faux email pour identifier les pièges des cybercriminels :</span>
+        <span class="en">Click on the suspicious parts of this fake message to expose cyber traps:</span>
+        <span class="ar">انقر على المقاطع المشبوهة في هذه الرسالة لكشف حيل المحتالين:</span>
+      </p>
+
+      <!-- Phishing Email Mockup -->
+      <div class="p-5 rounded-2xl bg-black/80 border border-slate-700 font-mono text-xs space-y-2 leading-relaxed">
+        <div><span class="hot" data-w="0">De : support@instagrarn-security.com</span></div>
+        <div><span class="hot" data-w="1">Objet : URGENT ! Compte suspendu</span></div>
+        <div><span class="hot" data-w="2">Cher client,</span></div>
+        <div><span class="hot" data-w="x">Nous mettons à jour nos services.</span> Ton compte sera supprimé dans 24 h.</div>
+        <div><span class="hot" data-w="3">Clique sur : http://instagrarn-secure.com</span></div>
+        <div><span class="hot" data-w="4">Puis saisis ton mot de passe pour confirmer.</span></div>
+        <div><span class="hot" data-w="x">Merci de ta confiance, l’équipe Support.</span></div>
+      </div>
+
+      <div id="pmsg" class="text-xs font-bold text-cyan-300 min-h-[1.5em]"></div>
+      <ul id="pwhy" class="text-xs text-slate-300 space-y-1 list-disc list-inside"></ul>
+
+      <!-- 4 Réflexes Anti-Phishing -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-bold text-red-400">1. STOP (توقف)</span>
+          <p class="text-xs text-slate-300 mt-1">Ne clique pas, ne réponds pas.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-bold text-amber-400">2. REGARDE (تأمل)</span>
+          <p class="text-xs text-slate-300 mt-1">Expéditeur, lien, fautes, ton pressant.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-bold text-blue-400">3. VÉRIFIE (تحقق)</span>
+          <p class="text-xs text-slate-300 mt-1">Ouvre le site officiel ou demande à un adulte.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+          <span class="text-xs font-bold text-emerald-400">4. SIGNALE (أبلغ)</span>
+          <p class="text-xs text-slate-300 mt-1">Supprime le message et signale-le.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Réseaux Sociaux & Éthique de l'IA -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Réseaux Sociaux -->
+      <section class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+        <h2 class="text-base font-bold text-amber-300 flex items-center gap-2">
+          <span>👥</span>
+          <span class="fr">Réseaux sociaux : Dangers & Parades</span>
+          <span class="en">Social Networks: Dangers & Countermeasures</span>
+          <span class="ar">الشبكات الاجتماعية: المخاطر والحلول</span>
+        </h2>
+        <div class="space-y-2 text-xs">
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-red-400">Cyberharcèlement / التنمر :</span>
+            <p class="text-slate-300 mt-0.5">Ne réponds pas, garde les preuves (screenshots), parles-en à un adulte de confiance.</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-amber-400">Inconnu demandant des photos :</span>
+            <p class="text-slate-300 mt-0.5">Refuse immédiatement, bloque le compte et signale-le (ارفض، احظر، أبلغ).</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-blue-400">Partage de position :</span>
+            <p class="text-slate-300 mt-0.5">Désactive la géolocalisation automatique dans tes publications.</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-purple-400">Fausses informations / الأخبار الزائفة :</span>
+            <p class="text-slate-300 mt-0.5">Vérifie la source officielle avant de partager.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Éthique de l'IA -->
+      <section class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+        <h2 class="text-base font-bold text-purple-300 flex items-center gap-2">
+          <span>🤖</span>
+          <span class="fr">Intelligence Artificielle : Usage Éthique</span>
+          <span class="en">Artificial Intelligence: Ethical Use</span>
+          <span class="ar">الذكاء الاصطناعي: استعمال أخلاقي</span>
+        </h2>
+        <div class="space-y-2 text-xs">
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-red-400">Pas de données perso :</span>
+            <p class="text-slate-300 mt-0.5">Ne donne jamais ton nom complet, adresse ou mot de passe à un chatbot (ChatGPT, etc.).</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-amber-400">Vérifie les réponses (Hallucinations) :</span>
+            <p class="text-slate-300 mt-0.5">Une IA peut se tromper : recoupe toujours avec une source fiable.</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-emerald-400">Cite et reformule :</span>
+            <p class="text-slate-300 mt-0.5">Ne copie pas : indique que tu as utilisé l'IA et travaille personnellement ta réponse.</p>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+            <span class="font-bold text-sky-400">Méfie-toi des deepfakes :</span>
+            <p class="text-slate-300 mt-0.5">Une vidéo ou une voix peuvent être truquées : vérifie la source.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Section 5: Quiz Interactif de Situations -->
+    <section class="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4 no-print">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span>❓</span>
+        <span class="fr">Quiz Interactif de Mises en Situation</span>
+        <span class="en">Interactive Situation Quiz</span>
+        <span class="ar">اختبار المواقف التفاعلي</span>
+      </h2>
+      <div id="quiz" class="space-y-4"></div>
+    </section>
+
+    <!-- Section 6: Série d'Exercices Progressifs avec Corrigés Déroulants -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span>📝</span>
+        <span class="fr">Série d'Exercices (1 à 8) avec Corrigés Intégrés</span>
+        <span class="en">Exercise Set (1 to 8) with Integrated Solutions</span>
+        <span class="ar">سلسلة التمارين (1 إلى 8) مع عناصر الإجابة</span>
+      </h2>
+      
+      <div class="space-y-3" id="exercise-accordion">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Section 7: Ma Charte de Citoyen Numérique -->
+    <section class="p-6 rounded-3xl bg-gradient-to-br from-indigo-950/40 via-slate-900 to-slate-900 border border-cyan-500/30 space-y-4">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span>📜</span>
+        <span class="fr">Ma Charte de Citoyen Numérique</span>
+        <span class="en">My Digital Citizen Charter</span>
+        <span class="ar">ميثاقي كمواطن رقمي</span>
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-200">
+        <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0">
+          <span>Je ne publie pas mes données personnelles. (لا أنشر معطياتي الشخصية).</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0">
+          <span>J’utilise un mot de passe fort et unique. (أستعمل كلمة مرور قوية وفريدة).</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0">
+          <span>J’active la double authentification (2FA). (أفعّل التحقق بخطوتين).</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0">
+          <span>Je vérifie avant de cliquer sur un lien. (أتحقق قبل النقر على رابط).</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0">
+          <span>Je bloque et signale les comportements dangereux. (أحظر وأبلغ عن السلوكيات الخطيرة).</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 cursor-pointer">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0">
+          <span>J’utilise l’IA sans partager mes données. (أستعمل الذكاء الاصطناعي دون مشاركة معطياتي).</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>
+        <p class="font-bold text-slate-300">Mouad Mouasseif · Collège Zawiyat Sidi Hamza · 2026–2027</p>
+        <p>Spécialiste Cybersécurité (CCEP ENSAM) & Enseignant d'Informatique</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="mailto:mouadmouassief@gmail.com" class="text-cyan-400 hover:underline">mouadmouassief@gmail.com</a>
+        <span>•</span>
+        <a href="/" class="text-slate-400 hover:text-white">Portfolio</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Multilingual Switcher Logic
+    const langBtns = document.querySelectorAll('[data-lang-btn]');
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang-btn');
+        document.body.dataset.lang = lang;
+        langBtns.forEach(b => {
+          if (b === btn) {
+            b.className = "px-3 py-1 rounded-full font-bold transition bg-cyan-400 text-slate-950 shadow-md";
+          } else {
+            b.className = "px-2.5 py-1 rounded-full font-bold transition text-slate-300 hover:text-white";
+          }
+        });
+      });
+    });
+
+    // Password Tester Logic
+    const pwInput = document.getElementById('pw');
+    const bar = document.getElementById('bar');
+    const lv = document.getElementById('lv');
+    const tips = document.getElementById('tips');
+    const COMMON = ["123456", "password", "azerty", "qwerty", "motdepasse", "admin", "000000", "111111", "mohamed2010"];
+
+    pwInput.addEventListener('input', () => {
+      const v = pwInput.value;
+      if (!v) {
+        bar.style.width = '0%';
+        lv.innerHTML = '';
+        tips.innerHTML = '';
+        return;
+      }
+
+      const cls = [/[a-z]/, /[A-Z]/, /\d/, /[^A-Za-z0-9]/].filter(r => r.test(v)).length;
+      let score = (v.length >= 8) + (v.length >= 12) + (v.length >= 16) + cls - 1;
+      const isCommon = COMMON.some(c => v.toLowerCase().includes(c));
+      if (isCommon) score = Math.min(score, 1);
+
+      if (score <= 2) {
+        bar.className = 'meter-bar h-full bg-red-500';
+        bar.style.width = '25%';
+        lv.className = 'text-xs font-bold text-red-400';
+        lv.innerHTML = 'Faible / Weak / ضعيفة';
+      } else if (score <= 4) {
+        bar.className = 'meter-bar h-full bg-amber-400';
+        bar.style.width = '60%';
+        lv.className = 'text-xs font-bold text-amber-300';
+        lv.innerHTML = 'Moyen / Medium / متوسطة';
+      } else {
+        bar.className = 'meter-bar h-full bg-emerald-400';
+        bar.style.width = '100%';
+        lv.className = 'text-xs font-bold text-emerald-300';
+        lv.innerHTML = 'Fort / Strong / قوية';
+      }
+
+      const t = [];
+      if (v.length < 12) t.push('Utilise au moins 12 caractères (At least 12 characters / 12 حرفا على الأقل).');
+      if (cls < 3) t.push('Mélange majuscules, minuscules, chiffres et symboles (Mix letters, digits & symbols).');
+      if (isCommon) t.push('Évite les suites évidentes comme 123456 ou azerty (Avoid common patterns).');
+      if (t.length === 0) t.push('🎉 Excellent ! Utilise une phrase de passe unique pour chaque compte.');
+      tips.innerHTML = t.map(msg => `<li>${msg}</li>`).join('');
+    });
+
+    // Phishing Clues Spotter Logic
+    const WHY = {
+      "0": ["Adresse d’expéditeur suspecte qui imite le vrai nom (@instagrarn au lieu de @instagram).", "Suspicious sender imitating real brand.", "عنوان مرسل يقلد الاسم الحقيقي."],
+      "1": ["Urgence et menace pour te forcer à agir sans réfléchir.", "Urgency and threats to force rash action.", "استعجال وتهديد لتتصرف دون تفكير."],
+      "2": ["Salutation générique : un service officiel t'appelle par ton vrai nom ou identifiant.", "Generic greeting: real services use your name.", "تحية عامة: الخدمة الحقيقية تناديك باسمك."],
+      "3": ["Lien frauduleux non sécurisé (http au lieu de https) qui imite le site.", "Fake unsecure link.", "رابط يقلد الموقع الحقيقي."],
+      "4": ["Un service légitime ne demande JAMAIS ton mot de passe par message.", "Legitimate services NEVER ask for your password.", "الخدمة الجادة لا تطلب كلمة مرورك أبدا."]
+    };
+
+    const foundPhish = new Set();
+    document.querySelectorAll('.hot').forEach(el => {
+      el.addEventListener('click', () => {
+        const w = el.dataset.w;
+        if (w === 'x') {
+          el.classList.add('miss');
+          setTimeout(() => el.classList.remove('miss'), 600);
+          document.getElementById('pmsg').innerText = "Ce passage n’est pas suspect (Not suspicious / هذا المقطع غير مشبوه).";
+          return;
+        }
+
+        if (foundPhish.has(w)) return;
+        foundPhish.add(w);
+        el.classList.add('found');
+        document.getElementById('pcount').innerText = `${foundPhish.size} / 5`;
+        document.getElementById('pmsg').innerText = "";
+
+        const whyList = document.getElementById('pwhy');
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>Indice ${foundPhish.size} :</strong> ${WHY[w][0]} <span class="ar text-amber-300">(${WHY[w][2]})</span>`;
+        whyList.appendChild(li);
+
+        if (foundPhish.size === 5) {
+          document.getElementById('pmsg').innerText = "🎉 Félicitations ! Tu as repéré tous les pièges de cette tentative de phishing !";
+          document.getElementById('pmsg').className = "text-xs font-bold text-emerald-400";
+        }
+      });
+    });
+
+    // Quiz Questions Data & Generator
+    const QZ = [
+      {
+        q: "Quel mot de passe est le plus fort ?",
+        qAr: "أي كلمة مرور هي الأقوى؟",
+        opts: ["123456", "azerty2010", "Mon_chat_mange_3_poissons!"],
+        correct: 2,
+        exp: "La longueur compte plus que la complexité : la phrase de passe avec lettres, chiffres et symboles résiste aux attaques."
+      },
+      {
+        q: "Un message urgent te menace de supprimer ton compte sous 24h si tu ne donnes pas ton mot de passe. Tu…",
+        qAr: "رسالة مستعجلة تهدد بحذف حسابك إن لم تعط كلمة مرورك. أنت…",
+        opts: ["Cliques vite sur le lien pour régler le problème", "Vérifies par toi-même sur le site officiel et signales le message", "Réponds directement avec ton mot de passe"],
+        correct: 1,
+        exp: "L'urgence et la menace sont les caractéristiques typiques du phishing pour court-circuiter votre esprit critique."
+      },
+      {
+        q: "Que fait la double authentification (2FA) ?",
+        qAr: "ماذا يفعل التحقق بخطوتين؟",
+        opts: ["Elle ajoute une deuxième preuve d'identité (SMS, code appli) pour sécuriser la connexion", "Elle efface toutes les données de l'ordinateur", "Elle remplace définitivement le mot de passe"],
+        correct: 0,
+        exp: "Même si votre mot de passe est volé, le pirate ne peut pas se connecter sans votre deuxième facteur d'authentification."
+      },
+      {
+        q: "Un inconnu en ligne te demande ta photo et l'adresse de ton collège. Tu…",
+        qAr: "غريب يطلب صورتك واسم مدرستك على الإنترنت. أنت…",
+        opts: ["Lui envoies car il a l'air gentil", "Refuses, bloques le profil, signales et en parles à un adulte de confiance", "Lui donnes ton numéro de téléphone à la place"],
+        correct: 1,
+        exp: "Ne partage jamais de données personnelles avec un inconnu sur Internet."
+      },
+      {
+        q: "Un chatbot d'IA te demande ton adresse postale pour 'personnaliser' ses réponses. Que fais-tu ?",
+        qAr: "روبوت محادثة ذكاء اصطناعي يطلب عنوانك لتخصيص الإجابات. ماذا تفعل؟",
+        opts: ["Tu la donnes volontiers", "Tu refuses : une IA n'a pas besoin de tes coordonnées personnelles pour fonctionner", "Tu donnes aussi ton mot de passe"],
+        correct: 1,
+        exp: "Règle d'or de l'IA éthique : ne jamais confier de données privées confidentielles aux modèles en ligne."
+      },
+      {
+        q: "Une vidéo virale montre une célébrité tenant des propos scandaleux et surprenants. Premier réflexe ?",
+        qAr: "فيديو يظهر مشهورا يقول كلاما غريبا ومثيرا. ما أول رد فعل؟",
+        opts: ["La partager immédiatement à tous tes amis", "Vérifier la source officielle car il peut s'agir d'un Deepfake généré par IA", "Y croire aveuglément parce que c'est une vidéo"],
+        correct: 1,
+        exp: "Les images et les voix peuvent être clonées et truquées par l'IA : toujours recouper les faits avec des sources fiables."
+      }
+    ];
+
+    const quizBox = document.getElementById('quiz');
+    quizBox.innerHTML = QZ.map((q, idx) => `
+      <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3" id="qz-${idx}">
+        <p class="text-xs font-bold text-white">Q${idx+1}. ${q.q} <span class="ar text-cyan-300 block mt-1">${q.qAr}</span></p>
+        <div class="space-y-1.5 text-xs">
+          ${q.opts.map((opt, oIdx) => `
+            <button onclick="answerQuiz(${idx}, ${oIdx})" class="w-full text-left p-2.5 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800 transition flex items-center justify-between" id="opt-${idx}-${oIdx}">
+              <span>${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div id="fb-${idx}" class="text-xs p-2.5 rounded-lg hidden"></div>
+      </div>
+    `).join('');
+
+    function answerQuiz(qIdx, selected) {
+      const card = document.getElementById(`qz-${qIdx}`);
+      if (card.dataset.done) return;
+      card.dataset.done = 'true';
+
+      const correct = QZ[qIdx].correct;
+      const fb = document.getElementById(`fb-${qIdx}`);
+      fb.classList.remove('hidden');
+
+      if (selected === correct) {
+        document.getElementById(`opt-${qIdx}-${selected}`).className = "w-full text-left p-2.5 rounded-xl border border-emerald-500 bg-emerald-950/40 text-emerald-300 font-bold";
+        fb.className = "text-xs p-2.5 rounded-lg bg-emerald-950/30 text-emerald-300 border border-emerald-500/30";
+        fb.innerHTML = `✓ <strong>Exact !</strong> ${QZ[qIdx].exp}`;
+      } else {
+        document.getElementById(`opt-${qIdx}-${selected}`).className = "w-full text-left p-2.5 rounded-xl border border-red-500 bg-red-950/40 text-red-300";
+        document.getElementById(`opt-${qIdx}-${correct}`).className = "w-full text-left p-2.5 rounded-xl border border-emerald-500 bg-emerald-950/40 text-emerald-300 font-bold";
+        fb.className = "text-xs p-2.5 rounded-lg bg-red-950/30 text-red-300 border border-red-500/30";
+        fb.innerHTML = `✗ <strong>Attention :</strong> ${QZ[qIdx].exp}`;
+      }
+    }
+
+    // Exercises Data
+    const exercises = [
+      {
+        q: "Exercice 1. Vrai ou faux ? Un mot de passe long peut être utilisé sur tous mes comptes.",
+        qAr: "تمرين 1. صحيح أم خطأ؟ كلمة مرور طويلة يمكن استعمالها في كل حساباتي.",
+        ans: "Faux : chaque compte doit avoir un mot de passe différent et unique pour éviter qu'une fuite sur un site ne compromette tous les autres.",
+        ansAr: "خطأ: لكل حساب كلمة مرور مختلفة وفريدة لتجنب اختراق باقي الحسابات في حال تسريب أحدها."
+      },
+      {
+        q: "Exercice 2. Classe du plus faible au plus fort : 123456, Sara2010!, azerty, Mon_chat_mange_3_poissons!",
+        qAr: "تمرين 2. رتب من الأضعف إلى الأقوى: 123456, Sara2010!, azerty, Mon_chat_mange_3_poissons!",
+        ans: "123456 → azerty → Sara2010! → Mon_chat_mange_3_poissons!",
+        ansAr: "123456 ثم azerty ثم Sara2010! ثم Mon_chat_mange_3_poissons!"
+      },
+      {
+        q: "Exercice 3. Relève 3 indices de phishing : « URGENT ! Compte supprimé dans 24 h. Clique sur instagrarn-secure.com et saisis ton mot de passe. »",
+        qAr: "تمرين 3. استخرج 3 مؤشرات للتصيد في الرسالة.",
+        ans: "1. Urgence et menace (compte supprimé dans 24h) ; 2. Nom de domaine trompeur (instagrarn avec 'rn' imitant 'm') ; 3. Demande directe de mot de passe.",
+        ansAr: "1. الاستعجال والتهديد؛ 2. رابط يقلد الموقع الحقيقي (rn بدل m)؛ 3. طلب كلمة المرور."
+      },
+      {
+        q: "Exercice 4. Quelles infos ne jamais publier ? Adresse, photo d'un match de sport, téléphone, mot de passe, code de carte bancaire.",
+        qAr: "تمرين 4. ما المعلومات التي لا تُنشر أبدا؟",
+        ans: "À ne jamais publier : Adresse, numéro de téléphone, mot de passe, code de carte bancaire.",
+        ansAr: "لا يُنشر أبدا: العنوان، رقم الهاتف، كلمة المرور، رمز البطاقة البنكية."
+      },
+      {
+        q: "Exercice 5. Un inconnu te demande ta photo et ton école. Que fais-tu ?",
+        qAr: "تمرين 5. غريب يطلب صورتك واسم مدرستك. ماذا تفعل؟",
+        ans: "Refuser immédiatement, bloquer le compte, le signaler sur la plateforme et avertir un adulte de confiance (parents, professeur).",
+        ansAr: "الرفض فورا، حظر الحساب والإبلاغ عنه، وإخبار شخص بالغ موثوق."
+      },
+      {
+        q: "Exercice 6. Crée une phrase de passe de 4 mots avec un chiffre et un symbole.",
+        qAr: "تمرين 6. أنشئ عبارة مرور من 4 كلمات مع رقم ورمز.",
+        ans: "Exemple type : Mon_cartable_bleu_9! (Longueur > 16 caractères, facile à mémoriser pour l'élève mais impossible à deviner par force brute).",
+        ansAr: "مثال نموذجي: Mon_cartable_bleu_9! (طويلة وسهلة التذكر ومستحيلة التخمين)."
+      },
+      {
+        q: "Exercice 7. Un chatbot te demande ton nom complet et ton adresse pour « personnaliser » ses réponses. Que fais-tu ?",
+        qAr: "تمرين 7. روبوت محادثة يطلب اسمك الكامل وعنوانك لتخصيص الإجابة. ماذا تفعل؟",
+        ans: "Ne rien divulguer de personnel. L'IA fonctionne parfaitement sans ton identité réelle. Recouper ses réponses avec des sources documentaires fiables.",
+        ansAr: "عدم إعطاء أي معلومات شخصية، والتحقق من إجابات الذكاء الاصطناعي بمصادر موثوقة."
+      },
+      {
+        q: "Exercice 8. Écris 3 règles personnelles de citoyen numérique.",
+        qAr: "تمرين 8. اكتب 3 قواعد شخصية للمواطن الرقمي.",
+        ans: "1. Réfléchir avant de publier ; 2. Utiliser un mot de passe fort et unique par compte ; 3. Vérifier la source avant de relayer une information.",
+        ansAr: "1. التفكير قبل النشر؛ 2. استعمال كلمة مرور قوية وفريدة؛ 3. التحقق من المصدر قبل النقر والمشاركة."
+      }
+    ];
+
+    const exBox = document.getElementById('exercise-accordion');
+    exBox.innerHTML = exercises.map((ex, i) => `
+      <details class="p-4 rounded-2xl bg-slate-900 border border-slate-800 group">
+        <summary class="font-bold text-xs text-white cursor-pointer flex items-center justify-between">
+          <span>${ex.q}</span>
+          <span class="text-xs text-cyan-400 group-open:rotate-180 transition">▼</span>
+        </summary>
+        <p class="ar text-xs text-amber-300 mt-1">${ex.qAr}</p>
+        <div class="mt-3 pt-3 border-t border-slate-800 text-xs text-slate-300 space-y-1">
+          <p><strong class="text-emerald-400">Corrigé :</strong> ${ex.ans}</p>
+          <p class="ar text-emerald-300"><strong>الحل:</strong> ${ex.ansAr}</p>
+        </div>
+      </details>
+    `).join('');
+  </script>
+</body>
+</html>
