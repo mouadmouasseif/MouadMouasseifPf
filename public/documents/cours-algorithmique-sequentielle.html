@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algorithmique et logique séquentielle | مدخل إلى الخوارزميات والمنطق التسلسلي — Mouad Mouasseif</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono&display=swap">
+<style>
+:root{--ink:#17202A;--mute:#55606C;--paper:#F5F7FA;--surface:#fff;--line:#D5DBE3;--asphalt:#252B33;--green:#1F9D55;--amber:#E8A100;--red:#D64545;--blue:#2457C5;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+.fr,.ar{display:block}
+.ar{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;direction:rtl;text-align:right;color:var(--mute);line-height:1.8}
+body[data-lang=fr] .ar,body[data-lang=ar] .fr{display:none}
+body[data-lang=ar] .ar{color:var(--ink)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+header{background:var(--asphalt);color:#fff;padding:36px 20px 24px}
+.wrap{max-width:980px;margin:0 auto}
+.institution-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.85rem;color:#94a3b8;border-bottom:1px solid #3d4653;padding-bottom:14px;margin-bottom:18px}
+.institution-bar strong{color:#e2e8f0}
+header h1{margin:0;font-size:clamp(1.5rem,4vw,2.3rem);line-height:1.2;font-weight:600}
+header h1 .ar{color:#cfd6df;font-weight:700;margin-top:6px}
+header p{max-width:70ch;margin:12px 0 0;color:#d7dde5;font-size:.95rem}
+header p .ar{color:#aab4c0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{border:1px solid #4a5360;border-radius:6px;padding:6px 12px;font-size:.85rem;background:rgba(255,255,255,0.04)}
+.chip .ar{color:#aab4c0}
+.bar{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:10px 20px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:8px 16px;font:inherit;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--ink);transition:all .15s}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.actions-right{display:flex;gap:10px;align-items:center}
+.btn-print{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.btn-print:hover{background:#f1f5f9}
+main{padding:28px 20px 60px}
+.panel[hidden]{display:none}
+section{margin:0 0 36px}
+h2{font-size:1.35rem;margin:0 0 14px;line-height:1.3}
+h2 .ar{font-size:1.2rem;color:var(--mute)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+ul.obj{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+ul.obj li{padding-inline-start:14px;border-inline-start:4px solid var(--blue)}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line)}
+th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+th{background:#EAEFF5;font-weight:600}
+td.t{white-space:nowrap;font-weight:600}
+.sym{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.sym .card{display:flex;gap:14px;align-items:center;padding:14px}
+.sym svg{flex:none}
+.sym .nm{font-weight:600}
+.sym svg *{fill:#fff;stroke:var(--ink);stroke-width:2}
+pre{margin:14px 0;background:var(--asphalt);color:#E9EEF4;padding:16px 18px;border-radius:8px;font:.95rem/1.7 "IBM Plex Mono",ui-monospace,monospace;overflow-x:auto;direction:ltr;text-align:left}
+.sim{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:start}
+@media(max-width:700px){.sim{grid-template-columns:1fr}}
+.sim svg{max-width:100%;height:auto}
+.node{fill:#fff;stroke:var(--line);stroke-width:2;transition:fill .2s,stroke .2s}
+.node.on{fill:#E4ECFB;stroke:var(--blue)}
+.edge{fill:none;stroke:var(--line);stroke-width:2.5}
+.edge.on{stroke:var(--blue)}
+svg text{font:600 13px "IBM Plex Sans",sans-serif;fill:var(--ink);text-anchor:middle}
+svg text.s{font:12px "Cairo",sans-serif;fill:var(--mute)}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+.btn{border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;background:var(--blue);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+#status{color:var(--mute);font-size:.9rem;min-height:1.4em}
+.q{margin-bottom:16px}
+.q h3{margin:0 0 12px;font-size:1.05rem}
+.opts{display:grid;gap:8px}
+.opts button{text-align:start;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 14px;font:inherit;cursor:pointer}
+.opts button:hover{border-color:var(--blue)}
+.opts button.good{background:#E3F4EA;border-color:var(--green)}
+.opts button.bad{background:#FBE7E7;border-color:var(--red)}
+.fb{margin-top:12px;padding:10px 14px;background:#EEF2F8;border-radius:8px}
+.fb[hidden]{display:none}
+@media print{.bar{display:none}.panel{display:block!important}header{background:none;color:#000}header *{color:#000!important}}
+
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.g4 .card b{display:block;font-size:1.1rem;color:var(--blue)}
+.g4 .an{margin-top:8px;font-style:italic;color:var(--mute)}
+.pool{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.pool button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer;text-align:start}
+.pool button:disabled{opacity:.35;cursor:default}
+.pool button.bad{border-color:var(--red);background:#FBE7E7}
+#seq{margin:8px 0;padding-inline-start:24px}
+#msg{min-height:1.7em;font-weight:600;color:var(--green)}
+.box{display:inline-flex;flex-direction:column;align-items:center}
+.box .tag{background:var(--blue);color:#fff;font:700 18px "IBM Plex Mono",monospace;padding:4px 16px;border-radius:6px 6px 0 0}
+.box #val{width:150px;text-align:center;font-size:48px;font-weight:600;border:2px solid var(--blue);background:#E4ECFB;padding:6px 0}
+.vr{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.mono{font-family:"IBM Plex Mono",monospace}
+.card+.card{margin-top:16px}
+</style>
+</head>
+<body data-lang="both">
+<header><div class="wrap">
+  <div class="institution-bar">
+    <div>
+      <strong>Royaume du Maroc · Ministère de l'Éducation Nationale</strong><br>
+      Académie Régionale d'Éducation et de Formation Drâa-Tafilalet
+    </div>
+    <div style="text-align:right">
+      <strong>Collège Zawiyat Sidi Hamza</strong><br>
+      Enseignant : Mouad Mouasseif · Année 2026/2027
+    </div>
+  </div>
+<h1><span class="fr">Introduction à l’algorithmique et à la logique séquentielle</span><span class="ar" lang="ar">مدخل إلى الخوارزميات والمنطق التسلسلي</span></h1>
+<p><span class="fr">Fiche didactique complète avec cours interactif : action, instruction, variable et organigramme, à partir d’analogies du quotidien.</span><span class="ar" lang="ar">وثيقة ديدكتيكية كاملة مع درس تفاعلي: الفعل والتعليمة والمتغير والمخطط الانسيابي انطلاقا من أمثلة يومية.</span></p>
+<div class="chips">
+<div class="chip"><span class="fr">Niveau : collège (1ère Année Collège)</span><span class="ar" lang="ar">المستوى: السلك الإعدادي</span></div>
+<div class="chip"><span class="fr">Durée : 1 séance de 60 min</span><span class="ar" lang="ar">المدة: حصة واحدة (60 دقيقة)</span></div>
+<div class="chip"><span class="fr">Pensée computationnelle : décomposer, ordonner, abstraire</span><span class="ar" lang="ar">التفكير الحاسوبي: التجزيء والترتيب والتجريد</span></div>
+</div></div></header>
+
+<div class="bar"><div class="wrap">
+<div class="seg" role="group" aria-label="Fiche">
+<button data-tab="prof" aria-pressed="true">Fiche pédagogique / فيشة الأستاذ</button>
+<button data-tab="eleve" aria-pressed="false">Cours interactif / درس تفاعلي</button>
+</div>
+<div class="actions-right">
+<div class="seg" role="group" aria-label="Langue">
+<button data-lang-btn="fr" aria-pressed="false">FR</button>
+<button data-lang-btn="both" aria-pressed="true">FR + AR</button>
+<button data-lang-btn="ar" aria-pressed="false">AR</button>
+</div>
+<button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+<a href="https://mouadmouasseif.vercel.app" style="font-size:12px;color:var(--blue);font-weight:700;text-decoration:none">← Portfolio</a>
+</div></div></div>
+
+<main><div class="wrap">
+
+<div class="panel" id="prof">
+<section><h2><span class="fr">Objectifs</span><span class="ar" lang="ar">الأهداف</span></h2>
+<ul class="obj">
+<li><span class="fr">Distinguer une action d’une instruction.</span><span class="ar" lang="ar">التمييز بين الفعل والتعليمة.</span></li>
+<li><span class="fr">Utiliser une variable pour garder et modifier une valeur.</span><span class="ar" lang="ar">استعمال متغير لحفظ قيمة وتغييرها.</span></li>
+<li><span class="fr">Représenter une suite d’instructions par un organigramme séquentiel.</span><span class="ar" lang="ar">تمثيل متتالية تعليمات بمخطط انسيابي تسلسلي.</span></li>
+</ul></section>
+<section><h2><span class="fr">Prérequis et matériel</span><span class="ar" lang="ar">المكتسبات والعتاد</span></h2>
+<div class="card"><span class="fr">Prérequis : aucun. Matériel : tableau, cartes-étapes de la recette (facultatif), vidéoprojecteur ou cette page.</span><span class="ar" lang="ar">المكتسبات: لا شيء. العتاد: سبورة، بطاقات خطوات الوصفة (اختياري)، جهاز عرض أو هذه الصفحة.</span></div></section>
+<section><h2><span class="fr">Déroulement de la séance</span><span class="ar" lang="ar">سير الحصة</span></h2>
+<div style="overflow-x:auto"><table>
+<thead><tr><th><span class="fr">Phase</span><span class="ar" lang="ar">المرحلة</span></th><th><span class="fr">Durée</span><span class="ar" lang="ar">المدة</span></th><th><span class="fr">Activité</span><span class="ar" lang="ar">النشاط</span></th></tr></thead>
+<tbody>
+<tr><td><span class="fr">Situation du quotidien</span><span class="ar" lang="ar">وضعية يومية</span></td><td class="t">10 min</td><td><span class="fr">Préparer un thé : les élèves racontent les gestes dans le désordre, puis dans l’ordre. Introduction de action, instruction, logique séquentielle.</span><span class="ar" lang="ar">تحضير الشاي: يحكي المتعلمون الحركات مشوشة ثم مرتبة. تقديم الفعل والتعليمة والمنطق التسلسلي.</span></td></tr>
+<tr><td><span class="fr">Remettre en ordre</span><span class="ar" lang="ar">إعادة الترتيب</span></td><td class="t">10 min</td><td><span class="fr">Activité interactive : cliquer les étapes de la recette dans le bon ordre.</span><span class="ar" lang="ar">نشاط تفاعلي: النقر على خطوات الوصفة بالترتيب الصحيح.</span></td></tr>
+<tr><td><span class="fr">La variable</span><span class="ar" lang="ar">المتغير</span></td><td class="t">15 min</td><td><span class="fr">La boîte « score » : ranger une valeur, la modifier, constater que l’ancienne valeur est remplacée.</span><span class="ar" lang="ar">صندوق «score»: وضع قيمة وتغييرها وملاحظة أن القيمة القديمة تُستبدل.</span></td></tr>
+<tr><td><span class="fr">L’organigramme séquentiel</span><span class="ar" lang="ar">المخطط التسلسلي</span></td><td class="t">15 min</td><td><span class="fr">Dessiner la recette avec ovale, rectangles et flèches, puis l’exécuter pas à pas.</span><span class="ar" lang="ar">رسم الوصفة بالبيضوي والمستطيلات والأسهم ثم تنفيذها خطوة بخطوة.</span></td></tr>
+<tr><td><span class="fr">Évaluation formative</span><span class="ar" lang="ar">التقويم التكويني</span></td><td class="t">10 min</td><td><span class="fr">Quiz de 3 questions avec correction immédiate.</span><span class="ar" lang="ar">اختبار من 3 أسئلة مع تصحيح فوري.</span></td></tr>
+</tbody></table></div></section>
+<section><h2><span class="fr">Remédiation</span><span class="ar" lang="ar">الدعم</span></h2>
+<div class="card"><span class="fr">Élèves en difficulté : rejouer la recette avec des cartes avant d’utiliser la page. Élèves avancés : ajouter une étape « sucrer » et placer la variable sucre dans l’organigramme.</span><span class="ar" lang="ar">المتعثرون: إعادة لعب الوصفة ببطاقات قبل استعمال الصفحة. المتقدمون: إضافة خطوة «التحلية» ووضع متغير السكر في المخطط.</span></div></section>
+</div>
+
+<div class="panel" id="eleve" hidden>
+<section><h2><span class="fr">1. Les quatre notions et leurs analogies</span><span class="ar" lang="ar">1. المفاهيم الأربعة وأمثلتها</span></h2>
+<div class="g4">
+<div class="card"><b><span class="fr">Action</span><span class="ar" lang="ar">فعل</span></b><span class="fr">Un geste simple à réaliser.</span><span class="ar" lang="ar">حركة بسيطة تُنجز.</span><div class="an"><span class="fr">Verser l’eau dans la théière.</span><span class="ar" lang="ar">صب الماء في الإبريق.</span></div></div>
+<div class="card"><b><span class="fr">Instruction</span><span class="ar" lang="ar">تعليمة</span></b><span class="fr">L’ordre écrit qui décrit une action.</span><span class="ar" lang="ar">الأمر المكتوب الذي يصف الفعل.</span><div class="an"><span class="fr">Une ligne de la recette.</span><span class="ar" lang="ar">سطر من الوصفة.</span></div></div>
+<div class="card"><b><span class="fr">Variable</span><span class="ar" lang="ar">متغير</span></b><span class="fr">Une boîte nommée qui garde une valeur.</span><span class="ar" lang="ar">صندوق مسمى يحفظ قيمة.</span><div class="an"><span class="fr">Le compteur de points d’un jeu.</span><span class="ar" lang="ar">عداد نقط لعبة.</span></div></div>
+<div class="card"><b><span class="fr">Organigramme</span><span class="ar" lang="ar">مخطط انسيابي</span></b><span class="fr">Le dessin des instructions, dans l’ordre.</span><span class="ar" lang="ar">رسم التعليمات بالترتيب.</span><div class="an"><span class="fr">Un plan de métro.</span><span class="ar" lang="ar">خريطة مترو.</span></div></div>
+</div>
+<div class="card" style="margin-top:14px"><b><span class="fr">Logique séquentielle :</span><span class="ar" lang="ar">المنطق التسلسلي:</span></b> <span class="fr">les instructions s’exécutent l’une après l’autre, dans l’ordre.</span><span class="ar" lang="ar">تُنفذ التعليمات واحدة بعد الأخرى بالترتيب.</span></div></section>
+
+<section><h2><span class="fr">2. Remets la recette du thé dans l’ordre</span><span class="ar" lang="ar">2. رتب وصفة الشاي</span></h2>
+<div class="card"><span class="fr">Clique sur les étapes dans le bon ordre.</span><span class="ar" lang="ar">انقر على الخطوات بالترتيب الصحيح.</span>
+<div class="pool" id="pool"></div><ol id="seq"></ol><div id="msg" aria-live="polite"></div>
+<button class="btn alt" id="again"><span class="fr">Recommencer</span><span class="ar" lang="ar">إعادة</span></button></div></section>
+
+<section><h2><span class="fr">3. La variable : la boîte « score »</span><span class="ar" lang="ar">3. المتغير: صندوق «score»</span></h2>
+<div class="card"><div class="vr"><div class="box"><div class="tag">score</div><div id="val">0</div></div>
+<div class="controls" style="margin:0"><button class="btn alt mono" data-op="0">score = 0</button><button class="btn alt mono" data-op="1">score = score + 1</button><button class="btn alt mono" data-op="2">score = score + 2</button></div></div>
+<pre id="log">score = 0</pre>
+<span class="fr">Une variable garde une valeur, et l’ancienne valeur est remplacée à chaque affectation.</span><span class="ar" lang="ar">المتغير يحفظ قيمة، وتُستبدل القيمة القديمة عند كل إسناد.</span></div></section>
+
+<section><h2><span class="fr">4. L’organigramme séquentiel de la recette</span><span class="ar" lang="ar">4. المخطط التسلسلي للوصفة</span></h2>
+<div class="card"><svg id="flow" viewBox="0 0 720 100" style="width:100%;height:auto" role="img" aria-label="Organigramme de la recette du thé"></svg>
+<div class="controls"><button class="btn" id="go"><span class="fr">Exécuter</span><span class="ar" lang="ar">تشغيل</span></button><button class="btn alt" id="rs"><span class="fr">Réinitialiser</span><span class="ar" lang="ar">إعادة</span></button></div></div></section>
+
+<section><h2><span class="fr">5. Évaluation formative</span><span class="ar" lang="ar">5. التقويم التكويني</span></h2><div id="quiz"></div></section>
+</div>
+</div></main>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const b=(f,a)=>`<span class="fr">${f}</span><span class="ar" lang="ar">${a}</span>`;
+$$('[data-lang-btn]').forEach(x=>x.onclick=()=>{document.body.dataset.lang=x.dataset.langBtn;$$('[data-lang-btn]').forEach(y=>y.setAttribute('aria-pressed',y===x))});
+$$('[data-tab]').forEach(x=>x.onclick=()=>{$$('[data-tab]').forEach(y=>y.setAttribute('aria-pressed',y===x));$$('.panel').forEach(p=>p.hidden=p.id!==x.dataset.tab)});
+const ST=[["Faire bouillir l’eau","غلي الماء"],["Mettre le thé dans la théière","وضع الشاي في الإبريق"],["Verser l’eau chaude","صب الماء الساخن"],["Attendre 3 minutes","الانتظار 3 دقائق"],["Servir dans un verre","التقديم في كأس"]];
+let nx=0;
+function initOrder(){nx=0;$('#seq').innerHTML='';$('#msg').innerHTML='';const p=$('#pool');p.innerHTML='';
+ [2,0,4,1,3].forEach(i=>{const k=document.createElement('button');k.innerHTML=b(...ST[i]);
+  k.onclick=()=>{if(i===nx){k.disabled=true;const li=document.createElement('li');li.innerHTML=b(...ST[i]);$('#seq').append(li);nx++;
+    $('#msg').innerHTML=nx===5?b('Bravo : les instructions se suivent dans l’ordre, c’est une logique séquentielle.','أحسنت: التعليمات تتبع بعضها بالترتيب، وهذا هو المنطق التسلسلي.'):'';}
+   else{k.classList.add('bad');setTimeout(()=>k.classList.remove('bad'),600);$('#msg').innerHTML=b('Pas encore : relis la recette.','ليس بعد: أعد قراءة الوصفة.');}};
+  p.append(k)})}
+$('#again').onclick=initOrder;initOrder();
+let v=0;const L=['score = 0'];
+$$('[data-op]').forEach(x=>x.onclick=()=>{const o=x.dataset.op,old=v;
+ if(o==='0'){v=0;L.push('score = 0')}else{v+=+o;L.push(`score = score + ${o}   # ${old} → ${v}`)}
+ $('#val').textContent=v;$('#log').textContent=L.slice(-5).join('\n')});
+const FL=["DÉBUT","Bouillir","Thé","Verser","Attendre","Servir","FIN"];
+$('#flow').innerHTML='<defs><marker id="m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8A95A3"/></marker></defs>'+FL.map((t,i)=>{const x=i*106;
+ const sh=i%6===0?`<ellipse class="node" id="f${i}" cx="${x+42}" cy="50" rx="42" ry="22"/>`:`<rect class="node" id="f${i}" x="${x}" y="28" width="84" height="44" rx="3"/>`;
+ return (i?`<path class="edge" id="a${i}" d="M${x-22} 50H${x-2}" marker-end="url(#m)"/>`:'')+sh+`<text x="${x+42}" y="55">${t}</text>`}).join('');
+let tm=[];const clr=()=>{tm.forEach(clearTimeout);tm=[];$$('#flow .node,#flow .edge').forEach(e=>e.classList.remove('on'))};
+$('#go').onclick=()=>{clr();FL.forEach((_,i)=>tm.push(setTimeout(()=>{$('#f'+i).classList.add('on');if(i)$('#a'+i).classList.add('on')},i*600)))};
+$('#rs').onclick=clr;
+const Q=[
+ [['Dans une logique séquentielle, les instructions s’exécutent…','في المنطق التسلسلي، تُنفذ التعليمات…'],[['dans l’ordre, l’une après l’autre','بالترتيب، واحدة بعد الأخرى'],['au hasard','عشوائيا'],['toutes en même temps','كلها في نفس الوقت']],0,['Chaque instruction attend la fin de la précédente.','كل تعليمة تنتظر انتهاء التي قبلها.']],
+ [['Après score = 3 puis score = score + 2, que vaut score ?','بعد score = 3 ثم score = score + 2، كم تساوي score؟'],[['5','5'],['2','2'],['3','3']],0,['3 + 2 = 5 : la nouvelle valeur remplace l’ancienne.','3 + 2 = 5: القيمة الجديدة تستبدل القديمة.']],
+ [['Que représente une variable ?','ماذا يمثل المتغير؟'],[['Une boîte nommée qui garde une valeur','صندوق مسمى يحفظ قيمة'],['Un dessin d’organigramme','رسم مخطط انسيابي'],['Une action de la recette','فعل من الوصفة']],0,['Le nom est l’étiquette, la valeur est le contenu.','الاسم هو التسمية والقيمة هي المحتوى.']]];
+$('#quiz').innerHTML=Q.map((q,i)=>`<div class="card q"><h3>${b('Q'+(i+1)+'. '+q[0][0],'س'+(i+1)+'. '+q[0][1])}</h3><div class="opts">${q[1].map((o,j)=>`<button ${j===q[2]?'data-ok="1"':''}>${b(...o)}</button>`).join('')}</div><div class="fb" hidden>${b(...q[3])}</div></div>`).join('');
+$$('.q').forEach(q=>q.querySelectorAll('.opts button').forEach(x=>x.onclick=()=>{if(q.dataset.done)return;q.dataset.done=1;x.classList.add(x.dataset.ok?'good':'bad');q.querySelector('[data-ok]').classList.add('good');q.querySelector('.fb').hidden=false}));
+</script>
+</body>
+</html>

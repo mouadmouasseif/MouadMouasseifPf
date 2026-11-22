@@ -56,9 +56,20 @@ export default function CourseCard({ course }: { course: Course }) {
         </div>
         <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
           <span className="text-sm font-black text-emerald-300">{course.price}</span>
-          <button className="inline-flex items-center gap-2 text-sm font-bold text-cyan-200 transition hover:text-white">
-            Start Learning <ArrowRight size={16} />
-          </button>
+          {course.link ? (
+            <a
+              href={course.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-bold text-cyan-200 transition hover:text-white hover:underline"
+            >
+              Start Learning <ArrowRight size={16} />
+            </a>
+          ) : (
+            <button className="inline-flex items-center gap-2 text-sm font-bold text-cyan-200 transition hover:text-white">
+              Start Learning <ArrowRight size={16} />
+            </button>
+          )}
         </div>
       </div>
     </article>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Découverte de Python : variables, types et entrées/sorties | اكتشاف بايثون — Mouad Mouasseif</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono&display=swap">
+<style>
+:root{--ink:#17202A;--mute:#55606C;--paper:#F5F7FA;--surface:#fff;--line:#D5DBE3;--asphalt:#252B33;--green:#1F9D55;--amber:#E8A100;--red:#D64545;--blue:#2457C5;--python:#306998;--py-yellow:#FFD43B;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+.fr,.ar{display:block}
+.ar{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;direction:rtl;text-align:right;color:var(--mute);line-height:1.8}
+body[data-lang=fr] .ar,body[data-lang=ar] .fr{display:none}
+body[data-lang=ar] .ar{color:var(--ink)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+header{background:var(--asphalt);color:#fff;padding:36px 20px 24px}
+.wrap{max-width:980px;margin:0 auto}
+.institution-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.85rem;color:#94a3b8;border-bottom:1px solid #3d4653;padding-bottom:14px;margin-bottom:18px}
+.institution-bar strong{color:#e2e8f0}
+header h1{margin:0;font-size:clamp(1.5rem,4vw,2.3rem);line-height:1.2;font-weight:600}
+header h1 .ar{color:#cfd6df;font-weight:700;margin-top:6px}
+header p{max-width:70ch;margin:12px 0 0;color:#d7dde5;font-size:.95rem}
+header p .ar{color:#aab4c0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{border:1px solid #4a5360;border-radius:6px;padding:6px 12px;font-size:.85rem;background:rgba(255,255,255,0.04)}
+.chip .ar{color:#aab4c0}
+.bar{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:10px 20px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:8px 16px;font:inherit;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--ink);transition:all .15s}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.actions-right{display:flex;gap:10px;align-items:center}
+.btn-print{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.btn-print:hover{background:#f1f5f9}
+main{padding:28px 20px 60px}
+.panel[hidden]{display:none}
+section{margin:0 0 36px}
+h2{font-size:1.35rem;margin:0 0 14px;line-height:1.3;color:#0f172a;border-inline-start:4px solid var(--python);padding-inline-start:10px}
+h2 .ar{font-size:1.2rem;color:var(--mute);margin-top:2px}
+h3{font-size:1.05rem;margin:16px 0 8px;color:#1e293b}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:16px}
+ul.obj{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+ul.obj li{padding-inline-start:12px;border-inline-start:3px solid var(--python);font-size:.95rem}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);margin:14px 0}
+th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top;font-size:.9rem}
+th{background:#EAEFF5;font-weight:600;color:#1e293b}
+td.t{white-space:nowrap;font-weight:600;color:var(--python)}
+pre{margin:12px 0;background:var(--asphalt);color:#E9EEF4;padding:16px 18px;border-radius:8px;font:.95rem/1.7 "IBM Plex Mono",ui-monospace,monospace;overflow-x:auto;direction:ltr;text-align:left}
+code{font-family:"IBM Plex Mono",monospace;background:#e2e8f0;padding:2px 6px;border-radius:4px;font-size:.9em;color:#0f172a}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.g4 .card b{display:block;font-size:1.05rem;color:var(--python)}
+.g4 .desc{margin-top:4px;font-size:.88rem;color:var(--mute)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.grid-2{grid-template-columns:1fr}}
+.btn{border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;background:var(--python);color:#fff;transition:background .15s}
+.btn:hover{background:#1d46a6}
+.btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.alt:hover{background:#f1f5f9}
+.output-box{background:#0f172a;color:#38bdf8;padding:12px 16px;border-radius:8px;font-family:"IBM Plex Mono",monospace;font-size:.9rem;min-height:2.5em;margin-top:10px}
+.checklist{display:grid;gap:8px}
+.checklist label{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:.9rem}
+.checklist input{width:18px;height:18px}
+@media print{.bar{display:none}.panel{display:block!important}header{background:none;color:#000;padding:0 0 20px}header *{color:#000!important}}
+</style>
+</head>
+<body data-lang="both">
+
+<header>
+<div class="wrap">
+  <div class="institution-bar">
+    <div>
+      <strong>Royaume du Maroc · Ministère de l'Éducation Nationale</strong><br>
+      Académie Régionale d'Éducation et de Formation Drâa-Tafilalet
+    </div>
+    <div style="text-align:right">
+      <strong>Collège Zawiyat Sidi Hamza</strong><br>
+      Enseignant : Mouad Mouasseif · Année 2026/2027
+    </div>
+  </div>
+
+  <h1>
+    <span class="fr">Découverte de Python : variables, types et entrées/sorties</span>
+    <span class="ar" lang="ar">اكتشاف بايثون: المتغيرات والأنواع والمدخلات والمخرجات</span>
+  </h1>
+  <p>
+    <span class="fr">Cours complet, interactif et bilingue pour le cycle collégial : manipuler les variables, reconnaître int/float/str/bool, dialoguer avec print() et input(), et corriger les erreurs fréquentes.</span>
+    <span class="ar" lang="ar">درس شامل، تفاعلي وثنائي اللغة للسلك الإعدادي: التعامل مع المتغيرات، التمييز بين الأنواع الأساسية، التفاعل بـ ‎print()‎ و ‎input()‎ وتصحيح الأخطاء البرمجية الشائعة.</span>
+  </p>
+
+  <div class="chips">
+    <div class="chip"><span class="fr">Niveau : Collège (2ème Année Collège)</span><span class="ar" lang="ar">المستوى: الثانية إعدادي</span></div>
+    <div class="chip"><span class="fr">Langage : Python 3</span><span class="ar" lang="ar">اللغة: بايثون 3</span></div>
+    <div class="chip"><span class="fr">Syntaxe & Pratique interactive</span><span class="ar" lang="ar">التركيب والتطبيق التفاعلي</span></div>
+  </div>
+</div>
+</header>
+
+<div class="bar">
+<div class="wrap">
+  <div class="seg" role="group" aria-label="Onglet">
+    <button data-tab="cours" aria-pressed="true">Fiche de cours / وثيقة الدرس</button>
+    <button data-tab="exercices" aria-pressed="false">Exercices & Simulateur / تمارين ومحاكي</button>
+  </div>
+  <div class="actions-right">
+    <div class="seg" role="group" aria-label="Langue">
+      <button data-lang-btn="fr" aria-pressed="false">FR</button>
+      <button data-lang-btn="both" aria-pressed="true">FR + AR</button>
+      <button data-lang-btn="ar" aria-pressed="false">AR</button>
+    </div>
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+    <a href="https://mouadmouasseif.vercel.app" style="font-size:12px;color:var(--python);font-weight:700;text-decoration:none">← Portfolio</a>
+  </div>
+</div>
+</div>
+
+<main><div class="wrap">
+
+<!-- ========================================== -->
+<!-- ONGLET 1 : FICHE DE COURS DÉTAILLÉE        -->
+<!-- ========================================== -->
+<div class="panel" id="cours">
+
+<section>
+  <h2><span class="fr">Objectifs d’apprentissage</span><span class="ar" lang="ar">أهداف التعلم</span></h2>
+  <ul class="obj">
+    <li><span class="fr"><strong>Déclarer :</strong> Créer une variable en lui attribuant un nom valide et une valeur.</span><span class="ar" lang="ar"><strong>الإنشاء:</strong> إنشاء متغير بإعطائه اسما صالحا وقيمة مناسبة.</span></li>
+    <li><span class="fr"><strong>Distinguer :</strong> Reconnaître les quatre types de base : <code>int</code>, <code>float</code>, <code>str</code> et <code>bool</code>.</span><span class="ar" lang="ar"><strong>التمييز:</strong> التعرف على الأنواع الأساسية الأربعة: int و float و str و bool.</span></li>
+    <li><span class="fr"><strong>Dialoguer :</strong> Afficher avec <code>print()</code> et lire des données avec <code>input()</code> en convertissant les types.</span><span class="ar" lang="ar"><strong>التفاعل:</strong> العرض بواسطة ‎print()‎ والقراءة بـ ‎input()‎ مع تحويل الأنواع.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="fr">1. La variable : une boîte étiquetée</span><span class="ar" lang="ar">1. المتغير: صندوق بتسمية</span></h2>
+  <div class="card">
+    <p><span class="fr">Une variable garde une valeur en mémoire sous un nom. On la crée et on lui affecte une valeur avec le signe <code>=</code>.</span><span class="ar" lang="ar">المتغير يحفظ قيمة في الذاكرة تحت اسم معين، وننشئه ونسند إليه قيمة بالعلامة <code>=</code>.</span></p>
+    <pre>nom = "Sara"
+age = 14
+print(nom, age)</pre>
+    <div class="output-box">Sortie / النتيجة :<br>Sara 14</div>
+    <p style="margin-top:12px"><em><span class="fr">Règle d'or : Le nom de la variable est l’étiquette, la valeur est le contenu de la boîte.</span><span class="ar" lang="ar">قاعدة ذهبية: اسم المتغير هو التسمية أو الملصق، والقيمة هي محتوى الصندوق.</span></em></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">2. Règles pour bien nommer ses variables</span><span class="ar" lang="ar">2. قواعد تسمية المتغيرات في بايثون</span></h2>
+  <div class="grid-2">
+    <div class="card" style="border-inline-start:4px solid var(--green)">
+      <h3 style="color:var(--green);margin-top:0"><span class="fr">✅ Noms Valides</span><span class="ar" lang="ar">✅ أسماء مقبولة</span></h3>
+      <ul>
+        <li><code>age</code> (simple et clair)</li>
+        <li><code>note_1</code> (chiffre accepté après les lettres)</li>
+        <li><code>prenom_total</code> (séparé par underscore)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-inline-start:4px solid var(--red)">
+      <h3 style="color:var(--red);margin-top:0"><span class="fr">❌ Noms Invalides</span><span class="ar" lang="ar">❌ أسماء غير مقبولة</span></h3>
+      <ul>
+        <li><code>1note</code> (commence par un chiffre)</li>
+        <li><code>mon age</code> (contient un espace interdit)</li>
+        <li><code>class</code> (mot réservé par Python)</li>
+        <li><code>a-b</code> (le tiret est confondu avec la soustraction)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">3. Les quatre types de données de base</span><span class="ar" lang="ar">3. أنواع البيانات الأساسية الأربعة</span></h2>
+  <div class="g4">
+    <div class="card">
+      <b>int (Entier / عدد صحيح)</b>
+      <div class="desc">Nombres sans virgule :</div>
+      <pre style="margin:6px 0">age = 14</pre>
+    </div>
+    <div class="card">
+      <b>float (Décimal / عدد عشري)</b>
+      <div class="desc">Nombres à virgule (point) :</div>
+      <pre style="margin:6px 0">note = 15.5</pre>
+    </div>
+    <div class="card">
+      <b>str (Texte / نص)</b>
+      <div class="desc">Entre guillemets doubles ou simples :</div>
+      <pre style="margin:6px 0">prenom = "Sara"</pre>
+    </div>
+    <div class="card">
+      <b>bool (Booléen / قيمة منطقية)</b>
+      <div class="desc">Vrai ou Faux (avec majuscule) :</div>
+      <pre style="margin:6px 0">admis = True</pre>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <span class="fr">La fonction <code>type()</code> permet d'inspecter et révéler le type d'une valeur : <code>type(age)</code> renvoie <code>&lt;class 'int'&gt;</code>.</span>
+    <span class="ar" lang="ar">الدالة <code>type()</code> تكشف نوع القيمة المخزنة: <code>type(age)</code> تُرجع <code>&lt;class 'int'&gt;</code>.</span>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">4. Afficher avec print() et lire avec input()</span><span class="ar" lang="ar">4. العرض بـ ‎print()‎ والقراءة بـ ‎input()‎</span></h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3><code>print()</code> : Affichage écran</h3>
+      <p><span class="fr">La virgule sépare les éléments en ajoutant automatiquement un espace.</span><span class="ar" lang="ar">الفاصلة تفصل بين العناصر وتضيف فراغا تلقائيا.</span></p>
+      <pre>nom = "Sara"
+print("Bonjour", nom)
+print("Calcul :", 14 + 1)</pre>
+    </div>
+    <div class="card">
+      <h3><code>input()</code> : Saisie utilisateur</h3>
+      <p><span class="fr"><strong>Attention :</strong> <code>input()</code> renvoie <strong>toujours</strong> du texte (type <code>str</code>), même si l'utilisateur saisit un nombre.</span><span class="ar" lang="ar"><strong>تنبيه:</strong> الدالة ‎input()‎ تُرجع دائما نصا، حتى وإن كتب المستخدم أرقاما.</span></p>
+      <pre>prenom = input("Ton prénom : ")
+print("Bienvenue", prenom)</pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">5. La conversion indispensable des types</span><span class="ar" lang="ar">5. التحويل الإجباري للأنواع</span></h2>
+  <div class="card">
+    <div class="grid-2">
+      <div>
+        <h4 style="color:var(--red)"><span class="fr">❌ Sans conversion (Erreur TypeError)</span><span class="ar" lang="ar">❌ بدون تحويل (خطأ)</span></h4>
+        <pre>age = input("Age : ")
+print(age + 5)
+# TypeError: can only concatenate
+# str (not "int") to str</pre>
+      </div>
+      <div>
+        <h4 style="color:var(--green)"><span class="fr">✅ Avec conversion int() (Fonctionne)</span><span class="ar" lang="ar">✅ مع التحويل int() (صحيح)</span></h4>
+        <pre>age = int(input("Age : "))
+print(age + 5)
+# Si on tape 14, affiche 19</pre>
+      </div>
+    </div>
+    <p style="margin-top:12px"><code>int()</code> convertit en entier, <code>float()</code> convertit en décimal, <code>str()</code> convertit en texte.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">6. Mini-programme guidé pas à pas</span><span class="ar" lang="ar">6. برنامج تطبيقي موجه خطوة بخطوة</span></h2>
+  <div class="card">
+    <pre># 1. Lire le prénom (texte)
+prenom = input("Ton prénom : ")
+
+# 2. Lire l'âge et le convertir immédiatement en entier
+age = int(input("Ton âge : "))
+
+# 3. Saluer l'utilisateur
+print("Bonjour", prenom)
+
+# 4. Calculer et afficher l'âge dans 5 ans
+print("Dans 5 ans, tu auras :", age + 5, "ans.")</pre>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">7. Erreurs fréquentes et solutions</span><span class="ar" lang="ar">7. الأخطاء الشائعة وكيفية تصحيحها</span></h2>
+  <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr><th><span class="fr">Type d'erreur</span><span class="ar" lang="ar">نوع الخطأ</span></th><th><span class="fr">Cause typique</span><span class="ar" lang="ar">السبب المعتاد</span></th><th><span class="fr">Correction</span><span class="ar" lang="ar">التصحيح</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>SyntaxError</code></td><td>Parenthèse ou guillemet oublié : <code>print("Salut)</code></td><td>Fermer les guillemets : <code>print("Salut")</code></td></tr>
+        <tr><td><code>NameError</code></td><td>Variable utilisée sans avoir été définie ou faute de frappe</td><td>Définir la variable avant son appel</td></tr>
+        <tr><td><code>TypeError</code></td><td>Addition d'un texte et d'un nombre : <code>"5" + 3</code></td><td>Convertir le texte : <code>int("5") + 3</code></td></tr>
+        <tr><td><code>ValueError</code></td><td>Conversion d'un texte non numérique : <code>int("abc")</code></td><td>Saisir uniquement des chiffres</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<!-- ========================================== -->
+<!-- ONGLET 2 : EXERCICES & SIMULATEUR          -->
+<!-- ========================================== -->
+<div class="panel" id="exercices" hidden>
+
+<section>
+  <h2><span class="fr">1. Console Python interactive (Bac à sable)</span><span class="ar" lang="ar">1. محاكي بايثون التفاعلي في المتصفح</span></h2>
+  <div class="card">
+    <p><span class="fr">Saisis ou modifie le code Python ci-dessous, puis clique sur <strong>Exécuter</strong> pour voir le résultat en direct :</span><span class="ar" lang="ar">اكتب أو عدل كود بايثون أسفله، ثم انقر على <strong>تشغيل</strong> لمشاهدة النتيجة مباشرة:</span></p>
+    <textarea id="py-code" rows="8" style="width:100%;font-family:'IBM Plex Mono',monospace;font-size:.95rem;background:#0f172a;color:#38bdf8;padding:14px;border-radius:8px;border:1px solid #334155;outline:none"># Programme de test
+nom = "Sara"
+age = 14
+print("Bonjour", nom)
+print("Age dans 5 ans :", age + 5)</textarea>
+    <div style="margin-top:12px;display:flex;gap:10px">
+      <button class="btn" id="py-run">▶️ Exécuter le code</button>
+      <button class="btn alt" id="py-reset">Réinitialiser</button>
+    </div>
+    <div class="output-box" id="py-out" style="margin-top:12px">Cliquez sur Exécuter pour voir le résultat.</div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">2. Exercices progressifs avec solutions</span><span class="ar" lang="ar">2. تمارين متدرجة مع التصحيح النموذجي</span></h2>
+  
+  <div class="card">
+    <h3>Exercice 1 – Saluer Python (Niveau 1)</h3>
+    <p>Afficher à l'écran le message exact : <code>Bonjour Python</code></p>
+    <details style="margin-top:8px"><summary style="cursor:pointer;font-weight:600;color:var(--python)">Voir la correction</summary>
+      <pre>print("Bonjour Python")</pre>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>Exercice 2 – Variables nom et âge (Niveau 1)</h3>
+    <p>Créer deux variables <code>nom</code> et <code>age</code>, puis afficher leur contenu.</p>
+    <details style="margin-top:8px"><summary style="cursor:pointer;font-weight:600;color:var(--python)">Voir la correction</summary>
+      <pre>nom = "Sara"
+age = 13
+print(nom, age)</pre>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>Exercice 3 – Saisie et politesse (Niveau 2)</h3>
+    <p>Demander le prénom de l'utilisateur à l'aide de <code>input()</code> et afficher : <code>Bonjour [prenom]</code>.</p>
+    <details style="margin-top:8px"><summary style="cursor:pointer;font-weight:600;color:var(--python)">Voir la correction</summary>
+      <pre>prenom = input("Prénom : ")
+print("Bonjour", prenom)</pre>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>Exercice 4 – Calcul d'aire de rectangle (Niveau 3)</h3>
+    <p>Demander la longueur et la largeur (nombres décimaux) puis afficher l'aire (<code>longueur * largeur</code>).</p>
+    <details style="margin-top:8px"><summary style="cursor:pointer;font-weight:600;color:var(--python)">Voir la correction</summary>
+      <pre>l = float(input("Longueur : "))
+w = float(input("Largeur : "))
+print("Aire =", l * w)</pre>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>Exercice 5 – Calcul de moyenne de deux notes (Niveau 3)</h3>
+    <p>Saisir deux notes décimales et afficher leur moyenne arithmétique.</p>
+    <details style="margin-top:8px"><summary style="cursor:pointer;font-weight:600;color:var(--python)">Voir la correction</summary>
+      <pre>n1 = float(input("Note 1 : "))
+n2 = float(input("Note 2 : "))
+print("Moyenne =", (n1 + n2) / 2)</pre>
+    </details>
+  </div>
+</section>
+
+<section>
+  <h2><span class="fr">3. Fiche d’auto-évaluation de l’apprenant</span><span class="ar" lang="ar">3. بطاقة التقييم الذاتي للمتعلم</span></h2>
+  <div class="card">
+    <p>Coche chaque critère lorsque tu le maîtrises en toute autonomie :</p>
+    <div class="checklist">
+      <label><input type="checkbox"> <span>Je sais créer une variable avec le signe <code>=</code>. (أنشئ متغيرا بالعلامة =)</span></label>
+      <label><input type="checkbox"> <span>Je sais choisir un nom de variable valide sans espace. (أختار اسما صالحا بدون فراغ)</span></label>
+      <label><input type="checkbox"> <span>Je reconnais les 4 types : <code>int</code>, <code>float</code>, <code>str</code> et <code>bool</code>. (أميز بين الأنواع الأربعة)</span></label>
+      <label><input type="checkbox"> <span>J'affiche un message et des calculs avec <code>print()</code>. (أعرض النتيجة بـ ‎print()‎)</span></label>
+      <label><input type="checkbox"> <span>Je lis une saisie au clavier avec <code>input()</code>. (أقرأ مدخلا بـ ‎input()‎)</span></label>
+      <label><input type="checkbox"> <span>Je convertis les nombres avec <code>int()</code> ou <code>float()</code>. (أحول النوع بـ ‎int()‎ أو ‎float()‎)</span></label>
+    </div>
+  </div>
+</section>
+
+</div>
+
+</div></main>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+$$('[data-lang-btn]').forEach(b=>b.onclick=()=>{
+  document.body.dataset.lang=b.dataset.langBtn;
+  $$('[data-lang-btn]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+});
+$$('[data-tab]').forEach(b=>b.onclick=()=>{
+  $$('[data-tab]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  $$('.panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);
+});
+
+// Mini JS-based Python interpreter simulator for the playground
+$('#py-run').onclick=()=>{
+  const code=$('#py-code').value;
+  const out=$('#py-out');
+  out.innerHTML='';
+  try {
+    let logs=[];
+    const lines=code.split('\n');
+    let scope={};
+    lines.forEach(line=>{
+      line=line.trim();
+      if(!line || line.startsWith('#'))return;
+      // Handle simple print(...)
+      if(line.startsWith('print(') && line.endsWith(')')){
+        const inner=line.slice(6,-1);
+        // evaluate simple expressions separated by comma
+        const parts=inner.split(',').map(p=>p.trim());
+        let resParts=[];
+        parts.forEach(p=>{
+          if(p.startsWith('"') && p.endsWith('"')) resParts.push(p.slice(1,-1));
+          else if(p.startsWith("'") && p.endsWith("'")) resParts.push(p.slice(1,-1));
+          else if(scope[p]!==undefined) resParts.push(scope[p]);
+          else {
+            try {
+              let expr=p;
+              for(let k in scope){
+                expr=expr.replace(new RegExp('\\b'+k+'\\b','g'), scope[k]);
+              }
+              resParts.push(eval(expr));
+            } catch(e){ resParts.push(p); }
+          }
+        });
+        logs.push(resParts.join(' '));
+      } else if(line.includes('=')){
+        const [left,right]=line.split('=').map(x=>x.trim());
+        if(right.startsWith('"') || right.startsWith("'")){
+          scope[left]=right.slice(1,-1);
+        } else if(!isNaN(Number(right))){
+          scope[left]=Number(right);
+        } else {
+          try {
+            let expr=right;
+            for(let k in scope){ expr=expr.replace(new RegExp('\\b'+k+'\\b','g'), scope[k]); }
+            scope[left]=eval(expr);
+          } catch(e){ scope[left]=right; }
+        }
+      }
+    });
+    out.innerHTML = logs.length ? logs.map(l=>`&gt; ${l}`).join('<br>') : '&gt; (Programme exécuté sans sortie)';
+  } catch(err){
+    out.innerHTML = `<span style="color:var(--red)">&gt; Erreur : ${err.message}</span>`;
+  }
+};
+$('#py-reset').onclick=()=>{
+  $('#py-code').value = '# Programme de test\nnom = "Sara"\nage = 14\nprint("Bonjour", nom)\nprint("Age dans 5 ans :", age + 5)';
+  $('#py-out').innerHTML = 'Cliquez sur Exécuter pour voir le résultat.';
+};
+</script>
+</body>
+</html>

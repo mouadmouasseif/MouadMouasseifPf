@@ -281,10 +281,21 @@ export default function TeachingEducation() {
                   <span className="font-semibold text-sky-300">{res.format}</span>
                   <a
                     href={res.downloadUrl || "#contact"}
+                    target={res.downloadUrl?.startsWith("/documents") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1 font-bold text-cyan-300 transition hover:underline"
                   >
-                    <Download size={14} />
-                    <span>Télécharger</span>
+                    {res.downloadUrl?.endsWith(".html") ? (
+                      <>
+                        <ExternalLink size={14} />
+                        <span>Ouvrir l'activité</span>
+                      </>
+                    ) : (
+                      <>
+                        <Download size={14} />
+                        <span>Télécharger</span>
+                      </>
+                    )}
                   </a>
                 </div>
               </GlowCard>

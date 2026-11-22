@@ -7,6 +7,7 @@ export type Course = {
   image: string;
   description: string;
   tags: string[];
+  link?: string;
 };
 
 export const courses: Course[] = [
@@ -87,18 +88,31 @@ export const courses: Course[] = [
     language: "Français",
     price: "Free",
     image: "/logos/cpp.png",
-    description: "Maîtrisez les algorithmes et les structures de données essentielles.",
-    tags: ["Algorithmique", "Structures", "Data"],
+    description: "Maîtrisez les algorithmes, la logique séquentielle, les variables et les organigrammes avec des simulateurs interactifs.",
+    tags: ["Algorithmique", "Structures", "Logique Séquentielle"],
+    link: "/documents/cours-algorithmique-sequentielle.html",
   },
   {
     title: "Python From Zero",
     category: "Programming",
     level: "Beginner",
-    language: "English",
+    language: "Français",
     price: "Free",
     image: "/logos/python.png",
-    description: "Learn Python programming with projects and real world examples.",
-    tags: ["Python", "Projects", "Basics"],
+    description: "Guide interactif complet : variables, types, conversions, bac à sable de code dans le navigateur et 5 exercices corrigés.",
+    tags: ["Python", "Variables", "Bac à Sable", "Exercices"],
+    link: "/documents/cours-python-college.html",
+  },
+  {
+    title: "DevOps & DevSecOps Engineering",
+    category: "Cybersecurity",
+    level: "Intermediate",
+    language: "Français",
+    price: "Free",
+    image: "/logos/Git.png",
+    description: "Guide complet avec simulateur interactif de pipeline CI/CD : SAST, DAST, détection de secrets et sécurité logicielle.",
+    tags: ["DevOps", "DevSecOps", "CI/CD", "Sécurité", "OWASP"],
+    link: "/documents/cours-devops-devsecops.html",
   },
   {
     title: "Cybersecurity Essentials",

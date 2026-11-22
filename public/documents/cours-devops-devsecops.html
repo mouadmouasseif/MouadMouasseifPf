@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps & DevSecOps Fundamentals | Mouad Mouasseif</title>
+  <meta name="description" content="Guide pédagogique et interactif sur DevOps et DevSecOps par Mouad Mouasseif. Culture, CI/CD, SAST, DAST, Threat Modeling et simulateur de pipeline sécurisé.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700;900&family=Noto+Kufi+Arabic:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'Fira Code', monospace; }
+    .font-arabic { font-family: 'Noto Kufi Arabic', sans-serif; }
+    .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(56, 189, 248, 0.15); }
+    .neon-cyan { text-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- Header Navigation -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-black text-slate-950 text-lg shadow-lg group-hover:scale-105 transition">M</div>
+          <div>
+            <div class="font-bold text-white text-sm">Mouad Mouasseif</div>
+            <div class="text-xs text-cyan-400">Computer Science Educator & Cyber/Cloud Specialist</div>
+          </div>
+        </a>
+      </div>
+      <div class="flex items-center gap-3 text-xs sm:text-sm">
+        <a href="/#teaching" class="px-3 py-1.5 rounded-lg border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white transition">← Retour aux Cours</a>
+        <button onclick="window.print()" class="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition flex items-center gap-1.5 shadow-lg shadow-cyan-500/20">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          Imprimer / Sauvegarder PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="max-w-5xl mx-auto px-4 py-10 space-y-12">
+    <div class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold tracking-wider uppercase">
+        <span>Software Engineering & Security Curriculum</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        DevOps & <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-500">DevSecOps</span> Fundamentals
+      </h1>
+      <p class="font-arabic text-lg sm:text-xl text-cyan-200" dir="rtl">
+        أساسيات ديف أوبس والديف سيك أوبس: بناء وتأمين دورة حياة البرمجيات الحديثة
+      </p>
+      <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        Comprendre comment la collaboration entre développeurs, équipes d'infrastructure et spécialistes de la sécurité permet de livrer des logiciels fiables, rapides et inviolables.
+      </p>
+    </div>
+
+    <!-- Quick Pillars Banner -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="glass-card p-5 rounded-2xl border-l-4 border-l-cyan-400">
+        <div class="text-xs uppercase font-bold text-cyan-400 tracking-wider">01. Dev (Development)</div>
+        <div class="font-arabic text-sm text-slate-300 mt-1" dir="rtl">فريق التطوير والبرمجة</div>
+        <p class="text-xs text-slate-400 mt-2">Conçoit le code source, implémente les fonctionnalités, écrit les tests unitaires et maintient les dépôts Git.</p>
+      </div>
+      <div class="glass-card p-5 rounded-2xl border-l-4 border-l-emerald-400">
+        <div class="text-xs uppercase font-bold text-emerald-400 tracking-wider">02. Ops (Operations)</div>
+        <div class="font-arabic text-sm text-slate-300 mt-1" dir="rtl">فريق العمليات والبنية التحتية</div>
+        <p class="text-xs text-slate-400 mt-2">Gère les serveurs, le cloud, la haute disponibilité, les conteneurs (Docker/K8s) et la stabilité réseau.</p>
+      </div>
+      <div class="glass-card p-5 rounded-2xl border-l-4 border-l-rose-400">
+        <div class="text-xs uppercase font-bold text-rose-400 tracking-wider">03. Sec (Security)</div>
+        <div class="font-arabic text-sm text-slate-300 mt-1" dir="rtl">فريق الأمن السيبراني المدمج</div>
+        <p class="text-xs text-slate-400 mt-2">Intègre l'audit de code (SAST), l'analyse dynamique (DAST), la détection de fuites de secrets et l'éthique OWASP dès la conception.</p>
+      </div>
+    </div>
+
+    <!-- Section 1: Qu'est-ce que DevOps ? -->
+    <section class="glass p-6 sm:p-8 rounded-3xl space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">1</div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white">Qu'est-ce que le DevOps ? (Culture & Principes)</h2>
+      </div>
+
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        <strong>DevOps</strong> est une approche d'ingénierie logicielle dans laquelle les équipes de <span class="text-cyan-300 font-semibold">Développement (Dev)</span> et des <span class="text-emerald-300 font-semibold">Opérations IT (Ops)</span> collaborent étroitement tout au long du cycle de vie logiciel (SDLC) pour livrer des mises à jour rapides, fréquentes et d'une qualité irréprochable.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-white text-sm">Approche Linéaire Classique (Waterfall / Cascade)</h3>
+            <span class="text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded">Méthode ancienne</span>
+          </div>
+          <ul class="text-xs text-slate-400 space-y-1.5 list-disc list-inside">
+            <li>Planification rigide de plusieurs mois avant d'écrire une ligne de code.</li>
+            <li>Silos étanches : les développeurs créent le produit, puis le "jettent par-dessus le mur" aux équipes Ops.</li>
+            <li>Mises en production rares (1 à 2 fois par an), massives et à très haut risque de panne.</li>
+            <li>Retours utilisateurs tardifs : les failles ou défauts d'ergonomie sont découverts trop tard.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-emerald-500/30">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-emerald-300 text-sm">Approche DevOps & Agile</h3>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Standard moderne</span>
+          </div>
+          <ul class="text-xs text-slate-400 space-y-1.5 list-disc list-inside">
+            <li>Découpage en itérations courtes (Sprints de 1 à 3 semaines).</li>
+            <li>Responsabilité partagée de la qualité entre tous les intervenants.</li>
+            <li>Livraisons continues de petits incréments stables plusieurs fois par jour ou semaine.</li>
+            <li>Boucle de rétroaction instantanée grâce à l'observabilité et aux métriques en direct.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Microservices vs Monolith -->
+      <div class="mt-4 p-4 rounded-xl bg-slate-900/50 border border-slate-800 flex flex-col sm:flex-row items-center gap-4">
+        <div class="p-3 rounded-lg bg-blue-500/10 text-blue-400">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        </div>
+        <div class="text-xs sm:text-sm text-slate-300">
+          <span class="font-bold text-white">Architecture en Microservices :</span> Contrairement aux monolithes où modifier un bouton exige de redéployer l'intégralité du système, les microservices découpent l'application en modules indépendants reliés par des API. Une mise à jour cible un seul service sans impacter le reste du produit.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: De DevOps à DevSecOps -->
+    <section class="glass p-6 sm:p-8 rounded-3xl space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">2</div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white">Pourquoi DevSecOps ? (« Shift Left » de la Sécurité)</h2>
+      </div>
+
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        Traditionnellement, les audits de sécurité n'étaient effectués qu'à la toute fin du projet. Si une faille critique était décelée, corriger le code coûtait <strong>jusqu'à 30 fois plus cher</strong> et retardait toute la livraison.
+        <strong>DevSecOps</strong> intègre la sécurité dès le premier jour (le principe du <em>Shift-Left</em> : déplacer les contrôles vers la gauche de la frise chronologique).
+      </p>
+
+      <!-- Security Controls Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400">
+              <th class="py-3 px-3">Mécanisme de Sécurité</th>
+              <th class="py-3 px-3">Phase SDLC</th>
+              <th class="py-3 px-3">Description & Rôle</th>
+              <th class="py-3 px-3">Exemple d'Outil</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-300">
+            <tr>
+              <td class="py-3 px-3 font-semibold text-cyan-300">Threat Modeling</td>
+              <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 text-xs">Conception</span></td>
+              <td class="py-3 px-3">Identification préalable des menaces et risques d'attaque avant même l'écriture du code (ex: STRIDE).</td>
+              <td class="py-3 px-3 font-mono text-xs">OWASP Threat Dragon</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-semibold text-emerald-300">SAST (Static Testing)</td>
+              <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 text-xs">Commit & Build</span></td>
+              <td class="py-3 px-3">Analyse statique du code source "au repos" sans l'exécuter, pour repérer failles de logique, injections ou syntaxe dangereuse.</td>
+              <td class="py-3 px-3 font-mono text-xs">SonarQube, Semgrep</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-semibold text-amber-300">Secrets Detection</td>
+              <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 text-xs">Pre-Commit / Push</span></td>
+              <td class="py-3 px-3">Détection automatique de clés API, tokens JWT ou mots de passe oubliés par erreur dans le code ou les fichiers de conf.</td>
+              <td class="py-3 px-3 font-mono text-xs">GitLeaks, Trufflehog</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-semibold text-purple-300">DAST (Dynamic Testing)</td>
+              <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 text-xs">Staging / Test</span></td>
+              <td class="py-3 px-3">Analyse dynamique simulant de vraies attaques (SQLi, XSS, CSRF) sur l'application en cours d'exécution dans un environnement isolé.</td>
+              <td class="py-3 px-3 font-mono text-xs">OWASP ZAP</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-semibold text-rose-300">Vulnerability Scanning</td>
+              <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 text-xs">CI Pipeline</span></td>
+              <td class="py-3 px-3">Vérification des dépendances open-source et des images Docker contre les bases de vulnérabilités connues (CVE).</td>
+              <td class="py-3 px-3 font-mono text-xs">Snyk, Trivy</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-semibold text-sky-300">Security Monitoring</td>
+              <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 text-xs">Production</span></td>
+              <td class="py-3 px-3">Surveillance temps réel des journaux d'accès, détection d'intrusions et alertes instantanées pour bloquer les cyberattaques.</td>
+              <td class="py-3 px-3 font-mono text-xs">Wazuh, Datadog</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: Interactive CI/CD Pipeline Simulator -->
+    <section class="glass p-6 sm:p-8 rounded-3xl space-y-6">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">3</div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Simulateur Interactif de Pipeline DevSecOps</h2>
+            <p class="text-xs text-slate-400">Cliquez sur « Lancer la Pipeline » pour observer les contrôles automatisés en direct.</p>
+          </div>
+        </div>
+        <button id="btn-run-pipeline" onclick="runPipeline()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Lancer la Pipeline CI/CD
+        </button>
+      </div>
+
+      <!-- Pipeline Steps Graphic -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 pt-2">
+        <div id="step-1" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-center transition duration-300">
+          <div class="text-xs font-mono text-slate-400 mb-1">01. Commit</div>
+          <div class="text-xs font-bold text-white">Git Push</div>
+          <div id="status-1" class="mt-2 text-[10px] text-slate-400">En attente</div>
+        </div>
+        <div id="step-2" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-center transition duration-300">
+          <div class="text-xs font-mono text-slate-400 mb-1">02. Secrets</div>
+          <div class="text-xs font-bold text-white">GitLeaks</div>
+          <div id="status-2" class="mt-2 text-[10px] text-slate-400">En attente</div>
+        </div>
+        <div id="step-3" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-center transition duration-300">
+          <div class="text-xs font-mono text-slate-400 mb-1">03. SAST</div>
+          <div class="text-xs font-bold text-white">Semgrep</div>
+          <div id="status-3" class="mt-2 text-[10px] text-slate-400">En attente</div>
+        </div>
+        <div id="step-4" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-center transition duration-300">
+          <div class="text-xs font-mono text-slate-400 mb-1">04. Build & Test</div>
+          <div class="text-xs font-bold text-white">Unit Tests</div>
+          <div id="status-4" class="mt-2 text-[10px] text-slate-400">En attente</div>
+        </div>
+        <div id="step-5" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-center transition duration-300">
+          <div class="text-xs font-mono text-slate-400 mb-1">05. DAST</div>
+          <div class="text-xs font-bold text-white">OWASP ZAP</div>
+          <div id="status-5" class="mt-2 text-[10px] text-slate-400">En attente</div>
+        </div>
+        <div id="step-6" class="p-3 rounded-xl border border-slate-800 bg-slate-900/60 text-center transition duration-300">
+          <div class="text-xs font-mono text-slate-400 mb-1">06. Deploy</div>
+          <div class="text-xs font-bold text-white">Production</div>
+          <div id="status-6" class="mt-2 text-[10px] text-slate-400">En attente</div>
+        </div>
+      </div>
+
+      <!-- Pipeline Console Log Output -->
+      <div class="bg-black/80 rounded-2xl p-4 border border-slate-800 font-mono text-xs space-y-1">
+        <div class="flex items-center justify-between text-slate-500 pb-2 border-b border-slate-800/80 mb-2">
+          <span>CONSOLE D'EXÉCUTION DU RUNNER CI/CD</span>
+          <span id="pipeline-timer" class="text-cyan-400">Prêt</span>
+        </div>
+        <div id="pipeline-log" class="text-slate-400 max-h-48 overflow-y-auto space-y-1">
+          <div class="text-slate-600">[info] En attente du déclenchement manuel ou webhook git...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Quiz d'Évaluation des Connaissances -->
+    <section class="glass p-6 sm:p-8 rounded-3xl space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">4</div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white">Évaluation des Connaissances (DevSecOps Quiz)</h2>
+      </div>
+
+      <div class="space-y-6" id="quiz-container">
+        <!-- Q1 -->
+        <div class="p-5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-3">
+          <p class="font-semibold text-white text-sm">1. Que signifie le principe du "Shift-Left" en DevSecOps ?</p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q1" value="0" class="text-cyan-500 focus:ring-0">
+              <span>Déplacer tous les développeurs dans l'équipe réseau</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q1" value="1" class="text-cyan-500 focus:ring-0">
+              <span class="text-slate-200">Intégrer les contrôles de sécurité dès le début de la conception et du codage</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q1" value="2" class="text-cyan-500 focus:ring-0">
+              <span>Ne tester la sécurité qu'une seule fois après le déploiement client</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="p-5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-3">
+          <p class="font-semibold text-white text-sm">2. Quelle est la différence majeure entre SAST et DAST ?</p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q2" value="0" class="text-cyan-500 focus:ring-0">
+              <span>SAST analyse le code source au repos sans l'exécuter, tandis que DAST attaque l'application en cours d'exécution</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q2" value="1" class="text-cyan-500 focus:ring-0">
+              <span>SAST ne fonctionne que sur le matériel, DAST sur le logiciel</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q2" value="2" class="text-cyan-500 focus:ring-0">
+              <span>DAST remplace complètement les tests unitaires et le compilateur</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="p-5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-3">
+          <p class="font-semibold text-white text-sm">3. Pourquoi utilise-t-on la détection de secrets (Secrets Detection) ?</p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q3" value="0" class="text-cyan-500 focus:ring-0">
+              <span>Pour empêcher que des clés API privées ou mots de passe ne soient poussés par erreur sur GitHub/GitLab</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q3" value="1" class="text-cyan-500 focus:ring-0">
+              <span>Pour chiffrer l'ordinateur de l'élève en cas de mauvaise réponse</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 cursor-pointer transition">
+              <input type="radio" name="q3" value="2" class="text-cyan-500 focus:ring-0">
+              <span>Pour masquer le nom des développeurs aux yeux de l'entreprise</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Quiz -->
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="checkDevSecOpsQuiz()" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition shadow-lg shadow-emerald-500/20">
+            Valider mes Réponses
+          </button>
+          <div id="quiz-result" class="text-sm font-bold"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teacher Bio Footer -->
+    <footer class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div>
+        <p class="font-bold text-white">Document didactique élaboré par Mouad Mouasseif</p>
+        <p>Enseignant d'Informatique · Spécialiste Cybersécurité & Cloud · Académie Drâa-Tafilalet</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="mailto:mouadmouassief@gmail.com" class="text-cyan-400 hover:underline">mouadmouassief@gmail.com</a>
+        <span>•</span>
+        <a href="/" class="text-slate-300 hover:text-white">Portfolio Officiel</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Pipeline Simulation Logic
+    let running = false;
+    async function runPipeline() {
+      if (running) return;
+      running = true;
+      const btn = document.getElementById('btn-run-pipeline');
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+      const log = document.getElementById('pipeline-log');
+      log.innerHTML = '';
+      
+      const addLog = (text, color = 'text-slate-300') => {
+        const div = document.createElement('div');
+        div.className = color;
+        div.innerHTML = `<span class="text-slate-600">[${new Date().toLocaleTimeString()}]</span> ${text}`;
+        log.appendChild(div);
+        log.scrollTop = log.scrollHeight;
+      };
+
+      const setStep = (num, state) => {
+        const el = document.getElementById(`step-${num}`);
+        const st = document.getElementById(`status-${num}`);
+        if (state === 'running') {
+          el.className = 'p-3 rounded-xl border border-cyan-400 bg-cyan-950/40 text-center transition duration-300 ring-2 ring-cyan-400/30';
+          st.className = 'mt-2 text-[10px] text-cyan-300 animate-pulse font-semibold';
+          st.innerText = 'En cours...';
+        } else if (state === 'success') {
+          el.className = 'p-3 rounded-xl border border-emerald-500 bg-emerald-950/30 text-center transition duration-300';
+          st.className = 'mt-2 text-[10px] text-emerald-400 font-bold';
+          st.innerText = '✓ Passé';
+        }
+      };
+
+      addLog('🚀 Déclenchement du pipeline DevSecOps (Git commit 4fc58a3)...', 'text-cyan-300 font-bold');
+      
+      // Step 1: Git push
+      setStep(1, 'running');
+      await sleep(700);
+      addLog('✓ Commit vérifié : auteur authentifié, signature GPG valide', 'text-emerald-400');
+      setStep(1, 'success');
+
+      // Step 2: Secrets scan
+      setStep(2, 'running');
+      addLog('🔍 Scan de fuites de secrets (GitLeaks)...', 'text-cyan-300');
+      await sleep(900);
+      addLog('✓ 0 clé privée trouvée. Aucun token AWS ou Stripe commité.', 'text-emerald-400');
+      setStep(2, 'success');
+
+      // Step 3: SAST
+      setStep(3, 'running');
+      addLog('🛡️ Analyse Statique du Code (SAST / Semgrep)...', 'text-cyan-300');
+      await sleep(1000);
+      addLog('✓ 142 fichiers analysés. Aucune vulnérabilité critique détectée (CWE-89 SQLi, CWE-79 XSS passés).', 'text-emerald-400');
+      setStep(3, 'success');
+
+      // Step 4: Unit tests
+      setStep(4, 'running');
+      addLog('🧪 Exécution des tests unitaires et tests de régression de sécurité...', 'text-cyan-300');
+      await sleep(900);
+      addLog('✓ 84/84 tests réussis avec 96% de couverture de code.', 'text-emerald-400');
+      setStep(4, 'success');
+
+      // Step 5: DAST
+      setStep(5, 'running');
+      addLog('⚡ Audit dynamique de sécurité (DAST / OWASP ZAP) sur conteneur éphémère...', 'text-cyan-300');
+      await sleep(1200);
+      addLog('✓ Scan applicatif terminé. Headers de sécurité (HSTS, CSP, X-Frame-Options) conformes.', 'text-emerald-400');
+      setStep(5, 'success');
+
+      // Step 6: Deploy
+      setStep(6, 'running');
+      addLog('🚢 Déploiement sécurisé en production (Zero-Downtime Rollout)...', 'text-cyan-300');
+      await sleep(800);
+      addLog('🎉 Déploiement terminé avec succès ! Surveillance active activée (Security Telemetry).', 'text-emerald-300 font-bold');
+      setStep(6, 'success');
+
+      btn.disabled = false;
+      btn.classList.remove('opacity-50', 'cursor-not-allowed');
+      running = false;
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Quiz evaluation logic
+    function checkDevSecOpsQuiz() {
+      const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+      const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+      const res = document.getElementById('quiz-result');
+      if (q1 === undefined || q2 === undefined || q3 === undefined) {
+        res.className = 'text-sm font-bold text-amber-400';
+        res.innerText = 'Veuillez répondre aux 3 questions avant de valider.';
+        return;
+      }
+
+      let score = 0;
+      if (q1 === '1') score++;
+      if (q2 === '0') score++;
+      if (q3 === '0') score++;
+
+      if (score === 3) {
+        res.className = 'text-sm font-bold text-emerald-400';
+        res.innerText = 'Excellent ! 3/3 - Vous maîtrisez les principes fondamentaux de DevSecOps !';
+      } else {
+        res.className = 'text-sm font-bold text-amber-300';
+        res.innerText = `Score : ${score}/3. Recommencez pour identifier les bonnes pratiques DevSecOps !`;
+      }
+    }
+  </script>
+</body>
+</html>
